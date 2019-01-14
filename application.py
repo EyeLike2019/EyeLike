@@ -119,12 +119,12 @@ def register():
             return apology("passwords don't match")
 
         # stores username and hash value of password in database
-        insert = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
+        insert = db.execute("INSERT INTO users (username, hash, email) VALUES(:username, :hash, :email)",
                                  username=request.form.get("username"),
-                                 hash=pwd_context.hash(request.form.get("password")))
+                                 hash=pwd_context.hash(request.form.get("password")), email=request.form.get("email"))
 
         # redirect user to home page
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
