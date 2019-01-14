@@ -106,6 +106,10 @@ def register():
         if not request.form.get("password"):
             return apology("must provide password")
 
+        # ensure email was submitted
+        if not request.form.get("email"):
+            return apology("must provide email")
+
         # ensure password was submitted again
         if not request.form.get("confirmation"):
             return apology("must provide password copy")
