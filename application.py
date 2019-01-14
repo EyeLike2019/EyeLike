@@ -53,15 +53,14 @@ def login():
         elif not request.form.get("password"):
             return apology("must provide password")
 
-        # query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        user_id = external_login(request.form.get("username"), request.form.get("password"))
 
         # ensure username exists and password is correct
-        if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return apology("invalid username and/or password")
+        if user_id == -1:
+            return apology("invalid username/password")
 
         # remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = user_id
 
         # redirect user to home page
         return redirect(url_for("index"))
@@ -93,35 +92,30 @@ def register():
         if not request.form.get("username"):
             return apology("must provide username")
 
-        existing_names = db.execute("SELECT username FROM users")
-
-        print(existing_names, request.form.get("username"))
-
-        # ensure username is not taken
-        for i in existing_names:
-            if i["username"] == request.form.get("username"):
-                return apology("username already exists")
-
         # ensure password was submitted
-        if not request.form.get("password"):
+        elif not request.form.get("password"):
             return apology("must provide password")
 
         # ensure email was submitted
-        if not request.form.get("email"):
+        elif not request.form.get("email"):
             return apology("must provide email")
 
         # ensure password was submitted again
-        if not request.form.get("confirmation"):
-            return apology("must provide password copy")
+        elif not request.form.get("confirmation"):
+            return apology("must confirm password")
+
+        user_id = external_register(request.form.get("username"), request.form.get("email"), request.form.get("password"))
+
+        # ensure username is not taken
+        if user_id == -1:
+            return apology("username is already taken")
 
         # ensure password matches with password copy
-        if request.form.get("password") != request.form.get("confirmation"):
+        elif request.form.get("password") != request.form.get("confirmation"):
             return apology("passwords don't match")
 
-        # stores username and hash value of password in database
-        insert = db.execute("INSERT INTO users (username, hash, email) VALUES(:username, :hash, :email)",
-                                 username=request.form.get("username"),
-                                 hash=pwd_context.hash(request.form.get("password")), email=request.form.get("email"))
+        # remember which user has logged in
+        session["user_id"] = user_id
 
         # redirect user to home page
         return redirect(url_for("index"))
