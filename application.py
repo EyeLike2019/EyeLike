@@ -35,15 +35,13 @@ def index():
 
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
-    existing_names = db.execute("SELECT username FROM users")
+    name = db.execute("SELECT username FROM users WHERE username = :username", username=username)
 
     # check if username exists
-    for i in existing_names:
-        if i["username"] == username:
-            return render_template("profile.html", name=username)
+    if len(name) != 1:
+        return apology("gebruikersnaam bestaat niet")
 
-
-    return apology("gebruikersnaam bestaat niet")
+    return render_template("profile.html", name=username)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
