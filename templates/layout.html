@@ -52,10 +52,11 @@
                     <div class="collapse navbar-collapse" id="navbar">
                         {% if session.user_id %}
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ url_for('index') }}">Index</a></li>
+                                <li><a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-home"></span></a></li>
+                                <li><a href="{{ url_for('profile') }}"><span class="glyphicon glyphicon-user"></span></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                                <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><input autocomplete="off" autofocus class="form-control" onkeypress="keypress(event);" name="lookup" id="searchbar" placeholder="Zoeken" type="text" style="margin:7px; max-width:95%;"></li>

@@ -32,6 +32,11 @@ db = SQL("sqlite:///database.db")
 def index():
     return render_template("index.html")
 
+@app.route("/profile")
+def profile():
+    username = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id=session["user_id"])
+    return render_template("profile.html", name=username[0]["username"])
+
 
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
