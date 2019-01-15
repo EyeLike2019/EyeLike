@@ -43,6 +43,10 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                             </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><input autocomplete="off" autofocus class="form-control" name="lookup" placeholder="Gebruikersnaam" type="text"  style="margin:7px; max-width:95%;"></li>
+                                <li><input autocomplete="off" autofocus class="form-control" name="lookup_submit" placeholder="Zoeken" type="submit"  style="margin:7px; max-width:95%;"></li>
+                            </ul>
                         {% else %}
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('register') }}">Register</a></li>
