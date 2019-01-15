@@ -28,6 +28,7 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///database.db")
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -35,19 +36,25 @@ def index():
 
 @app.route("/profile")
 def profile():
-    username = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id=session["user_id"])
+    """Show profile"""
+
+    # get username
+    username = get_username(session["user_id"])
+
     return render_template("profile.html", name=username[0]["username"])
+
 
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
-    name = db.execute("SELECT username FROM users WHERE username = :username", username=username)
+    """Search for user"""
 
     # check if username exists
-    if len(name) != 1:
+    if len(check_username(username)) != 1:
         flash('Gebruikersnaam bestaat niet!')
         return render_template("index.html")
 
     return render_template("profile.html", name=username)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -69,15 +76,13 @@ def login():
             flash("Must provide password!")
             return render_template("login.html")
 
-        user_id = external_login(request.form.get("username"), request.form.get("password"))
-
         # ensure username exists and password is correct
-        if user_id == -1:
+        elif len(check_username(request.form.get("username"))) != 1 or not verify_password(request.form.get("username"), request.form.get("password")):
             flash("Invalid username/password!")
             return render_template("login.html")
 
         # remember which user has logged in
-        session["user_id"] = user_id
+        session["user_id"] = get_user_id(request.form.get("username"))
 
         # redirect user to home page
         return redirect(url_for("index"))
@@ -85,6 +90,7 @@ def login():
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
+
 
 @app.route("/logout")
 def logout():
@@ -125,11 +131,14 @@ def register():
             flash("Must confirm password!")
             return render_template("register.html")
 
-        user_id = external_register(request.form.get("username"), request.form.get("email"), request.form.get("password"))
-
         # ensure username is not taken
-        if user_id == -1:
+        elif len(check_username(request.form.get("username"))) > 0:
             flash("Username already taken!")
+            return render_template("register.html")
+
+        # ensure email is not taken
+        elif len(check_email(request.form.get("email"))) > 0:
+            flash("Email already taken!")
             return render_template("register.html")
 
         # ensure password matches with password copy
@@ -137,8 +146,11 @@ def register():
             flash("Passwords don't match!")
             return render_template("register.html")
 
+        # register user into database
+        register_user(request.form.get("username"), request.form.get("password"), request.form.get("email"))
+
         # remember which user has logged in
-        session["user_id"] = user_id
+        session["user_id"] = get_user_id(request.form.get("username"))
 
         # redirect user to home page
         return redirect(url_for("index"))
@@ -146,5 +158,3 @@ def register():
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
-
-
