@@ -66,7 +66,6 @@ def external_register(username, email, password):
 def random_upload(user_id, upload, description, value, timestamp):
 
     # select random row from database
-    random = db.execute("SELECT user_id, upload, description, value, timestamp FROM uploads
-    ORDER BY RAND()")
+    random = db.execute("SELECT (user_id, upload, description, value, timestamp) FROM uploads ORDER BY RAND()")
 
     return random
