@@ -5,23 +5,30 @@
 {% endblock %}
 
 {% block main %}
+<head>
+	<link rel="stylesheet" href="styles.css">
+</head>
 <script>
 function myFunction() {
   alert("Hallo");
 }
 </script>
 <p>Test32</p>
-<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;
-	width:60px;
-	height:60px;
-	bottom:40px;
-	right:40px;
-	background-color: rgba(0,122,255,1);
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 2px #999;
-	text-decoration: none;">
-    <h3 class="my-float" style="margin-top:15px;">📷</h3>
-</a>
+<form action="upload.php" class="wrapper">
+    <button class="btn">Upload a photo</button>
+    <input type="file" name="myfile"/>
+<!--<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;-->
+<!--	width:60px;-->
+<!--	height:60px;-->
+<!--	bottom:40px;-->
+<!--	right:40px;-->
+<!--	background-color: rgba(0,122,255,1);-->
+<!--	color:#FFF;-->
+<!--	border-radius:50px;-->
+<!--	text-align:center;-->
+<!--	box-shadow: 2px 2px 2px #999;-->
+<!--	text-decoration: none;">-->
+<!--    <h3 class="my-float" style="margin-top:15px;">📷</h3>-->
+<!--</a>-->
+</form>
 {% endblock %}
