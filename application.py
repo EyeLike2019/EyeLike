@@ -33,19 +33,17 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/", methods=["GET", "POST"])
-def search():
-    # if user reached route via POST (as by submitting a form via POST)
-        # ensure username was submitted
-    if request.method == "GET":
-        if not request.form.get("search"):
-            return apology("name not found")
+@app.route("/search/<username>", methods=["GET", "POST"])
+def search(username):
+    existing_names = db.execute("SELECT username FROM users")
 
-        print(request.form.get("search"))
+    # check if username exists
+    for i in existing_names:
+        if i["username"] == username:
+            return render_template("profile.html", name=username)
 
-        return render_template("profile.html", name=request.form.get("search"))
-    else:
-        return redirect(url_for("index"))
+
+    return apology("gebruikersnaam bestaat niet")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
