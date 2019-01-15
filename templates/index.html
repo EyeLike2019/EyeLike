@@ -5,27 +5,16 @@
 {% endblock %}
 
 {% block main %}
-<head>
-	<link rel="stylesheet" href="styles.css">
-</head>
+
 <script>
 function myFunction() {
   alert("Hallo");
 }
 </script>
 <p>Test32</p>
-<style>
-    input[type=file]{
-          background-color: #4CAF50;
-          border: none;
-          color: white;
-          padding: 16px 32px;
-          text-decoration: none;
-          margin: 4px 2px;
-          cursor: pointer;
-    }
-</style>
-<input type="file" name="myfile"/>
+<form action="upload.php" class="wrapper">
+    <button class="btn"><b>Upload a photo</b></button>
+    <input type="file" name="myfile"/>
 <!--<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;-->
 <!--	width:60px;-->
 <!--	height:60px;-->

@@ -43,7 +43,8 @@ def search(username):
 
     # check if username exists
     if len(name) != 1:
-        return apology("gebruikersnaam bestaat niet")
+        flash('Gebruikersnaam bestaat niet!')
+        return render_template("index.html")
 
     return render_template("profile.html", name=username)
 
