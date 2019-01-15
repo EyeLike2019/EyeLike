@@ -24,9 +24,7 @@
 
     <body>
 
-        <div class="container">
-
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" id="navigation" style="background-color: #FFF !important; border-radius: 0 !important;">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
@@ -55,6 +53,7 @@
                 </div>
             </nav>
 
+        <div class="container">
             {% if get_flashed_messages() %}
                 <header>
                     <div class="alert alert-info" role="alert">
