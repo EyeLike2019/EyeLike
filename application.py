@@ -37,7 +37,6 @@ def profile():
     username = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id=session["user_id"])
     return render_template("profile.html", name=username[0]["username"])
 
-
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
     name = db.execute("SELECT username FROM users WHERE username = :username", username=username)
@@ -60,17 +59,20 @@ def login():
 
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            flash("Must provide username!")
+            return render_template("login.html")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password")
+            flash("Must provide password!")
+            return render_template("login.html")
 
         user_id = external_login(request.form.get("username"), request.form.get("password"))
 
         # ensure username exists and password is correct
         if user_id == -1:
-            return apology("invalid username/password")
+            flash("Invalid username/password!")
+            return render_template("login.html")
 
         # remember which user has logged in
         session["user_id"] = user_id
@@ -103,29 +105,35 @@ def register():
 
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            flash("Must provide username!")
+            return render_template("register.html")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password")
+            flash("Must provide password!")
+            return render_template("register.html")
 
         # ensure email was submitted
         elif not request.form.get("email"):
-            return apology("must provide email")
+            flash("Must provide email!")
+            return render_template("register.html")
 
         # ensure password was submitted again
         elif not request.form.get("confirmation"):
-            return apology("must confirm password")
+            flash("Must confirm password!")
+            return render_template("register.html")
 
         user_id = external_register(request.form.get("username"), request.form.get("email"), request.form.get("password"))
 
         # ensure username is not taken
         if user_id == -1:
-            return apology("username is already taken")
+            flash("Username already taken!")
+            return render_template("register.html")
 
         # ensure password matches with password copy
         elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("passwords don't match")
+            flash("Passwords don't match!")
+            return render_template("register.html")
 
         # remember which user has logged in
         session["user_id"] = user_id
