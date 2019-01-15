@@ -32,8 +32,6 @@ db = SQL("sqlite:///database.db")
 def index():
     return render_template("index.html")
 
-
-<<<<<<< HEAD
 @app.route("/", methods=["GET", "POST"])
 def search():
     # if user reached route via POST (as by submitting a form via POST)
@@ -48,7 +46,8 @@ def search():
 
     else:
         return redirect(url_for("profile"))
-=======
+
+
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
     existing_names = db.execute("SELECT username FROM users")
@@ -60,7 +59,6 @@ def search(username):
 
 
     return apology("gebruikersnaam bestaat niet")
->>>>>>> ad39082b30b640a64574adbdf6195e5e8ad83492
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
