@@ -33,6 +33,14 @@ db = SQL("sqlite:///database.db")
 def index():
     return render_template("index.html")
 
+@app.route("/update")
+def update():
+
+    searchInput = request.args['ophalen']
+    print(searchInput)
+
+    return "Succes"
+
 
 @app.route("/profile")
 def profile():
