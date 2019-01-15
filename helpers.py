@@ -63,10 +63,10 @@ def external_register(username, email, password):
 
     return rows[0]["user_id"]
 
-def random_upload(user_id, upload, description, value, timestamp):
+# def random_upload(user_id, upload, description, value, timestamp):
 
-    # select random row from database
-    random = db.execute("SELECT user_id, upload, description, value, timestamp FROM uploads
-    ORDER BY RAND()")
+#     # select random row from database
+#     random = db.execute("SELECT user_id, upload, description, value, timestamp FROM uploads
+#     ORDER BY RAND()")
 
-    return random
+#     return random
