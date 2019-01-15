@@ -44,3 +44,18 @@ main td
     /* left-align tables' cells */
     text-align: left;
 }
+
+main #login {
+    border-radius: 8px;
+    padding: 125px;
+    background-color: white;
+    position: absolute;
+    left: 50%; top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+main .navbar #navigation {
+    background-color: #FFF !important;
+    border-radius: 0 !important;
+}
