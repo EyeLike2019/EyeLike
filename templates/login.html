@@ -5,26 +5,18 @@
 {% endblock %}
 
 {% block main %}
-<body style="background: url(https://source.unsplash.com/1000x1000/);
-background-repeat: no-repeat;
-background-size: 100%;">
-<div id="login" style="border-radius: 8px;
-    padding: 125px;
-    background-color: white;
-    position: absolute;
-    left: 50%; top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);">
+<body id="body_login">
+<div id="login">
     <form action="{{ url_for('login') }}" method="post">
         <fieldset>
             <div class="form-group">
-                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" style="width:200px !important;"/>
+                <input autocomplete="off" id="input" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
             </div>
             <div class="form-group">
-                <input class="form-control" name="password" placeholder="Password" type="password" style="width:200px !important;"/>
+                <input class="form-control" id="input" name="password" placeholder="Password" type="password"/>
             </div>
             <div class="form-group">
-                <button class="btn btn-dark" type="submit" style="width:200px !important; background-color:black; color:white; height:40px;"><b>Log In</b></button>
+                <button class="btn btn-dark" type="submit"><b>Log In</b></button>
             </div>
 
             <script>
