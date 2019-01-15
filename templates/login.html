@@ -8,7 +8,13 @@
 <body style="background: url(https://source.unsplash.com/1000x1000/);
 background-repeat: no-repeat;
 background-size: 100%;">
-<div id="login">
+<div id="login" style="border-radius: 8px;
+    padding: 125px;
+    background-color: white;
+    position: absolute;
+    left: 50%; top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);">
     <form action="{{ url_for('login') }}" method="post">
         <fieldset>
             <div class="form-group">
