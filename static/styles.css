@@ -55,7 +55,7 @@ main #login {
     transform: translate(-50%, -50%);
 }
 
-main .navbar #navigation {
+#navigation {
     background-color: #FFF !important;
     border-radius: 0 !important;
 }
@@ -67,13 +67,10 @@ main .navbar #navigation {
 }
 
 .btn {
-  border: 2px solid black;
-  color: black;
-  background-color: white;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 20px;
-  font-weight: bold;
+    width:200px !important;
+    background-color:black;
+    color:white;
+    height:40px;
 }
 
 .wrapper input[type=file] {
@@ -82,4 +79,19 @@ main .navbar #navigation {
   left: 0;
   top: 0;
   opacity: 0;
+}
+
+#searchbar {
+    margin:7px;
+    max-width:95%;
+}
+
+#body_login {
+    background: url(https://source.unsplash.com/1000x1000/) ;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#input {
+    width:200px !important;
 }
