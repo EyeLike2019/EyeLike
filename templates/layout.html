@@ -19,7 +19,21 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <title>EyeLike: {% block title %}{% endblock %}</title>
+        <script>
+            function searchFunction() {
+                var nameValue = document.getElementById("searchbar").value;
+                if (nameValue) {
+                    window.location = '/search/' + nameValue;
+                }
+            }
 
+            function keypress(event){
+                if (event.keyCode == 13 || event.which == 13){
+                    searchFunction()
+                }
+            }
+
+        </script>
     </head>
 
     <body>
@@ -44,8 +58,7 @@
                                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><input autocomplete="off" autofocus class="form-control" name="lookup" placeholder="Gebruikersnaam" type="text"  style="margin:7px; max-width:95%;"></li>
-                                <li><input autocomplete="off" autofocus class="form-control" name="lookup_submit" placeholder="Zoeken" type="submit"  style="margin:7px; max-width:95%;"></li>
+                                <li><input autocomplete="off" autofocus class="form-control" onkeypress="keypress(event);" name="lookup" id="searchbar" placeholder="Zoeken" type="text" style="margin:7px; max-width:95%;"></li>
                             </ul>
                         {% else %}
                             <ul class="nav navbar-nav navbar-right">
