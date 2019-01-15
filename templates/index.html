@@ -12,6 +12,23 @@ function myFunction() {
 }
 </script>
 <p>Test32</p>
+		<button id="like" class="btn btn-primary">Like</button>
+        <button id="dislike" class="btn btn-primary">Dislike</button>
+        <button id="skip" class="btn btn-primary">Skip</button>
+        <script>
+
+            let body = document.querySelector('body');
+            document.querySelector('#like').onclick = function() {
+           body.style.backgroundColor = 'red';
+            };
+            document.querySelector('#dislike').onclick = function() {
+                body.style.backgroundColor = 'green';
+            };
+            document.querySelector('#skip').onclick = function() {
+                body.style.backgroundColor = 'blue';
+            };
+
+        </script>
 <form action="upload.php" class="wrapper">
     <button class="btn"><b>Upload a photo</b></button>
     <input type="file" name="myfile"/>
