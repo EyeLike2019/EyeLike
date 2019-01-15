@@ -33,19 +33,12 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/", methods=["GET", "POST"])
-def search():
-    # if user reached route via POST (as by submitting a form via POST)
-        # ensure username was submitted
-    if request.method == "GET":
-        if not request.form.get("search"):
-            return apology("name not found")
-
-        print(request.form.get("search"))
-
-        return render_template("profile.html", name=request.form.get("search"))
-    else:
-        return redirect(url_for("index"))
+@app.route("/search/<username>", methods=["GET", "POST"])
+def search(username):
+    # ensure username was submitted
+    # if not request.form.get("search"):
+    #     return apology("name not found")
+    return render_template("profile.html", name=username)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
