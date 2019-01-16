@@ -39,6 +39,7 @@ def index():
     return render_template("index.html")
 
 @app.route('/upload', methods=['POST'])
+@login_required
 def upload_file():
     """Upload a file"""
 
@@ -64,6 +65,7 @@ def update():
 
 
 @app.route("/profile")
+@login_required
 def profile():
     """Show profile"""
 
