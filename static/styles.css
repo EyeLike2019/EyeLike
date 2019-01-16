@@ -79,7 +79,7 @@ main #login {
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-    background-color: red;
+    color: #333;
 }
 
 .inputfile + label {
