@@ -10,21 +10,6 @@ from functools import wraps
 db = SQL("sqlite:///database.db")
 
 
-def apology(message, code=400):
-    """Renders message as an apology to user."""
-    def escape(s):
-        """
-        Escape special characters.
-
-        https://github.com/jacebrowning/memegen#special-characters
-        """
-        for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
-                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
-            s = s.replace(old, new)
-        return s
-    return render_template("apology.html", top=code, bottom=escape(message)), code
-
-
 def login_required(f):
     """
     Decorate routes to require login.
@@ -58,9 +43,9 @@ def check_email(email):
 def get_username(user_id):
     """Query database for username with user-id"""
 
-    usernames = db.execute("SELECT * FROM users WHERE user_id = :user_id", user_id=user_id)
+    username = db.execute("SELECT * FROM users WHERE user_id = :user_id", user_id=user_id)[0]["username"]
 
-    return usernames
+    return username
 
 
 def get_user_id(username):
@@ -98,3 +83,10 @@ def random_upload():
 #     """Update post's score"""
 
 #     db.execute("UPDATE uploads SET score = score + :change WHERE id=:post_id", change=change, post_id=post_id)
+
+def upload_photo(user_id, upload, description, username):
+    """Upload image into database"""
+
+    db.execute("INSERT INTO uploads (user_id, upload, description, username) VALUES(:user_id, :upload, :description, :username)", user_id=user_id, upload=upload, description=description, username=username)
+
+    return

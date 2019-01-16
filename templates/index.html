@@ -61,10 +61,11 @@ function myFunction() {
 
         </script>
 
-<input type="file" name="file" id="file" class="inputfile" />
-<label for="file" class="btn btn-dark" >Choose a file</label>
-
-
+<form action="/upload" method="post" enctype="multipart/form-data" >
+    <input type="file" name="file" id="file" class="inputfile" />
+    <label for="file" class="btn btn-dark" >Choose a file</label>
+    <input type="submit" value="Upload your image" class="btn btn-dark">
+</form>
 <!--<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;-->
 <!--	width:60px;-->
 <!--	height:60px;-->
