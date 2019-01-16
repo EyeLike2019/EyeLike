@@ -3,7 +3,7 @@ import urllib.request
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
-from flask import flash, redirect, render_template, request, session
+from flask import redirect, render_template, request, session
 from functools import wraps
 
 # configure CS50 Library to use SQLite database
@@ -75,7 +75,7 @@ def register_user(username, password, email):
 def random_upload():
     """Select random row from database"""
 
-    random = db.execute("SELECT (username, upload, description, value, timestamp) FROM uploads ORDER BY RAND()")
+    random = db.execute("SELECT username, upload, description, score, timestamp FROM uploads ORDER BY RANDOM() LIMIT 1")
 
     return random
 
@@ -83,7 +83,6 @@ def random_upload():
 #     """Update post's score"""
 
 #     db.execute("UPDATE uploads SET score = score + :change WHERE id=:post_id", change=change, post_id=post_id)
-
 
 def upload_photo(user_id, upload, description, username):
     """Upload image into database"""
@@ -94,6 +93,7 @@ def upload_photo(user_id, upload, description, username):
     return
 
 def all_photos(user_id):
+    """Get all photo's of user"""
 
     # query database for user's uploads
     user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=user_id)

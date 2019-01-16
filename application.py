@@ -36,7 +36,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    random = random_upload()[0]
+
+    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
+
+    return render_template("index.html", random=random, file=full_filename)
 
 
 @app.route('/upload', methods=['POST'])
@@ -85,7 +89,6 @@ def account():
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
-    print(photos)
     return render_template("account.html", name=username, photos=photos)
 
 @app.route("/profile/<username>")
@@ -228,5 +231,5 @@ def register():
 
 @app.route('/upload/<path:path>')
 def show(path):
-    print(path)
+    """Show image"""
     return send_from_directory('upload', path)

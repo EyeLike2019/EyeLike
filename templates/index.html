@@ -5,79 +5,58 @@
 {% endblock %}
 
 {% block main %}
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+    <img src={{ file }} class="img-responsive">
+</div>
+<button id="like" class="btn btn-dark"><b>Like</b></button>
+<button id="skip" class="btn btn-dark"><b>Skip</b></button>
+<button id="dislike" class="btn btn-dark"><b>Dislike</b></button>
+
 <script>
-function myFunction() {
-  alert("Hallo");
-}
+    document.querySelector('#like').onclick = function() {
+
+        $.ajax({
+            url: '/updatescore',
+			data: {"newscore": "1"},
+
+          success: function(response) {
+
+            console.log(response)
+    	    console.log("1")
+
+          },
+          error: function(error) {
+    				console.log("Er ging iets mis!")
+    				console.log(error)
+          }
+        });
+
+    };
+
+    document.querySelector('#skip').onclick = function() {
+
+        $.ajax({
+            url: '/updatescore',
+			data: {"newscore": "0"}
+
+        });
+    };
+
+    document.querySelector('#dislike').onclick = function() {
+
+        $.ajax({
+            url: '/updatescore',
+			data: {"newscore": "-1"}
+
+        });
+    };
+
 </script>
-<p>Test32</p>
-
-		<button id="like" class="btn btn-dark"><b>Like</b></button>
-		<button id="skip" class="btn btn-dark"><b>Skip</b></button>
-        <button id="dislike" class="btn btn-dark"><b>Dislike</b></button>
-        <script>
-
-            document.querySelector('#like').onclick = function() {
-
-                $.ajax({
-                    url: '/updatescore',
-        			data: {"newscore": "1"},
-
-                  success: function(response) {
-
-                    console.log(response)
-            	    console.log("1")
-
-                  },
-                  error: function(error) {
-            				console.log("Er ging iets mis!")
-            				console.log(error)
-                  }
-                });
-
-            };
-
-
-
-            document.querySelector('#skip').onclick = function() {
-
-                $.ajax({
-                    url: '/updatescore',
-        			data: {"newscore": "0"}
-
-                });
-            };
-
-            document.querySelector('#dislike').onclick = function() {
-
-                $.ajax({
-                    url: '/updatescore',
-        			data: {"newscore": "-1"}
-
-                });
-            };
-
-
-
-        </script>
 
 <form action="/upload" method="post" enctype="multipart/form-data" >
     <input type="file" name="file" id="file" class="inputfile" />
     <label for="file" class="btn btn-dark" >Choose file</label>
     <input type="submit" value="Upload image" class="btn btn-dark">
 </form>
-<!--<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;-->
-<!--	width:60px;-->
-<!--	height:60px;-->
-<!--	bottom:40px;-->
-<!--	right:40px;-->
-<!--	background-color: rgba(0,122,255,1);-->
-<!--	color:#FFF;-->
-<!--	border-radius:50px;-->
-<!--	text-align:center;-->
-<!--	box-shadow: 2px 2px 2px #999;-->
-<!--	text-decoration: none;">-->
-<!--    <h3 class="my-float" style="margin-top:15px;">📷</h3>-->
-<!--</a>-->
 
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+<div id="profile_wrapper">
+    <div id="user">
+        <p>{{ name }}</p>
+    </div>
+    <div class="container" id="collage">
+    <div class="row imagetiles">
+
+            {% for upload in photos %}
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <img src={{ upload }} class="img-responsive">
+                </div>
+            {% endfor %}
+
+    </div>
+</div>
+</div>
+{% endblock %}
