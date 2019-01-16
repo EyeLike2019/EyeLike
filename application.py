@@ -4,6 +4,7 @@ from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 import datetime
+import os
 
 from helpers import *
 
@@ -28,10 +29,31 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///database.db")
 
+# declare upload-folder
+UPLOAD_FOLDER = os.path.basename('upload')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    """Upload a file"""
+
+    # save the file in upload-folder
+    file = request.files['file']
+    filename = str(session["user_id"]) + "_" + file.filename
+    f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    file.save(f)
+
+    # upload image into database
+    upload_photo(session["user_id"], "upload/"+filename, "test", get_username(session["user_id"]))
+
+    flash('Je foto is succesvol geüpload!')
+    return render_template('index.html')
 
 @app.route("/update")
 def update():
