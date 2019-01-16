@@ -33,9 +33,8 @@ Eyelike is een webapplicatie met als doel om gebruikers te verbinden die geïnte
 
   
 
--
 
-gebruikers kunnen een account aanmaken
+- gebruikers kunnen een account aanmaken
 
 - gebruikers kunnen inloggen op de website
 
