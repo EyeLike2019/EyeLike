@@ -53,26 +53,26 @@ def upload_file():
     # upload image into database
     upload_photo(session["user_id"], "upload/"+filename, "test", get_username(session["user_id"]))
 
-    flash('Je foto is succesvol geüpload!')
+    flash('Upload successful')
     return render_template('index.html')
 
-@app.route("/update")
+@app.route("/updatescore")
 def update():
 
-    change = request.args['ophalen']
+    change = request.args['newscore']
     # update_score(change, post_id)
     return "Succes"
 
 
-@app.route("/profile")
+@app.route("/account")
 @login_required
-def profile():
-    """Show profile"""
+def account():
+    """Show account"""
 
     # get username
     username = get_username(session["user_id"])
 
-    return render_template("profile.html", name=username[0]["username"])
+    return render_template("account.html", name=username[0]["username"])
 
 
 @app.route("/search/<username>", methods=["GET", "POST"])
@@ -81,10 +81,10 @@ def search(username):
 
     # check if username exists
     if len(check_username(username)) != 1:
-        flash('Gebruikersnaam bestaat niet!')
+        flash("Username doesn't exist")
         return render_template("index.html")
 
-    return render_template("profile.html", name=username)
+    return render_template("account.html", name=username)
 
 
 @app.route("/login", methods=["GET", "POST"])
