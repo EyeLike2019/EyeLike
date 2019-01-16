@@ -11,6 +11,10 @@ from helpers import *
 # configure application
 app = Flask(__name__)
 
+app.jinja_env.auto_reload = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.run(debug=True, host='0.0.0.0')
+
 # ensure responses aren't cached
 if app.config["DEBUG"]:
     @app.after_request

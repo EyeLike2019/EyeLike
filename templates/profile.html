@@ -7,14 +7,14 @@
 {% block main %}
 <div id="profile_wrapper">
     <div id="user">
-        <p>{{ name }}</p>
+        <h1><b>{{ name }}</b></h1>
     </div>
     <div class="container" id="collage">
     <div class="row imagetiles">
 
             {% for upload in photos %}
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                    <img src={{ upload }} class="img-responsive">
+                    <img src="/{{ upload }}" class="img-responsive">
                 </div>
             {% endfor %}
 
