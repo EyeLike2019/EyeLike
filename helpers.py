@@ -9,6 +9,7 @@ from functools import wraps
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///database.db")
 
+
 def apology(message, code=400):
     """Renders message as an apology to user."""
     def escape(s):
@@ -37,34 +38,58 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-def external_login(username, password):
+
+def check_username(username):
+    """Check if username exists"""
+
+    usernames = db.execute("SELECT * FROM users WHERE username = :username", username=username)
+
+    return usernames
+
+
+def check_email(email):
+    """Query database for email"""
+
+    emails = db.execute("SELECT * FROM users WHERE email = :email", email=email)
+
+    return emails
+
+
+def get_username(user_id):
+    """Query database for username with user-id"""
+
+    usernames = db.execute("SELECT * FROM users WHERE user_id = :user_id", user_id=user_id)
+
+    return usernames
+
+
+def get_user_id(username):
+    """Query database for user-id"""
+
+    return check_username(username)[0]["user_id"]
+
+
+def verify_password(username, password):
+    """Verify password"""
 
     # query database for username
-    rows = db.execute("SELECT * FROM users WHERE username = :username", username=username)
+    rows = check_username(username)
 
-    # ensure username exists and password is correct
-    if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-        return -1
+    return pwd_context.verify(password, rows[0]["hash"])
 
-    return rows[0]["user_id"]
 
-def external_register(username, email, password):
+def register_user(username, password, email):
+    """Register user into database"""
 
-    # ensure username is not taken
-    if len(db.execute("SELECT * FROM users WHERE username=:username", username=username)) > 0:
-            return -1
-
-    # stores username, email and hash value of password in database
     db.execute("INSERT INTO users (username, hash, email) VALUES(:username, :password, :email)",
                username=username, password=pwd_context.hash(password), email=email)
 
-    # query database for user-id
-    rows = db.execute("SELECT * FROM users WHERE username = :username", username=username)
+    return
 
-    return rows[0]["user_id"]
 
-# def random_upload(user_id, upload, description, value, timestamp):
+def random_upload(user_id, upload, description, value, timestamp):
+    """Select random row from database"""
 
-    # select random row from database
     random = db.execute("SELECT (username, upload, description, value, timestamp) FROM uploads ORDER BY RAND()")
+
     return random
