@@ -12,6 +12,8 @@ function myFunction() {
 }
 </script>
 <p>Test32</p>
+
+        <img src="pic.jpg" align="middle">
 		<button id="like" class="btn btn-dark"><b>Like</b></button>
 		<button id="skip" class="btn btn-dark"><b>Skip</b></button>
         <button id="dislike" class="btn btn-dark"><b>Dislike</b></button>
@@ -26,30 +28,46 @@ function myFunction() {
                   success: function(response) {
 
                     console.log(response)
-            	    console.log("succes")
+            	    console.log("1")
 
                   },
                   error: function(error) {
             				console.log("Er ging iets mis!")
             				console.log(error)
                   }
-
                 });
 
             };
 
 
+
             document.querySelector('#skip').onclick = function() {
+
+                $.ajax({
+                    url: '/update',
+        			data: {"ophalen": "0"}
+
+                });
             };
+
             document.querySelector('#dislike').onclick = function() {
+
+                $.ajax({
+                    url: '/update',
+        			data: {"ophalen": "-1"}
+
+                });
             };
 
 
 
         </script>
-<form action="upload.php" class="wrapper">
+
+<form method="POST" action="upload.php" class="wrapper">
     <button class="btn"><b>Upload a photo</b></button>
-    <input type="file" name="myfile"/>
+    <input type="file" id="upload"/>
+</form>
+
 <!--<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;-->
 <!--	width:60px;-->
 <!--	height:60px;-->
@@ -63,5 +81,5 @@ function myFunction() {
 <!--	text-decoration: none;">-->
 <!--    <h3 class="my-float" style="margin-top:15px;">📷</h3>-->
 <!--</a>-->
-</form>
+
 {% endblock %}
