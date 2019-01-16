@@ -85,7 +85,7 @@ def random_upload():
 #     db.execute("UPDATE uploads SET score = score + :change WHERE id=:post_id", change=change, post_id=post_id)
 
 def upload_photo(user_id, upload, description, username):
-    """Upload image into database"""
+    """Upload image intreo database"""
 
     db.execute("INSERT INTO uploads (user_id, upload, description, username) VALUES(:user_id, :upload, :description, :username)", user_id=user_id, upload=upload, description=description, username=username)
 
