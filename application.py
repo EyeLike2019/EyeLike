@@ -189,7 +189,3 @@ def register():
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
-
-@app.route("/upload/<file>", methods=["GET", "POST"])
-def upload(file):
-    return "yes"
