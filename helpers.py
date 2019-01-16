@@ -75,7 +75,7 @@ def register_user(username, password, email):
 def random_upload():
     """Select random row from database"""
 
-    random = db.execute("SELECT (username, upload, description, value, timestamp) FROM uploads ORDER BY RAND()")
+    random = db.execute("SELECT username, upload, description, score, timestamp FROM uploads ORDER BY RANDOM() LIMIT 1")
 
     return random
 

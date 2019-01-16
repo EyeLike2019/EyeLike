@@ -36,7 +36,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    random = random_upload()[0]
+
+    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
+
+    return render_template("index.html", random=random, file=full_filename)
 
 
 @app.route('/upload', methods=['POST'])
@@ -204,8 +208,8 @@ def register():
     else:
         return render_template("register.html")
 
-@app.route('/show/<path:path>')
+@app.route('/upload/<path:path>')
 def show(path):
     """Show image"""
 
-    return send_from_directory('show', path)
+    return send_from_directory('upload', path)
