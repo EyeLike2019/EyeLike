@@ -85,7 +85,6 @@ def account():
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
-    print(photos)
     return render_template("account.html", name=username, photos=photos)
 
 @app.route("/search/<username>", methods=["GET", "POST"])
@@ -207,5 +206,6 @@ def register():
 
 @app.route('/show/<path:path>')
 def show(path):
-    print(path)
+    """Show image"""
+
     return send_from_directory('show', path)
