@@ -88,6 +88,27 @@ def account():
     print(photos)
     return render_template("account.html", name=username, photos=photos)
 
+@app.route("/profile/<username>")
+@login_required
+def profile(username):
+
+    # check if username exists
+    if len(check_username(username)) != 1:
+        flash("Username doesn't exist")
+        return render_template("index.html")
+
+    name = username
+    photos = []
+    uid = get_user_id(username)
+    user_photos = all_photos(uid)
+    for p in user_photos:
+        full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
+        photos.append(full_filename)
+
+    print(photos, uid, user_photos)
+    return render_template("profile.html", name=name, photos=photos)
+
+
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
     """Search for user"""
@@ -97,7 +118,7 @@ def search(username):
         flash("Username doesn't exist")
         return render_template("index.html")
 
-    return render_template("account.html", name=username)
+    return redirect(url_for("profile", username=username))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -205,7 +226,7 @@ def register():
     else:
         return render_template("register.html")
 
-@app.route('/show/<path:path>')
+@app.route('/upload/<path:path>')
 def show(path):
     print(path)
-    return send_from_directory('show', path)
+    return send_from_directory('upload', path)

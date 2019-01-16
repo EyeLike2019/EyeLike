@@ -96,6 +96,6 @@ def upload_photo(user_id, upload, description, username):
 def all_photos(user_id):
 
     # query database for user's uploads
-    user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=session["user_id"])
+    user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
     return user_photos
