@@ -80,7 +80,7 @@ def account():
     username = get_username(session["user_id"])
 
     photos = []
-    user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=session["user_id"])
+    user_photos = all_photos(session["user_id"])
     for p in user_photos:
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
@@ -129,7 +129,7 @@ def login():
         session["user_id"] = get_user_id(request.form.get("username"))
 
         # redirect user to home page
-        return redirect(url_for("index"))
+        return redirect(url_for("account"))
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -205,7 +205,7 @@ def register():
     else:
         return render_template("register.html")
 
-@app.route('/upload/<path:path>')
-def upload(path):
+@app.route('/show/<path:path>')
+def show(path):
     print(path)
-    return send_from_directory('upload', path)
+    return send_from_directory('show', path)
