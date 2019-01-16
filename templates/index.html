@@ -5,15 +5,14 @@
 {% endblock %}
 
 {% block main %}
-<head>
-    <link rel="stylesheet" href="styles.css">
-</head>
 <script>
 function myFunction() {
   alert("Hallo");
 }
 </script>
 <p>Test32</p>
+
+        <img src="pic.jpg" align="middle">
 		<button id="like" class="btn btn-dark"><b>Like</b></button>
 		<button id="skip" class="btn btn-dark"><b>Skip</b></button>
         <button id="dislike" class="btn btn-dark"><b>Dislike</b></button>
@@ -28,22 +27,35 @@ function myFunction() {
                   success: function(response) {
 
                     console.log(response)
-            	    console.log("succes")
+            	    console.log("1")
 
                   },
                   error: function(error) {
             				console.log("Er ging iets mis!")
             				console.log(error)
                   }
-
                 });
 
             };
 
 
+
             document.querySelector('#skip').onclick = function() {
+
+                $.ajax({
+                    url: '/update',
+        			data: {"ophalen": "0"}
+
+                });
             };
+
             document.querySelector('#dislike').onclick = function() {
+
+                $.ajax({
+                    url: '/update',
+        			data: {"ophalen": "-1"}
+
+                });
             };
 
 
@@ -67,4 +79,5 @@ function myFunction() {
 <!--	text-decoration: none;">-->
 <!--    <h3 class="my-float" style="margin-top:15px;">📷</h3>-->
 <!--</a>-->
+
 {% endblock %}

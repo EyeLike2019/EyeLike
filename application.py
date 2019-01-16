@@ -36,9 +36,8 @@ def index():
 @app.route("/update")
 def update():
 
-    searchInput = request.args['ophalen']
-    print(searchInput)
-
+    change = request.args['ophalen']
+    # update_score(change, post_id)
     return "Succes"
 
 
@@ -166,3 +165,7 @@ def register():
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
+
+@app.route("/upload/<file>", methods=["GET", "POST"])
+def upload(file):
+    return "yes"
