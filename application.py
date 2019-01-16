@@ -1,5 +1,5 @@
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for, send_from_directory
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
@@ -57,7 +57,7 @@ def upload_file():
     file.save(f)
 
     # upload image into database
-    upload_photo(session["user_id"], "upload/"+filename, "test", get_username(session["user_id"]))
+    upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
 
     flash('Upload successful')
     return render_template('index.html')
@@ -80,8 +80,14 @@ def account():
     # get username
     username = get_username(session["user_id"])
 
-    return render_template("account.html", name=username[0]["username"])
+    photos = []
+    user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=session["user_id"])
+    for p in user_photos:
+        full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
+        photos.append(full_filename)
 
+    print(photos)
+    return render_template("account.html", name=username, photos=photos)
 
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
@@ -199,3 +205,8 @@ def register():
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
+
+@app.route('/upload/<path:path>')
+def upload(path):
+    print(path)
+    return send_from_directory('upload', path)

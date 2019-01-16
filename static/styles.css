@@ -107,3 +107,19 @@ main #login {
      color:white;
      height:40px;
 }
+
+.imagetiles .col-lg-3.col-md-3.col-sm-3.col-xs-6 {
+  padding: 10px !important;
+}
+
+#collage {
+    float:right;
+}
+
+#user {
+    float:left;
+}
+
+#profile_wrapper {
+    overflow:auto;
+}
