@@ -38,6 +38,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def index():
     return render_template("index.html")
 
+
 @app.route('/upload', methods=['POST'])
 @login_required
 def upload_file():
@@ -46,6 +47,10 @@ def upload_file():
     # save the file in upload-folder
     file = request.files['file']
     filename = str(session["user_id"]) + "_" + file.filename
+    if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
+        flash('Invalid file!')
+        return render_template("index.html")
+
     f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
     file.save(f)
@@ -53,21 +58,23 @@ def upload_file():
     # upload image into database
     upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
 
-    flash('Je foto is succesvol geüpload!')
+    flash('Upload successful')
     return render_template('index.html')
 
-@app.route("/update")
-def update():
 
-    change = request.args['ophalen']
+@app.route("/updatescore")
+def update():
+    """"Update score of upload"""
+
+    change = request.args['newscore']
     # update_score(change, post_id)
     return "Succes"
 
 
-@app.route("/profile")
+@app.route("/account")
 @login_required
-def profile():
-    """Show profile"""
+def account():
+    """Show account"""
 
     # get username
     username = get_username(session["user_id"])
@@ -79,8 +86,7 @@ def profile():
         photos.append(full_filename)
 
     print(photos)
-    return render_template("profile.html", name=username, photos=photos)
-
+    return render_template("account.html", name=username, photos=photos)
 
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
@@ -88,10 +94,10 @@ def search(username):
 
     # check if username exists
     if len(check_username(username)) != 1:
-        flash('Gebruikersnaam bestaat niet!')
+        flash("Username doesn't exist")
         return render_template("index.html")
 
-    return render_template("profile.html", name=username)
+    return render_template("account.html", name=username)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -143,6 +149,8 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Register user"""
+
     # forget any user_id
     session.clear()
 

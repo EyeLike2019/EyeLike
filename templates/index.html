@@ -20,8 +20,8 @@ function myFunction() {
             document.querySelector('#like').onclick = function() {
 
                 $.ajax({
-                    url: '/update',
-        			data: {"ophalen": "1"},
+                    url: '/updatescore',
+        			data: {"newscore": "1"},
 
                   success: function(response) {
 
@@ -42,8 +42,8 @@ function myFunction() {
             document.querySelector('#skip').onclick = function() {
 
                 $.ajax({
-                    url: '/update',
-        			data: {"ophalen": "0"}
+                    url: '/updatescore',
+        			data: {"newscore": "0"}
 
                 });
             };
@@ -51,8 +51,8 @@ function myFunction() {
             document.querySelector('#dislike').onclick = function() {
 
                 $.ajax({
-                    url: '/update',
-        			data: {"ophalen": "-1"}
+                    url: '/updatescore',
+        			data: {"newscore": "-1"}
 
                 });
             };
@@ -63,8 +63,8 @@ function myFunction() {
 
 <form action="/upload" method="post" enctype="multipart/form-data" >
     <input type="file" name="file" id="file" class="inputfile" />
-    <label for="file" class="btn btn-dark" >Choose a file</label>
-    <input type="submit" value="Upload your image" class="btn btn-dark">
+    <label for="file" class="btn btn-dark" >Choose file</label>
+    <input type="submit" value="Upload image" class="btn btn-dark">
 </form>
 <!--<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;-->
 <!--	width:60px;-->
