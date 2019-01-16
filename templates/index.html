@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block main %}
-
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <script>
 function myFunction() {
   alert("Hallo");
@@ -63,10 +65,10 @@ function myFunction() {
 
         </script>
 
-<form method="POST" action="upload.php" class="wrapper">
-    <button class="btn"><b>Upload a photo</b></button>
-    <input type="file" id="upload"/>
-</form>
+
+<input type="file" name="myfile"/>
+<input type="file" name="file" id="file" class="inputfile" />
+<label for="file">Choose a file</label>
 
 <!--<a href="#" onclick="myFunction()" class="float-button" style="position:fixed;-->
 <!--	width:60px;-->
@@ -81,5 +83,8 @@ function myFunction() {
 <!--	text-decoration: none;">-->
 <!--    <h3 class="my-float" style="margin-top:15px;">📷</h3>-->
 <!--</a>-->
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a870763222a5056e22c228aae4dde7d85deab80
 {% endblock %}

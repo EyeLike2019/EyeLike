@@ -60,25 +60,30 @@ main #login {
     border-radius: 0 !important;
 }
 
-.wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
-.btn {
-    width:200px !important;
-    background-color:black;
-    color:white;
-    height:40px;
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
 }
 
-.wrapper input[type=file] {
-  font-size: 50px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: red;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
 }
 
 #searchbar {
