@@ -38,6 +38,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def index():
     return render_template("index.html")
 
+
 @app.route('/upload', methods=['POST'])
 @login_required
 def upload_file():
@@ -60,8 +61,10 @@ def upload_file():
     flash('Upload successful')
     return render_template('index.html')
 
+
 @app.route("/updatescore")
 def update():
+    """"Update score of upload"""
 
     change = request.args['newscore']
     # update_score(change, post_id)
@@ -140,6 +143,8 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Register user"""
+
     # forget any user_id
     session.clear()
 
