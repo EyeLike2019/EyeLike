@@ -42,6 +42,7 @@ def update():
 
 
 @app.route("/profile")
+@login_required
 def profile():
     """Show profile"""
 
