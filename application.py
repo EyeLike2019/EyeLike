@@ -46,6 +46,7 @@ def upload_file():
     # save the file in upload-folder
     file = request.files['file']
     filename = str(session["user_id"]) + "_" + file.filename
+
     if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
         flash('Invalid file!')
         return render_template("index.html")
