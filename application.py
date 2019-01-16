@@ -46,7 +46,7 @@ def upload_file():
     file = request.files['file']
     filename = str(session["user_id"]) + "_" + file.filename
     f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
     file.save(f)
 
     # upload image into database
