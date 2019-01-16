@@ -44,7 +44,7 @@ def index():
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
 
-    return render_template("index.html", random=random, file=full_filename)
+    return render_template("index.html", random=random, file=full_filename, photo_id=random["id"])
 
 
 @app.route('/upload', methods=['POST'])
@@ -75,7 +75,9 @@ def update():
     """"Update score of upload"""
 
     change = request.args['newscore']
-    # update_score(change, post_id)
+    photo_id = request.args['photo_id']
+
+    update_score(change, photo_id)
     return "Succes"
 
 

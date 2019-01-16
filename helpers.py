@@ -75,14 +75,15 @@ def register_user(username, password, email):
 def random_upload():
     """Select random row from database"""
 
-    random = db.execute("SELECT username, upload, description, score, timestamp FROM uploads ORDER BY RANDOM() LIMIT 1")
+    random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM() LIMIT 1")
 
     return random
 
-# def update_score(change, post_id):
-#     """Update post's score"""
+def update_score(change, photo_id):
+    """Update post's score"""
 
-#     db.execute("UPDATE uploads SET score = score + :change WHERE id=:post_id", change=change, post_id=post_id)
+    db.execute("UPDATE uploads SET score = score + :change WHERE id=:photo_id", change=change, photo_id=photo_id)
+    return
 
 def upload_photo(user_id, upload, description, username):
     """Upload image into database"""
