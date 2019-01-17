@@ -5,24 +5,20 @@
 {% endblock %}
 
 {% block main %}
-<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-    <img src={{ file }} class="img-responsive">
-</div>
-<button id="like" class="btn btn-dark"><b>Like</b></button>
-<button id="skip" class="btn btn-dark"><b>Skip</b></button>
-<button id="dislike" class="btn btn-dark"><b>Dislike</b></button>
-
 <script>
-    document.querySelector('#like').onclick = function() {
 
+    function likeButtonClicked() {
+        console.log("Like button clicked");
         $.ajax({
             url: '/updatescore',
-			data: {"newscore": "1"},
+			data: {"newscore": "1", "photo_id" : {{ photo_id }} },
 
           success: function(response) {
 
             console.log(response)
     	    console.log("1")
+
+    	   location.reload();
 
           },
           error: function(error) {
@@ -31,32 +27,66 @@
           }
         });
 
-    };
+    }
 
-    document.querySelector('#skip').onclick = function() {
-
+    function skipButtonClicked() {
+        console.log("Skip button clicked")
         $.ajax({
             url: '/updatescore',
-			data: {"newscore": "0"}
+		    data: {"newscore": "0", "photo_id": {{ photo_id }}},
 
+		  success: function(response) {
+
+            console.log(response)
+    	    console.log("1")
+
+    	    location.reload();
+
+          },
+          error: function(error) {
+    				console.log("Er ging iets mis!")
+    				console.log(error)
+          }
         });
-    };
+    }
 
-    document.querySelector('#dislike').onclick = function() {
-
+    function dislikeButtonClicked() {
+        console.log("Skip button clicked")
         $.ajax({
             url: '/updatescore',
-			data: {"newscore": "-1"}
+			data: {"newscore": "-1", "photo_id": {{ photo_id }}},
+		success: function(response) {
+
+            console.log(response)
+    	    console.log("1")
+    	    location.reload();
+
+          },
+          error: function(error) {
+    				console.log("Er ging iets mis!")
+    				console.log(error)
+          }
 
         });
-    };
+    }
 
 </script>
 
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" id="random_image">
+    <img src={{ file }} class="img-responsive" id="random_file">
+</div>
+
+<div class="like_buttons">
+    <button id="like" onclick="likeButtonClicked()" class="btn btn-dark"><b>Like</b></button>
+    <button id="skip" onclick="skipButtonClicked()" class="btn btn-dark"><b>Skip</b></button>
+    <button id="dislike" onclick="dislikeButtonClicked()" class="btn btn-dark"><b>Dislike</b></button>
+</div>
+
 <form action="/upload" method="post" enctype="multipart/form-data" >
     <input type="file" name="file" id="file" class="inputfile" />
-    <label for="file" class="btn btn-dark" >Choose file</label>
-    <input type="submit" value="Upload image" class="btn btn-dark">
+    <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;">Choose file</label>
+    <input type="submit" style="font-size:14px; font-weight:700;" value="Upload image" class="btn btn-dark">
 </form>
+
 
 {% endblock %}

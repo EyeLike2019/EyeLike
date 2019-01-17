@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Account
+    Profile
 {% endblock %}
 
 {% block main %}
@@ -14,7 +14,7 @@
 
             {% for upload in photos %}
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                    <img src={{ upload }} class="img-responsive">
+                    <img src="/{{ upload }}" class="img-responsive">
                 </div>
             {% endfor %}
 
