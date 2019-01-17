@@ -52,10 +52,14 @@ def upload_file():
         flash('Invalid file!')
         return render_template("index.html")
 
+
     f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
     file.save(f)
-
+    if os.path.getsize(f) > 4194304:
+        flash("file size is to big, limit is 4mb")
+        os.remove(f)
+        return render_template("index.html")
     # upload image into database
     upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
 
