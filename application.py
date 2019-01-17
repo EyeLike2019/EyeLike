@@ -114,13 +114,14 @@ def profile(username):
     name = username
     photos = []
     uid = get_user_id(username)
+    follower_id = session["user_id"]
     user_photos = all_photos(uid)
     for p in user_photos:
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
     print(photos, uid, user_photos)
-    return render_template("profile.html", name=name, photos=photos)
+    return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id)
 
 
 @app.route("/search/<username>", methods=["GET", "POST"])
@@ -244,3 +245,32 @@ def register():
 def show(path):
     """Show image"""
     return send_from_directory('upload', path)
+
+@app.route("/follow")
+def follow():
+    """"Follow user"""
+
+    user_id = request.args['user_id']
+    follower_id = request.args['follower_id']
+
+    follow_user(user_id, follower_id)
+    return "Succes"
+
+@app.route("/already_following")
+def already_following():
+    """"Check if user already follows"""
+
+    user_id = request.args['user_id']
+    follower_id = request.args['follower_id']
+
+    return(str(is_following(user_id, follower_id)))
+
+@app.route("/unfollow")
+def unfollow():
+    """"Unfollow user"""
+
+    user_id = request.args['user_id']
+    follower_id = request.args['follower_id']
+
+    unfollow_user(user_id, follower_id)
+    return "Succes"
