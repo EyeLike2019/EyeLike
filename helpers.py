@@ -100,3 +100,25 @@ def all_photos(user_id):
     user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
     return user_photos
+
+def follow_user(user_id, follower_id):
+    """Follow user"""
+
+    db.execute("INSERT INTO followers (user_id, follower_id) VALUES(:user_id, :follower_id)",
+               user_id=user_id, follower_id=follower_id)
+    return
+
+def unfollow_user(user_id, follower_id):
+    """Unfollow user"""
+
+    db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id", user_id = user_id, follower_id = follower_id)
+    return
+
+def is_following(user_id, follower_id):
+    follow = db.execute("SELECT follower_id, user_id FROM followers WHERE user_id = :user_id AND follower_id = :follower_id", user_id=user_id, follower_id=follower_id)
+    if len(follow) != 1:
+        print("Not following")
+        return False
+    else:
+        print("Already following")
+        return True
