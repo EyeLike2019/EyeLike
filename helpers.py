@@ -1,5 +1,6 @@
 import csv
 import urllib.request
+import datetime
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
@@ -76,6 +77,14 @@ def random_upload():
     """Select random row from database"""
 
     random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM() LIMIT 1")
+    date = random[0]["timestamp"]
+    date = date[5:16]
+
+
+    random[0]["timestamp"] = date
+
+
+    print(random)
 
     return random
 
