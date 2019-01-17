@@ -8,6 +8,9 @@
 <div id="profile_wrapper">
     <div id="user">
         <h1><b>{{ name }}</b></h1>
+        {% for follower in followers %}
+             <p>{{ follower }}</p>
+        {% endfor %}
     </div>
     <div class="container" id="collage">
     <div class="row imagetiles">

@@ -87,6 +87,9 @@
     <div id="user">
         <h1><b>{{ name }}</b></h1>
         <button id="follow" onclick="followButtonClicked()" class="btn btn-dark"><b>Follow</b></button>
+        {% for follower in followers %}
+             <p>{{ follower }}</p>
+        {% endfor %}
     </div>
     <div class="container" id="collage">
     <div class="row imagetiles">
