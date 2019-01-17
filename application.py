@@ -55,14 +55,19 @@ def upload_file():
     # save the file in upload-folder
     file = request.files['file']
     filename = str(session["user_id"]) + "_" + file.filename
+
     if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
         flash('Invalid file!')
         return render_template("index.html")
 
+
     f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
     file.save(f)
-
+    if os.path.getsize(f) > 4194304:
+        flash("file size is to big, limit is 4mb")
+        os.remove(f)
+        return render_template("index.html")
     # upload image into database
     upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
 
