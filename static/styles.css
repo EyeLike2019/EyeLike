@@ -123,3 +123,30 @@ main #login {
 #profile_wrapper {
     overflow:auto;
 }
+
+.img-responsive {
+    border: 0.5px solid lightgray;
+    /*object-fit: cover;*/
+    /*width:250px !important;*/
+    /*height:250px !important;*/
+    border-radius: 8px;
+}
+
+.imagetiles {
+    margin:5px;
+}
+
+#random_image {
+    border-radius: 8px;
+    position: absolute;
+    left: 50%; top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.like_buttons {
+    margin-bottom:10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
