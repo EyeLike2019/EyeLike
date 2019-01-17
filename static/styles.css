@@ -126,9 +126,9 @@ main #login {
 
 .img-responsive {
     border: 0.5px solid lightgray;
-    /*object-fit: cover;*/
-    /*width:250px !important;*/
-    /*height:250px !important;*/
+    object-fit: cover;
+    width:250px !important;
+    height:250px !important;
     border-radius: 8px;
 }
 

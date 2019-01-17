@@ -5,72 +5,6 @@
 {% endblock %}
 
 {% block main %}
-<script>
-
-    function likeButtonClicked() {
-        console.log("Like button clicked");
-        $.ajax({
-            url: '/updatescore',
-			data: {"newscore": "1", "photo_id" : {{ photo_id }} },
-
-          success: function(response) {
-
-            console.log(response)
-    	    console.log("1")
-
-    	   location.reload();
-
-          },
-          error: function(error) {
-    				console.log("Er ging iets mis!")
-    				console.log(error)
-          }
-        });
-
-    }
-
-    function skipButtonClicked() {
-        console.log("Skip button clicked")
-        $.ajax({
-            url: '/updatescore',
-		    data: {"newscore": "0", "photo_id": {{ photo_id }}},
-
-		  success: function(response) {
-
-            console.log(response)
-    	    console.log("1")
-
-    	    location.reload();
-
-          },
-          error: function(error) {
-    				console.log("Er ging iets mis!")
-    				console.log(error)
-          }
-        });
-    }
-
-    function dislikeButtonClicked() {
-        console.log("Skip button clicked")
-        $.ajax({
-            url: '/updatescore',
-			data: {"newscore": "-1", "photo_id": {{ photo_id }}},
-		success: function(response) {
-
-            console.log(response)
-    	    console.log("1")
-    	    location.reload();
-
-          },
-          error: function(error) {
-    				console.log("Er ging iets mis!")
-    				console.log(error)
-          }
-
-        });
-    }
-
-</script>
 
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" id="random_image">
     <img src={{ file }} class="img-responsive" id="random_file">
@@ -87,6 +21,7 @@
     <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;">Choose file</label>
     <input type="submit" style="font-size:14px; font-weight:700;" value="Upload image" class="btn btn-dark">
 </form>
+
 
 
 {% endblock %}
