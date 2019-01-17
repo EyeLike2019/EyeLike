@@ -5,9 +5,88 @@
 {% endblock %}
 
 {% block main %}
+<script>
+
+        $.ajax({
+            url: '/already_following',
+			data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+
+          success: function(response) {
+            console.log(response)
+            if (response == "True") {
+                button = document.getElementById("follow")
+                button.style.background='green';
+                button.innerHTML='<b>Volgend</b>'
+            }
+
+          },
+          error: function(error) {
+    				console.log("Er ging iets mis!")
+    				console.log(error)
+          }
+        });
+
+    function followButtonClicked() {
+        console.log("Follow button clicked");
+
+        $.ajax({
+            url: '/already_following',
+			data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+
+          success: function(response) {
+            console.log(response)
+            if (response == "False") {
+                $.ajax({
+                    url: '/follow',
+			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+
+                    success: function(response) {
+
+                    console.log(response)
+    	            console.log("1")
+    	            button = document.getElementById("follow")
+                    button.style.background='green';
+                    button.innerHTML='<b>Volgend</b>'
+
+                    },
+                    error: function(error) {
+    				    console.log("Er ging iets mis!")
+    				    console.log(error)
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: '/unfollow',
+			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+
+                    success: function(response) {
+
+    	            button = document.getElementById("follow")
+                    button.style.background='black';
+                    button.innerHTML='<b>Volgen</b>'
+
+                    },
+                    error: function(error) {
+    				    console.log("Er ging iets mis!")
+    				    console.log(error)
+                    }
+                });
+            }
+
+          },
+          error: function(error) {
+    				console.log("Er ging iets mis!")
+    				console.log(error)
+          }
+        });
+
+    }
+
+</script>
 <div id="profile_wrapper">
     <div id="user">
         <h1><b>{{ name }}</b></h1>
+        <button id="follow" onclick="followButtonClicked()" class="btn btn-dark"><b>Follow</b></button>
     </div>
     <div class="container" id="collage">
     <div class="row imagetiles">
