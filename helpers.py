@@ -131,3 +131,11 @@ def is_following(user_id, follower_id):
     else:
         print("Already following")
         return True
+
+def get_followers(user_id):
+    """Get all followers of user"""
+
+    # query database for user's uploads
+    followers = db.execute("SELECT follower_id FROM followers WHERE user_id = :user_id", user_id=user_id)
+
+    return followers

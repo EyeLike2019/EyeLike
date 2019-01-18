@@ -95,12 +95,19 @@ def account():
     username = get_username(session["user_id"])
 
     photos = []
+    followers = []
     user_photos = all_photos(session["user_id"])
+    followers_id = get_followers(session["user_id"])
+    # get all followers of user
+    for f in followers_id:
+        name = get_username(f["follower_id"])
+        followers.append(name)
+
     for p in user_photos:
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
-    return render_template("account.html", name=username, photos=photos)
+    return render_template("account.html", name=username, photos=photos, followers=followers)
 
 @app.route("/profile/<username>")
 @login_required
@@ -109,19 +116,32 @@ def profile(username):
     # check if username exists
     if len(check_username(username)) != 1:
         flash("Username doesn't exist")
-        return render_template("index.html")
+        return redirect(url_for("index"))
+
+    # redirect to account page when searching for self
+    if username == get_username(session["user_id"]):
+        return redirect(url_for("account"))
 
     name = username
     photos = []
+    followers = []
     uid = get_user_id(username)
     follower_id = session["user_id"]
     user_photos = all_photos(uid)
+    followers_id = get_followers(uid)
+
+    # get all pictures of user
     for p in user_photos:
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
-    print(photos, uid, user_photos)
-    return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id)
+    # get all followers of user
+    for f in followers_id:
+        username = get_username(f["follower_id"])
+        followers.append(username)
+
+    print(photos, uid, user_photos, followers)
+    return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id, followers=followers)
 
 
 @app.route("/search/<username>", methods=["GET", "POST"])
@@ -131,7 +151,11 @@ def search(username):
     # check if username exists
     if len(check_username(username)) != 1:
         flash("Username doesn't exist")
-        return render_template("index.html")
+        return redirect(url_for("index"))
+
+    # redirect to account page when searching for self
+    if username == get_username(session["user_id"]):
+        return redirect(url_for("account"))
 
     return redirect(url_for("profile", username=username))
 
