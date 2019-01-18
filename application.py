@@ -5,6 +5,9 @@ from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 import datetime
 import os
+import requests
+import json
+import pprint as pp
 
 from helpers import *
 
@@ -50,6 +53,21 @@ def index():
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
 
         return render_template("index.html", random=random, file=full_filename, photo_id=random["id"])
+
+@app.route("/timeline")
+@login_required
+def timeline():
+
+    uploads = []
+    followings_id = get_following(session["user_id"])
+
+    for p in followings_id:
+        user_uploads = get_all_uploads(p["user_id"])
+        for u in user_uploads:
+            uploads.append(u)
+    uploads.sort(key=lambda d: d['timestamp'])
+
+    return render_template("timeline.html", uploads=uploads)
 
 
 @app.route('/upload', methods=['POST'])
@@ -102,18 +120,26 @@ def account():
 
     photos = []
     followers = []
+    following = []
     user_photos = all_photos(session["user_id"])
     followers_id = get_followers(session["user_id"])
+    followings_id = get_following(session["user_id"])
+
     # get all followers of user
     for f in followers_id:
         name = get_username(f["follower_id"])
         followers.append(name)
 
+    # get all people whom the user follows
+    for j in followings_id:
+        name = get_username(j["user_id"])
+        following.append(name)
+
     for p in user_photos:
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
-    return render_template("account.html", name=username, photos=photos, followers=followers)
+    return render_template("account.html", name=username, photos=photos, followers=followers, following=following)
 
 @app.route("/profile/<username>")
 @login_required
@@ -131,10 +157,12 @@ def profile(username):
     name = username
     photos = []
     followers = []
+    following = []
     uid = get_user_id(username)
     follower_id = session["user_id"]
     user_photos = all_photos(uid)
     followers_id = get_followers(uid)
+    followings_id = get_following(uid)
 
     # get all pictures of user
     for p in user_photos:
@@ -146,8 +174,14 @@ def profile(username):
         username = get_username(f["follower_id"])
         followers.append(username)
 
+    # get all people whom the user follows
+    for j in followings_id:
+        name2 = get_username(j["user_id"])
+        following.append(name2)
+
+
     print(photos, uid, user_photos, followers)
-    return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id, followers=followers)
+    return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id, followers=followers, following=following)
 
 
 @app.route("/search/<username>", methods=["GET", "POST"])
