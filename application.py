@@ -1,7 +1,6 @@
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, url_for, send_from_directory
 from flask_session import Session
-from flask_restful import Api, Resource, reqparse
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 import datetime
