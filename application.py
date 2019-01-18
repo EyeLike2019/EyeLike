@@ -40,11 +40,16 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def index():
-    random = random_upload()[0]
+    random2 = random_upload()
 
-    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
+    if random2 == None:
+        print("No pictures")
+        return redirect(url_for("account"))
+    else:
+        random = random_upload()[0]
+        full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
 
-    return render_template("index.html", random=random, file=full_filename, photo_id=random["id"])
+        return render_template("index.html", random=random, file=full_filename, photo_id=random["id"])
 
 
 @app.route('/upload', methods=['POST'])
@@ -58,7 +63,7 @@ def upload_file():
 
     if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
         flash('Invalid file!')
-        return render_template("index.html")
+        return redirect(url_for("index"))
 
 
     f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -67,12 +72,12 @@ def upload_file():
     if os.path.getsize(f) > 4194304:
         flash("file size is to big, limit is 4mb")
         os.remove(f)
-        return render_template("index.html")
+        return redirect(url_for("index"))
     # upload image into database
     upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
 
     flash('Upload successful')
-    return render_template('index.html')
+    return redirect(url_for("index"))
 
 
 @app.route("/updatescore")

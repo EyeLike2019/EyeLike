@@ -4,7 +4,7 @@ import datetime
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
-from flask import redirect, render_template, request, session
+from flask import redirect, flash, render_template, request, session
 from functools import wraps
 
 # configure CS50 Library to use SQLite database
@@ -77,16 +77,17 @@ def random_upload():
     """Select random row from database"""
 
     random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM() LIMIT 1")
-    date = random[0]["timestamp"]
-    date = date[5:16]
 
-
-    random[0]["timestamp"] = date
-
-
-    print(random)
-
-    return random
+    if len(random) < 1:
+        print("No pictures")
+        flash("No pictures available")
+        return None
+    else:
+        date = random[0]["timestamp"]
+        date = date[5:16]
+        random[0]["timestamp"] = date
+        print(random)
+        return random
 
 def update_score(change, photo_id):
     """Update post's score"""
