@@ -62,6 +62,7 @@ def timeline():
         user_uploads = get_all_uploads(p["user_id"])
         for u in user_uploads:
             uploads.append(u)
+    uploads.sort(key=lambda d: d['timestamp'])
 
     return render_template("timeline.html", uploads=uploads)
 
