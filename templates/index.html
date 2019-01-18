@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block main %}
-<script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script>
+<div class="container">
+   <img class="api">
+</div>
 
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" id="random_image">
     <label id="username">{{ random.username }} </label>
