@@ -140,3 +140,11 @@ def get_followers(user_id):
     followers = db.execute("SELECT follower_id FROM followers WHERE user_id = :user_id", user_id=user_id)
 
     return followers
+
+def get_following(follower_id):
+    """Get all followers of user"""
+
+    # query database for user's uploads
+    following = db.execute("SELECT user_id FROM followers WHERE follower_id = :follower_id", follower_id=follower_id)
+
+    return following

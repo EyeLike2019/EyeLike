@@ -101,18 +101,26 @@ def account():
 
     photos = []
     followers = []
+    following = []
     user_photos = all_photos(session["user_id"])
     followers_id = get_followers(session["user_id"])
+    followings_id = get_following(session["user_id"])
+
     # get all followers of user
     for f in followers_id:
         name = get_username(f["follower_id"])
         followers.append(name)
 
+    # get all people whom the user follows
+    for j in followings_id:
+        name = get_username(j["user_id"])
+        following.append(name)
+
     for p in user_photos:
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
-    return render_template("account.html", name=username, photos=photos, followers=followers)
+    return render_template("account.html", name=username, photos=photos, followers=followers, following=following)
 
 @app.route("/profile/<username>")
 @login_required
@@ -130,10 +138,12 @@ def profile(username):
     name = username
     photos = []
     followers = []
+    following = []
     uid = get_user_id(username)
     follower_id = session["user_id"]
     user_photos = all_photos(uid)
     followers_id = get_followers(uid)
+    followings_id = get_following(uid)
 
     # get all pictures of user
     for p in user_photos:
@@ -145,8 +155,14 @@ def profile(username):
         username = get_username(f["follower_id"])
         followers.append(username)
 
+    # get all people whom the user follows
+    for j in followings_id:
+        name2 = get_username(j["user_id"])
+        following.append(name2)
+
+
     print(photos, uid, user_photos, followers)
-    return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id, followers=followers)
+    return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id, followers=followers, following=following)
 
 
 @app.route("/search/<username>", methods=["GET", "POST"])
