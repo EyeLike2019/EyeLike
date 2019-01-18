@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<form action="/upload" method="post" enctype="multipart/form-data" >
-    <input type="file" name="file" id="file" class="inputfile" />
-    <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;">Choose file</label>
+<form action="/upload" method="get" enctype="multipart/form-data" >
     <input type="submit" style="font-size:14px; font-weight:700;" value="Upload image" class="btn btn-dark">
 </form>
 <div id="profile_wrapper">

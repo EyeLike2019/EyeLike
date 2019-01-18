@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Upload
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form action="/upload" method="post" enctype="multipart/form-data" >
+                <input type="file" name="file" id="file" class="inputfile" />
+                <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;">Choose file</label>
+                <input type="submit" style="font-size:14px; font-weight:700;" value="Upload image" class="btn btn-dark">
+            </form>
+        </div>
+    </div>
+    <div class="col-5">
+        <h1>Or use one of our favourites!</h1>
+        {% for photo in url %}
+            <img src={{ photo.urls.raw + url2 }}/>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+<!--<div class="row">-->
+<!--        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">-->
+<!--            <div class="container">-->
+<!--            {% for photo in url %}-->
+<!--              <img src={{ photo.urls.raw + url2 }}/>-->
+<!--            {% endfor %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">-->
+<!--          One of three columns-->
+<!--        </div>-->
+<!--      </div>-->
+<!--</div>-->
+{% endblock %}

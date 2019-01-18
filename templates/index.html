@@ -1,14 +1,10 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Verkennen
+    Explore
 {% endblock %}
 
 {% block main %}
-<div class="container">
-   <img class="api">
-</div>
-
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" id="random_image">
     <label id="username">{{ random.username }} </label>
     <label id="timestamp">{{ random.timestamp }} </label>
@@ -23,9 +19,9 @@
     <button id="dislike" onclick="dislikeButtonClicked({{ photo_id }})" class="btn btn-dark"><b>Dislike</b></button>
 </div>
 
-<form action="/upload" method="post" enctype="multipart/form-data" >
-    <input type="file" name="file" id="file" class="inputfile" />
-    <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;">Choose file</label>
+<form action="/upload" method="get" enctype="multipart/form-data" >
+    <!--<input type="file" name="file" id="file" class="inputfile" />-->
+    <!--<label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;">Choose file</label>-->
     <input type="submit" style="font-size:14px; font-weight:700;" value="Upload image" class="btn btn-dark">
 </form>
 
