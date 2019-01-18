@@ -51,6 +51,20 @@ def index():
 
         return render_template("index.html", random=random, file=full_filename, photo_id=random["id"])
 
+@app.route("/timeline")
+@login_required
+def timeline():
+
+    uploads = []
+    followings_id = get_following(session["user_id"])
+
+    for p in followings_id:
+        user_uploads = get_all_uploads(p["user_id"])
+        for u in user_uploads:
+            uploads.append(u)
+
+    return render_template("timeline.html", uploads=uploads)
+
 
 @app.route('/upload', methods=['POST'])
 @login_required
