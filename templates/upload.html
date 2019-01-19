@@ -9,9 +9,8 @@
     <div class="row">
         <div class="col">
             <form action="/upload" method="post" enctype="multipart/form-data" >
-                <input type="file" name="file" id="file" class="inputfile" />
-                <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;">Choose file</label>
-                <input type="submit" style="font-size:14px; font-weight:700;" value="Upload image" class="btn btn-dark">
+                <input type="file" name="file" id="file" class="inputfile" onchange="form.submit()" />
+                <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700;"><b>Upload <span class="glyphicon glyphicon-upload"></span></b></label>
             </form>
         </div>
     </div>

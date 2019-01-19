@@ -14,9 +14,9 @@
 </div>
 
 <div class="like_buttons">
-    <button id="like" onclick="likeButtonClicked({{ photo_id }})" class="btn btn-dark"><b>Like</b></button>
+    <button id="like" onclick="likeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open"></span></b></button>
     <button id="skip" onclick="skipButtonClicked({{ photo_id }})" class="btn btn-dark"><b>Skip</b></button>
-    <button id="dislike" onclick="dislikeButtonClicked({{ photo_id }})" class="btn btn-dark"><b>Dislike</b></button>
+    <button id="dislike" onclick="dislikeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-close"></span></b></button>
 </div>
 
 <form action="/upload" method="get" enctype="multipart/form-data" >
