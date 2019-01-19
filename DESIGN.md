@@ -31,6 +31,8 @@ Groep 20:
 -   Bekijken door wie een account gevolgd wordt (GET) → followers
     
 -   Naar de trendingpagina (GET) → trending
+
+-   Naar de tijdlijn (GET) → timeline
     
 -   Het uploaden van een foto/gif (POST) → upload
     
@@ -76,7 +78,7 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
     Uploadt de gegevens van een foto in de database.
     
 -   get_photo()  
-    Haalt alle nodige informatie, zoals de gebruikersnaam en de beschrijving, van een foto op in de database voor het laten zien van de post.
+    Haalt alle nodige informatie, zoals de gebruikersnaam en de beschrijving, van een foto op in de database voor het laten         zien van de post.
     
 -   get_followers()  
     Vraagt de volgers op van een account voor op de profielpagina.
@@ -84,9 +86,8 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
 -   get_following()  
     Vraagt de accounts op die iemand volgt voor op de profielpagina.
     
-
-- add_follower()  
-Voegt een volger toe in de database
+-   add_follower()  
+    Voegt een volger toe in de database
 
 ## Plugins en frameworks
 -   Bootstrap (https://getbootstrap.com)
