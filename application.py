@@ -102,7 +102,7 @@ def upload_file():
 
     else:
         # configure API
-        api = requests.get("https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21&query=clothes&count=30")
+        api = requests.get("https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21&query=clothes&count=28")
         url = json.loads(api.content)
 
         return render_template("upload.html", url=url, url2="&fit=fill&fill=blur&w=250&h=200&dpi=2")
