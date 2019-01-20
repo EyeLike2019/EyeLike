@@ -147,6 +147,7 @@ def account():
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
+
     return render_template("account.html", name=username, photos=photos, followers=followers, following=following)
 
 @app.route("/profile/<username>")
