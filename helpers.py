@@ -154,7 +154,9 @@ def get_all_uploads(user_id):
 
     # query database for user's uploads
     user_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE user_id = :user_id", user_id=user_id)
-    date = user_photos[0]["timestamp"]
-    date = date[5:16]
-    user_photos[0]["timestamp"] = date
+
+    for photo in user_photos:
+        date = photo["timestamp"]
+        date = date[5:16]
+        photo["timestamp"] = date
     return user_photos
