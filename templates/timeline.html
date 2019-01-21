@@ -7,7 +7,11 @@
 {% block main %}
     {% for post in uploads %}
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <label id="username">{{ post.username }} </label>
+            <label id="timestamp">{{ post.timestamp }} </label>
+            <label id="score">{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
             <img src="/upload/{{ post.upload }}" class="img-responsive">
+            <label id="discription">{{ post.description }} </label>
         </div>
     {% endfor %}
 {% endblock %}

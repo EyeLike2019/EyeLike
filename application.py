@@ -70,34 +70,42 @@ def timeline():
     return render_template("timeline.html", uploads=uploads)
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['POST', 'GET'])
 @login_required
 def upload_file():
     """Upload a file"""
-    try:
-        # save the file in upload-folder
-        file = request.files['file']
-        filename = str(session["user_id"]) + "_" + file.filename
-        if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
-            flash('Invalid file!')
+    if request.method == "POST":
+        try:
+            # save the file in upload-folder
+            file = request.files['file']
+            filename = str(session["user_id"]) + "_" + file.filename
+            if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
+                flash('Invalid file!')
+                return redirect(url_for("index"))
+
+
+            f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+            file.save(f)
+            if os.path.getsize(f) > 4194304:
+                flash("file size is to big, limit is 4mb")
+                os.remove(f)
+                return redirect(url_for("index"))
+            # upload image into database
+            upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
+
+            flash('Upload successful')
+            return redirect(url_for("index"))
+        except Exception:
+            flash("Please select photo you want to upload first!")
             return redirect(url_for("index"))
 
+    else:
+        # configure API
+        api = requests.get("https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21&query=clothes&count=28")
+        url = json.loads(api.content)
 
-        f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-        file.save(f)
-        if os.path.getsize(f) > 4194304:
-            flash("file size is to big, limit is 4mb")
-            os.remove(f)
-            return redirect(url_for("index"))
-        # upload image into database
-        upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
-
-        flash('Upload successful')
-        return redirect(url_for("index"))
-    except Exception:
-        flash("Please select photo you want to upload first!")
-        return redirect(url_for("index"))
+        return render_template("upload.html", url=url, url2="&fit=fill&fill=blur&w=250&h=200&dpi=2")
 
 @app.route("/updatescore")
 def update():
@@ -138,6 +146,7 @@ def account():
     for p in user_photos:
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
+
 
     return render_template("account.html", name=username, photos=photos, followers=followers, following=following)
 

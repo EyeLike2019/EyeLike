@@ -56,13 +56,14 @@ Eyelike is een webapplicatie met als doel om gebruikers te verbinden die geïnte
 
 - gebruikers kunnen hun eigen pagina bekijken
 
+- gebruikers kunnen hun tijdlijn bekijken
   
 
 ## Minimum Viable Product
 
   
 
-Het product moet minimaal voldoen aan een bepaald aantal functies die essentieel zijn voor de website. Zo moet een gebruiker zich kunnen registreren en vervolgens aanmelden op de site. De gebruiker moet verder mensen kunnen volgen, gifs en foto’s kunnen plaatsen met een beschrijving en posts van anderen kunnen liken. Verder moeten gebruikers hun eigen profiel en profielen van anderen kunnen zien. Tot slot moet er een trending pagina zijn waar elke gebruiker bij kan om te zien welke posts het meest geliked worden.
+Het product moet minimaal voldoen aan een bepaald aantal functies die essentieel zijn voor de website. Zo moet een gebruiker zich kunnen registreren en vervolgens aanmelden op de site. De gebruiker moet verder mensen kunnen volgen, gifs en foto’s kunnen plaatsen met een beschrijving en posts van anderen kunnen liken. Verder moeten gebruikers hun eigen profiel, profielen van anderen en een tijdlijn kunnen zien. Tot slot moet er een trending pagina zijn waar elke gebruiker bij kan om te zien welke posts het meest geliked worden.
 
   
 
@@ -75,9 +76,7 @@ Het product moet minimaal voldoen aan een bepaald aantal functies die essentieel
 
   
 
--  [http://api.giphy.com](http://api.giphy.com/) voor de gif’s
-
--  [https://unsplash.com](https://unsplash.com/) voor de achtergronden op het inlogscherm
+- [https://unsplash.com] voor de achtergronden op het inlogscherm en de API.
 
   
 
@@ -109,7 +108,7 @@ Het product moet minimaal voldoen aan een bepaald aantal functies die essentieel
 
   
 
-Deze websites zijn geen directe concurrentie, aangezien er nog geen grote website is die alleen draait om fashion. Ook werken geen van deze websites met dislikes. Verder onderscheidt onze website zich doordat men alleen foto’s kan beoordelen die op de verkennen pagina staan. Dit voorkomt dat het volgersaantal van een account invloed heeft op de hoogte van de waarde van een post en daarmee dus invloed heeft op het komen van de trendingpagina. Het is namelijk alleen mogelijk om op de verkennen pagina een beoordeling te geven aan een foto.
+Deze websites zijn geen directe concurrentie, aangezien er nog geen grote website is die alleen draait om fashion. Ook werken geen van deze websites met dislikes. Verder onderscheidt onze website zich doordat men alleen foto’s kan beoordelen die op de verkennen pagina staan. Dit voorkomt dat het volgersaantal van een account invloed heeft op de hoogte van de waarde van een post en daarmee dus invloed heeft op het komen van de trending pagina. Het is namelijk alleen mogelijk om op de verkennen pagina een beoordeling te geven aan een foto.
 
   
 
@@ -133,6 +132,6 @@ Verder kunnen wij momenteel geen andere extreme moeilijkheden verzinnen, maar di
 
   
 
-Ons voorstel voldoet aan de projecteisen. Het is op EyeLike namelijk mogelijk foto’s en gifjes te posten met of zonder beschrijving, andere gebruikers te volgen en uploads van elkaar te liken.
+Ons voorstel voldoet aan de projecteisen. Het is op EyeLike namelijk mogelijk foto’s te posten met of zonder beschrijving, andere gebruikers te volgen en uploads van elkaar te liken. Daarnaast is er gebruik gemaakt van een API wat gebruikers de mogelijkheid geeft naast hun eigen foto’s, ook foto’s van de API up te loaden.
 
 
