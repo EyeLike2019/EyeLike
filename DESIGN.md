@@ -74,20 +74,29 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
 -   random_upload()  
     Selecteert een random foto voor de verkenner-pagina.
     
--   upload_photo()  
+-   upload_photo(user_id, upload, description, username)  
     Uploadt de gegevens van een foto in de database.
     
--   get_photo()  
-    Haalt alle nodige informatie, zoals de gebruikersnaam en de beschrijving, van een foto op in de database voor het laten         zien van de post.
+-   all_photos(user_id)  
+    Haalt alle nodige informatie, zoals de gebruikersnaam en de beschrijving, op van alle foto's van een gebruiker op in de database voor het laten zien van de post.
     
--   get_followers()  
+-   get_all_uploads(user_id)
+    Haalt alle nodige informatie op van de uploads van degenen die de gebruiker volgt voor de tijdlijn.
+    
+-   get_followers(user_id)  
     Vraagt de volgers op van een account voor op de profielpagina.
     
--   get_following()  
+-   get_following(follower_id)  
     Vraagt de accounts op die iemand volgt voor op de profielpagina.
     
--   add_follower()  
-    Voegt een volger toe in de database
+-   follow_user(user_id, follower_id)
+    Voegt een volger toe in de database. 
+    
+-   unfollow_user(user_id, follower_id)
+    Verwijdert een volger uit de database.
+    
+-   is_following(user_id, follower_id)
+    Controleert of de gebruiker het desbetreffende account volgt, zodat de mogelijkheid om te volgen verandert naar een mogelijkheid om te ontvolgen.
 
 ## Plugins en frameworks
 -   Bootstrap (https://getbootstrap.com)
