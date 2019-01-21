@@ -365,3 +365,12 @@ def unfollow():
 
     unfollow_user(user_id, follower_id)
     return "Succes"
+
+@app.route("/trending")
+def trending():
+    """Show trending pictures"""
+    trendingphotos = []
+    all_photos = get_all_photos()
+    for p in all_photos:
+        trendingphotos.append(p)
+    return render_template("trending.html", trendingphotos=trendingphotos)

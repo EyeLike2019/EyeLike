@@ -54,6 +54,7 @@
                                 <li><a href="{{ url_for('timeline') }}"><span class="glyphicon glyphicon-th"></span><b> Timeline</b></a></li>
                                 <li><a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-globe"></span><b> Explore</b></a></li>
                                 <li><a href="{{ url_for('account') }}"><span class="glyphicon glyphicon-user"></span><b> Account</b></a></li>
+                                <li><a href="{{ url_for('trending') }}"><span class="glyphicon glyphicon-fire"></span><b> Trending</b></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span></a></li>
@@ -70,6 +71,10 @@
                     </div>
                 </div>
             </nav>
+
+            <a href="/upload" class="float-button">
+                <h3 class="camera-button">📷</h3>
+            </a>
 
         <div class="container">
             {% if get_flashed_messages() %}

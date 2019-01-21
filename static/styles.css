@@ -150,3 +150,21 @@ main #login {
     margin-left: auto;
     margin-right: auto;
 }
+
+.float-button {
+    position:fixed;
+ 	width:60px;
+ 	height:60px;
+ 	bottom:40px;
+ 	right:40px;
+ 	background-color: rgba(0,122,255,1);
+ 	color:#FFF;
+ 	border-radius:50px;
+ 	text-align:center;
+ 	box-shadow: 2px 2px 2px #999;
+ 	text-decoration: none !important;
+}
+
+.camera-button {
+    margin-top:15px !important;
+}
