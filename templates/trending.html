@@ -6,13 +6,45 @@
 
 {% block main %}
     {% for post in trendingphotos %}
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <label id="username">{{ post.username }} </label>
-            <label id="timestamp">{{ post.timestamp }} </label>
-            <label id="score">{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
-            <img src="/upload/{{ post.upload }}" class="img-responsive">
-            <label id="discription">{{ post.description }} </label>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal">
+            <label for="modal">
+              <label id="username">{{ post.username }} </label>
+              <label id="timestamp">{{ post.timestamp }} </label>
+              <label id="score">{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+              <img src="/upload/{{ post.upload }}" class="img-responsive">
+              <label id="discription">{{ post.description }} </label>
+            </label>
+        </button>
+
+        <div class="modal fade" id="photomodal" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8"><h4 class="modal-title" id="username">{{ post.username }} </h4></div>
+                  <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8"><h5 class="modal-title" id="timestamp">{{ post.timestamp }}</h5></div>
+                  <div class="col-sm-2">
+                    <h5>{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></h5>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <p><img src="/upload/{{ post.upload }}"></p>
+                <p>{{ post.description }}</p>
+              </div>
+            </div>
+          </div>
         </div>
+    </div>
     {% endfor %}
 
 {% endblock %}
