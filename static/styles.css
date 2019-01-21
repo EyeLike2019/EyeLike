@@ -168,3 +168,8 @@ main #login {
 .camera-button {
     margin-top:15px !important;
 }
+
+.photo_modal {
+    background-color: white;
+    border: 0px;
+}
