@@ -1,6 +1,5 @@
 import csv
 import urllib.request
-import datetime
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
@@ -86,14 +85,16 @@ def random_upload():
         date = random[0]["timestamp"]
         date = date[5:16]
         random[0]["timestamp"] = date
-        print(random)
         return random
+
 
 def update_score(change, photo_id):
     """Update post's score"""
 
     db.execute("UPDATE uploads SET score = score + :change WHERE id=:photo_id", change=change, photo_id=photo_id)
+
     return
+
 
 def upload_photo(user_id, upload, description, username):
     """Upload image into database"""
@@ -103,60 +104,71 @@ def upload_photo(user_id, upload, description, username):
 
     return
 
+
 def all_photos(user_id):
     """Get all photo's of user"""
 
-    # query database for user's uploads
     user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
     return user_photos
+
 
 def follow_user(user_id, follower_id):
     """Follow user"""
 
     db.execute("INSERT INTO followers (user_id, follower_id) VALUES(:user_id, :follower_id)",
                user_id=user_id, follower_id=follower_id)
+
     return
+
 
 def unfollow_user(user_id, follower_id):
     """Unfollow user"""
 
-    db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id", user_id = user_id, follower_id = follower_id)
+    db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+               user_id=user_id, follower_id=follower_id)
+
     return
 
+
 def is_following(user_id, follower_id):
-    follow = db.execute("SELECT follower_id, user_id FROM followers WHERE user_id = :user_id AND follower_id = :follower_id", user_id=user_id, follower_id=follower_id)
+    """Check if user is following other user"""
+
+    follow = db.execute("SELECT follower_id, user_id FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+                        user_id=user_id, follower_id=follower_id)
+
     if len(follow) != 1:
-        print("Not following")
         return False
     else:
-        print("Already following")
         return True
+
 
 def get_followers(user_id):
     """Get all followers of user"""
 
-    # query database for user's uploads
     followers = db.execute("SELECT follower_id FROM followers WHERE user_id = :user_id", user_id=user_id)
 
     return followers
 
+
 def get_following(follower_id):
     """Get all following of user"""
 
-    # query database for user's uploads
     following = db.execute("SELECT user_id FROM followers WHERE follower_id = :follower_id", follower_id=follower_id)
 
     return following
 
+
 def get_all_uploads(user_id):
     """Get all uploads of user"""
 
-    # query database for user's uploads
-    user_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE user_id = :user_id", user_id=user_id)
+    user_photos = db.execute(
+        "SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
+    # change timestamp to prevered format
     for p in user_photos:
         date = p["timestamp"]
         date = date[5:16]
         p["timestamp"] = date
+
     return user_photos

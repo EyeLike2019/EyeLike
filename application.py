@@ -43,28 +43,37 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def index():
-    random2 = random_upload()
+    """Show homepage/random page"""
 
-    if random2 == None:
+    # redirect to account-page if there are no pictures available
+    random_check = random_upload()
+    if random_check == None:
         print("No pictures")
         return redirect(url_for("account"))
+
+    # show random picture
     else:
         random = random_upload()[0]
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
 
         return render_template("index.html", random=random, file=full_filename, photo_id=random["id"])
 
+
 @app.route("/timeline")
 @login_required
 def timeline():
+    """Show timeline of following accounts"""
 
     uploads = []
     followings_id = get_following(session["user_id"])
 
+    # get all uploads of following accounts
     for p in followings_id:
         user_uploads = get_all_uploads(p["user_id"])
         for u in user_uploads:
             uploads.append(u)
+
+    # sort uploads on timestamp
     uploads.sort(key=lambda d: d['timestamp'])
 
     return render_template("timeline.html", uploads=uploads)
@@ -74,6 +83,7 @@ def timeline():
 @login_required
 def upload_file():
     """Upload a file"""
+
     if request.method == "POST":
         try:
             # save the file in upload-folder
@@ -83,7 +93,6 @@ def upload_file():
                 flash('Invalid file!')
                 return redirect(url_for("index"))
 
-
             f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
             file.save(f)
@@ -91,21 +100,25 @@ def upload_file():
                 flash("file size is to big, limit is 4mb")
                 os.remove(f)
                 return redirect(url_for("index"))
+
             # upload image into database
             upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
 
             flash('Upload successful')
             return redirect(url_for("index"))
+
         except Exception:
             flash("Please select photo you want to upload first!")
             return redirect(url_for("index"))
 
     else:
         # configure API
-        api = requests.get("https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21&query=clothes&count=28")
+        api = requests.get(
+            "https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=8f5cd8cd9e1c27d5b5c6d283c243726afcf1a7ad7602c1ee0f6a0702f5272a0f&query=clothes&count=28")
         url = json.loads(api.content)
 
         return render_template("upload.html", url=url, url2="&fit=fill&fill=blur&w=250&h=200&dpi=2")
+
 
 @app.route("/updatescore")
 def update():
@@ -147,12 +160,13 @@ def account():
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
         photos.append(full_filename)
 
-
     return render_template("account.html", name=username, photos=photos, followers=followers, following=following)
+
 
 @app.route("/profile/<username>")
 @login_required
 def profile(username):
+    """Show profile of other user"""
 
     # check if username exists
     if len(check_username(username)) != 1:
@@ -163,6 +177,7 @@ def profile(username):
     if username == get_username(session["user_id"]):
         return redirect(url_for("account"))
 
+    # declare variables
     name = username
     photos = []
     followers = []
@@ -188,8 +203,6 @@ def profile(username):
         name2 = get_username(j["user_id"])
         following.append(name2)
 
-
-    print(photos, uid, user_photos, followers)
     return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id, followers=followers, following=following)
 
 
@@ -314,10 +327,13 @@ def register():
     else:
         return render_template("register.html")
 
+
 @app.route('/upload/<path:path>')
 def show(path):
     """Show image"""
+
     return send_from_directory('upload', path)
+
 
 @app.route("/follow")
 def follow():
@@ -329,6 +345,7 @@ def follow():
     follow_user(user_id, follower_id)
     return "Succes"
 
+
 @app.route("/already_following")
 def already_following():
     """"Check if user already follows"""
@@ -337,6 +354,7 @@ def already_following():
     follower_id = request.args['follower_id']
 
     return(str(is_following(user_id, follower_id)))
+
 
 @app.route("/unfollow")
 def unfollow():
