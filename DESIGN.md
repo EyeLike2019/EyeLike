@@ -80,7 +80,7 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
 -   all_photos(user_id)  
     Haalt alle nodige informatie, zoals de gebruikersnaam en de beschrijving, op van alle foto's van een gebruiker op in de database voor het laten zien van de post.
     
--   get_all_uploads(user_id)
+-   get_all_uploads(user_id)  
     Haalt alle nodige informatie op van de uploads van degenen die de gebruiker volgt voor de tijdlijn.
     
 -   get_followers(user_id)  
@@ -89,14 +89,14 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
 -   get_following(follower_id)  
     Vraagt de accounts op die iemand volgt voor op de profielpagina.
     
--   follow_user(user_id, follower_id)
+-   follow_user(user_id, follower_id)  
     Voegt een volger toe in de database. 
     
--   unfollow_user(user_id, follower_id)
+-   unfollow_user(user_id, follower_id)  
     Verwijdert een volger uit de database.
     
--   is_following(user_id, follower_id)
-    Controleert of de gebruiker het desbetreffende account volgt, zodat de mogelijkheid om te volgen verandert naar een mogelijkheid om te ontvolgen.
+-   is_following(user_id, follower_id)  
+    Controleert of de gebruiker het desbetreffende account volgt, zodat de mogelijkheid om te volgen verandert naar een                   mogelijkheid om te ontvolgen.
 
 ## Plugins en frameworks
 -   Bootstrap (https://getbootstrap.com)
