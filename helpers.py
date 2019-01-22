@@ -134,7 +134,7 @@ def unfollow_user(user_id, follower_id):
 def is_following(user_id, follower_id):
     """Check if user is following other user"""
 
-    follow = db.execute("SELECT follower_id, user_id FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+    follow = db.execute("SELECT * FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
                         user_id=user_id, follower_id=follower_id)
 
     if len(follow) != 1:
@@ -162,8 +162,7 @@ def get_following(follower_id):
 def get_all_uploads(user_id):
     """Get all uploads of user"""
 
-    user_photos = db.execute(
-        "SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE user_id = :user_id", user_id=user_id)
+    user_photos = db.execute("SELECT * FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
     # change timestamp to prevered format
     for p in user_photos:
@@ -176,7 +175,7 @@ def get_all_uploads(user_id):
 def get_all_trending():
     """Get all the current trending photo's"""
 
-    all_trending = db.execute("SELECT * FROM uploads WHERE DATE(timeStamp) >= DATE('now', 'weekday 0', '-12 days')")
+    all_trending = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
     for p in all_trending:
         date = p["timestamp"]
         date = date[5:16]
@@ -215,7 +214,7 @@ def add_favourite(user_id, photo_id):
 def get_info(post_id):
     """Get all info of a post"""
 
-    post_info = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE id=:post_id",
+    post_info = db.execute("SELECT * FROM uploads WHERE id=:post_id",
                            post_id=post_id)[0]
 
     date = post_info["timestamp"]
