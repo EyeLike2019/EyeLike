@@ -188,8 +188,7 @@ def get_all_trending():
 def get_favourites(user_id):
     """Get all favourites of user"""
 
-    photo_id = db.execute(
-        "SELECT photo_id FROM favourites WHERE user_id = :user_id", user_id=user_id)
+    photo_id = db.execute("SELECT photo_id FROM favourites WHERE user_id = :user_id", user_id=user_id)
 
     return photo_id
 
