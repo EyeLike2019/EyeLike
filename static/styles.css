@@ -48,11 +48,17 @@ main td
 main #login {
     border-radius: 8px;
     padding: 125px;
+    padding-top: 50px;
     background-color: white;
     position: absolute;
     left: 50%; top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.logo {
+    margin-bottom: 20px;
+    font-size:60px;
 }
 
 #navigation {
