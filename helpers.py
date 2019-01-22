@@ -173,17 +173,17 @@ def get_all_uploads(user_id):
 
     return user_photos
 
+def get_all_trending():
+    """Get all the current trending photo's"""
 
-def get_all_photos():
-    """Get all photos in database"""
-
-    all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
-    for p in all_photos:
+    all_trending = db.execute("SELECT * FROM uploads WHERE DATE(timeStamp) >= DATE('now', 'weekday 0', '-12 days')")
+    for p in all_trending:
         date = p["timestamp"]
         date = date[5:16]
         p["timestamp"] = date
+    print(all_trending)
 
-    return all_photos
+    return all_trending
 
 
 def get_favourites(user_id):
