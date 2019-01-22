@@ -112,6 +112,12 @@ def all_photos(user_id):
 
     return user_photos
 
+def remove_photo(user_id, photo_id):
+    """Remove photo from user"""
+
+    db.execute("DELETE FROM uploads WHERE user_id = :user_id AND id = :photo_id",
+               user_id=user_id, photo_id=photo_id)
+
 
 def follow_user(user_id, follower_id):
     """Follow user"""

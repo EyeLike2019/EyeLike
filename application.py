@@ -366,6 +366,16 @@ def unfollow():
     unfollow_user(user_id, follower_id)
     return "Succes"
 
+@app.route("/remove")
+def remove():
+    """"Remove photo"""
+
+    user_id = request.args['user_id']
+    photo_id = request.args['photo_id']
+
+    remove_photo(user_id, photo_id)
+    return "Succes"
+
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
