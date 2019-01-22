@@ -1,6 +1,5 @@
 import csv
 import urllib.request
-import datetime
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
@@ -70,7 +69,7 @@ def register_user(username, password, email):
     db.execute("INSERT INTO users (username, hash, email) VALUES(:username, :password, :email)",
                username=username, password=pwd_context.hash(password), email=email)
 
-    return
+    return "Success"
 
 
 def random_upload():
@@ -86,14 +85,16 @@ def random_upload():
         date = random[0]["timestamp"]
         date = date[5:16]
         random[0]["timestamp"] = date
-        print(random)
         return random
+
 
 def update_score(change, photo_id):
     """Update post's score"""
 
     db.execute("UPDATE uploads SET score = score + :change WHERE id=:photo_id", change=change, photo_id=photo_id)
-    return
+
+    return "Success"
+
 
 def upload_photo(user_id, upload, description, username):
     """Upload image into database"""
@@ -101,69 +102,129 @@ def upload_photo(user_id, upload, description, username):
     db.execute("INSERT INTO uploads (user_id, upload, description, username) VALUES(:user_id, :upload, :description, :username)",
                user_id=user_id, upload=upload, description=description, username=username)
 
-    return
+    return "Success"
 
-def all_photos(user_id):
-    """Get all photo's of user"""
 
-    # query database for user's uploads
-    user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=user_id)
+def remove_photo(user_id, photo_id):
+    """Remove photo from user"""
 
-    return user_photos
+    db.execute("DELETE FROM uploads WHERE user_id = :user_id AND id = :photo_id",
+               user_id=user_id, photo_id=photo_id)
+
+    return "Success"
 
 def follow_user(user_id, follower_id):
     """Follow user"""
 
     db.execute("INSERT INTO followers (user_id, follower_id) VALUES(:user_id, :follower_id)",
                user_id=user_id, follower_id=follower_id)
-    return
+
+    return "Success"
+
 
 def unfollow_user(user_id, follower_id):
     """Unfollow user"""
 
-    db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id", user_id = user_id, follower_id = follower_id)
-    return
+    db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+               user_id=user_id, follower_id=follower_id)
+
+    return "Success"
+
 
 def is_following(user_id, follower_id):
-    follow = db.execute("SELECT follower_id, user_id FROM followers WHERE user_id = :user_id AND follower_id = :follower_id", user_id=user_id, follower_id=follower_id)
+    """Check if user is following other user"""
+
+    follow = db.execute("SELECT * FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+                        user_id=user_id, follower_id=follower_id)
+
     if len(follow) != 1:
-        print("Not following")
         return False
     else:
-        print("Already following")
         return True
+
 
 def get_followers(user_id):
     """Get all followers of user"""
 
-    # query database for user's uploads
     followers = db.execute("SELECT follower_id FROM followers WHERE user_id = :user_id", user_id=user_id)
 
     return followers
 
+
 def get_following(follower_id):
     """Get all following of user"""
 
-    # query database for user's uploads
     following = db.execute("SELECT user_id FROM followers WHERE follower_id = :follower_id", follower_id=follower_id)
 
     return following
 
+
 def get_all_uploads(user_id):
     """Get all uploads of user"""
 
-    # query database for user's uploads
-    user_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE user_id = :user_id", user_id=user_id)
+    user_photos = db.execute("SELECT * FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
+    # change timestamp to prevered format
     for p in user_photos:
         date = p["timestamp"]
         date = date[5:16]
         p["timestamp"] = date
+
     return user_photos
 
-def get_all_photos():
-    """Get all photos in database"""
+def get_all_trending():
+    """Get all the current trending photo's"""
 
+    all_trending = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
+    for p in all_trending:
+        date = p["timestamp"]
+        date = date[5:16]
+        p["timestamp"] = date
+    print(all_trending)
+
+    return all_trending
+
+
+def get_favourites(user_id):
+    """Get all favourites of user"""
+
+    photo_id = db.execute(
+        "SELECT photo_id FROM favourites WHERE user_id = :user_id", user_id=user_id)
+
+    return photo_id
+
+
+def remove_favourite(user_id, photo_id):
+    """Remove favourite from database"""
+
+    db.execute("DELETE FROM favourites WHERE user_id = :user_id AND photo_id = :photo_id",
+               user_id=user_id, photo_id=photo_id)
+
+    return "Success"
+
+
+def add_favourite(user_id, photo_id):
+    """Add favourite into database"""
+
+    db.execute("INSERT INTO favourites (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
+
+    return "Success"
+
+
+def get_info(post_id):
+    """Get all info of a post"""
+
+    post_info = db.execute("SELECT * FROM uploads WHERE id=:post_id",
+                           post_id=post_id)[0]
+
+    date = post_info["timestamp"]
+    date = date[5:16]
+    post_info["timestamp"] = date
+
+<<<<<<< HEAD
     all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
     return all_photos
 
+=======
+    return post_info
+>>>>>>> 55a880352db559c35e23ed84770ac70773044bfc

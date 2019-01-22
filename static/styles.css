@@ -48,11 +48,18 @@ main td
 main #login {
     border-radius: 8px;
     padding: 125px;
+    padding-top: 45px;
+    padding-bottom: 90px;
     background-color: white;
     position: absolute;
     left: 50%; top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.logo {
+    margin-bottom: 20px;
+    font-size:60px;
 }
 
 #navigation {
@@ -124,6 +131,16 @@ main #login {
     overflow:auto;
 }
 
+.img-responsive-home {
+    /*border: 0.5px solid lightgray;*/
+    object-fit: cover;
+    min-width:500px !important;
+    min-height:500px !important;
+    max-width: 750px !important;
+    min-widthL 750px !important;
+    /*border-radius: 8px;*/
+}
+
 .img-responsive {
     border: 0.5px solid lightgray;
     object-fit: cover;
@@ -142,6 +159,9 @@ main #login {
     left: 50%; top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    background-color: rgba(246,246,246,1);
+    padding-top:25px;
+    padding-bottom:25px;
 }
 
 .like_buttons {
@@ -167,4 +187,40 @@ main #login {
 
 .camera-button {
     margin-top:15px !important;
+}
+
+.photo_modal {
+    background-color: white;
+    border: 0px;
+}
+
+.col-5 img {
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.description-post {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    text-align: left;
+    padding-left: 25px;
+}
+
+.bottom-description {
+    position: relative;
+    top: -50%;
+    transform: translateY(50%);
+    -webkit-transform: translateY(50%);
+    text-align: left;
+    padding-left: 25px;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .img-responsive-home {
+        width: 500px;
+        height: 500px;
+    }
 }

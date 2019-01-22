@@ -43,37 +43,47 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def index():
-    random2 = random_upload()
+    """Show homepage/random page"""
 
-    if random2 == None:
+    # redirect to account-page if there are no pictures available
+    random_check = random_upload()
+    if random_check == None:
         print("No pictures")
         return redirect(url_for("account"))
+
+    # show random picture
     else:
         random = random_upload()[0]
         full_filename = os.path.join(app.config['UPLOAD_FOLDER'], random["upload"])
 
         return render_template("index.html", random=random, file=full_filename, photo_id=random["id"])
 
+
 @app.route("/timeline")
 @login_required
 def timeline():
+    """Show timeline of following accounts"""
 
     uploads = []
     followings_id = get_following(session["user_id"])
 
+    # get all uploads of following accounts
     for p in followings_id:
         user_uploads = get_all_uploads(p["user_id"])
         for u in user_uploads:
             uploads.append(u)
+
+    # sort uploads on timestamp
     uploads.sort(key=lambda d: d['timestamp'])
 
-    return render_template("timeline.html", uploads=uploads)
+    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
 
 
 @app.route('/upload', methods=['POST', 'GET'])
 @login_required
 def upload_file():
     """Upload a file"""
+
     if request.method == "POST":
         try:
             # save the file in upload-folder
@@ -83,7 +93,6 @@ def upload_file():
                 flash('Invalid file!')
                 return redirect(url_for("index"))
 
-
             f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
             file.save(f)
@@ -91,21 +100,25 @@ def upload_file():
                 flash("file size is to big, limit is 4mb")
                 os.remove(f)
                 return redirect(url_for("index"))
+
             # upload image into database
             upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
 
             flash('Upload successful')
             return redirect(url_for("index"))
+
         except Exception:
             flash("Please select photo you want to upload first!")
             return redirect(url_for("index"))
 
     else:
         # configure API
-        api = requests.get("https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21&query=clothes&count=28")
+        api = requests.get(
+            "https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=8f5cd8cd9e1c27d5b5c6d283c243726afcf1a7ad7602c1ee0f6a0702f5272a0f&query=clothes&count=28")
         url = json.loads(api.content)
 
         return render_template("upload.html", url=url, url2="&fit=fill&fill=blur&w=250&h=200&dpi=2")
+
 
 @app.route("/updatescore")
 def update():
@@ -126,10 +139,9 @@ def account():
     # get username
     username = get_username(session["user_id"])
 
-    photos = []
     followers = []
     following = []
-    user_photos = all_photos(session["user_id"])
+    user_photos = get_all_uploads(session["user_id"])
     followers_id = get_followers(session["user_id"])
     followings_id = get_following(session["user_id"])
 
@@ -144,15 +156,15 @@ def account():
         following.append(name)
 
     for p in user_photos:
-        full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
-        photos.append(full_filename)
+        p["upload"] = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
 
+    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following)
 
-    return render_template("account.html", name=username, photos=photos, followers=followers, following=following)
 
 @app.route("/profile/<username>")
 @login_required
 def profile(username):
+    """Show profile of other user"""
 
     # check if username exists
     if len(check_username(username)) != 1:
@@ -163,13 +175,14 @@ def profile(username):
     if username == get_username(session["user_id"]):
         return redirect(url_for("account"))
 
+    # declare variables
     name = username
     photos = []
     followers = []
     following = []
     uid = get_user_id(username)
     follower_id = session["user_id"]
-    user_photos = all_photos(uid)
+    user_photos = get_all_uploads(uid)
     followers_id = get_followers(uid)
     followings_id = get_following(uid)
 
@@ -188,14 +201,16 @@ def profile(username):
         name2 = get_username(j["user_id"])
         following.append(name2)
 
-
-    print(photos, uid, user_photos, followers)
     return render_template("profile.html", name=name, photos=photos, user_id=uid, follower_id=follower_id, followers=followers, following=following)
 
 
 @app.route("/search/<username>", methods=["GET", "POST"])
 def search(username):
     """Search for user"""
+
+    # check if @ need to be added
+    if username[0] != "@":
+        username = "@" + username
 
     # check if username exists
     if len(check_username(username)) != 1:
@@ -229,13 +244,16 @@ def login():
             flash("Must provide password!")
             return render_template("login.html")
 
+        elif request.form.get("username")[0] != "@":
+            username = "@" + request.form.get("username")
+
         # ensure username exists and password is correct
-        elif len(check_username(request.form.get("username"))) != 1 or not verify_password(request.form.get("username"), request.form.get("password")):
+        if len(check_username(username)) != 1 or not verify_password(username, request.form.get("password")):
             flash("Invalid username/password!")
             return render_template("login.html")
 
         # remember which user has logged in
-        session["user_id"] = get_user_id(request.form.get("username"))
+        session["user_id"] = get_user_id(username)
 
         # redirect user to home page
         return redirect(url_for("account"))
@@ -271,6 +289,10 @@ def register():
             flash("Must provide username!")
             return render_template("register.html")
 
+        elif request.form.get("username")[0] == "@":
+            flash("Username can't begin with this symbol!")
+            return render_template("register.html")
+
         # ensure password was submitted
         elif not request.form.get("password"):
             flash("Must provide password!")
@@ -302,10 +324,10 @@ def register():
             return render_template("register.html")
 
         # register user into database
-        register_user(request.form.get("username"), request.form.get("password"), request.form.get("email"))
+        register_user("@" + request.form.get("username"), request.form.get("password"), request.form.get("email"))
 
         # remember which user has logged in
-        session["user_id"] = get_user_id(request.form.get("username"))
+        session["user_id"] = get_user_id("@" + request.form.get("username"))
 
         # redirect user to home page
         return redirect(url_for("index"))
@@ -314,10 +336,13 @@ def register():
     else:
         return render_template("register.html")
 
+
 @app.route('/upload/<path:path>')
 def show(path):
     """Show image"""
+
     return send_from_directory('upload', path)
+
 
 @app.route("/follow")
 def follow():
@@ -329,6 +354,7 @@ def follow():
     follow_user(user_id, follower_id)
     return "Succes"
 
+
 @app.route("/already_following")
 def already_following():
     """"Check if user already follows"""
@@ -338,6 +364,7 @@ def already_following():
 
     return(str(is_following(user_id, follower_id)))
 
+
 @app.route("/unfollow")
 def unfollow():
     """"Unfollow user"""
@@ -346,13 +373,79 @@ def unfollow():
     follower_id = request.args['follower_id']
 
     unfollow_user(user_id, follower_id)
+
+    return "Succes"
+
+@app.route("/remove")
+def remove():
+    """"Remove photo"""
+
+    user_id = request.args['user_id']
+    photo_id = request.args['photo_id']
+
+    remove_photo(user_id, photo_id)
+
     return "Succes"
 
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
+
     trendingphotos = []
-    all_photos = get_all_photos()
-    for p in all_photos:
-        trendingphotos.append(p)
+    all_trending = get_all_trending()
+    for p in all_trending:
+        if p["score"] >= -5:
+            trendingphotos.append(p)
+
+    # sort uploads on timestamp
+    trendingphotos.sort(key=lambda d: d['timestamp'], reverse=True)
+
+    if len(trendingphotos) == 0:
+        flash("There aren't any trending pictures!")
+        return render_template("trending.html")
+
+
     return render_template("trending.html", trendingphotos=trendingphotos)
+
+@app.route("/removefavourite")
+def rm_favourite():
+    """"Remove photo from favourites"""
+
+    user_id = request.args['user_id']
+    photo_id = request.args['photo_id']
+
+    remove_favourite(user_id, photo_id)
+
+    return redirect(url_for("favourites"))
+
+@app.route("/addfavourite")
+@login_required
+def new_favourite():
+    """"Add photo to favourites"""
+
+    user_id = request.args['user_id']
+    photo_id = request.args['photo_id']
+
+    add_favourite(user_id, photo_id)
+    return "Succes"
+
+@app.route("/favourites")
+@login_required
+def favourites():
+    """Show favourites of user"""
+
+    favourites = []
+    post_id = get_favourites(session["user_id"])
+
+    if len(post_id) == 0:
+        flash("You have no favourite posts!")
+        return render_template("favourites.html")
+
+    # get all uploads of following accounts
+    for p in post_id:
+        favourites.append(get_info(p["photo_id"]))
+    print(favourites)
+    # sort uploads on timestamp
+    favourites.sort(key=lambda d: d['timestamp'])
+
+    return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])

@@ -22,8 +22,46 @@
     <div class="row imagetiles">
 
             {% for upload in photos %}
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                    <img src={{ upload }} class="img-responsive">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal">
+                        <label for="modal">
+                          <label id="timestamp">{{ upload.timestamp }} </label>
+                          <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+                          <img src={{ upload.upload }} class="img-responsive">
+                          <label id="discription">{{ upload.description }} </label>
+                        </label>
+                    </button>
+
+                    <div class="modal fade" id="photomodal" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <div class="row">
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-8"><h4 class="modal-title" id="username">{{ upload.username }} </h4></div>
+                              <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button></div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-8"><h5 class="modal-title" id="timestamp">{{ upload.timestamp }}</h5></div>
+                              <div class="col-sm-2">
+                                <h5>{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></h5>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-body">
+                            <p><img src={{ upload.upload }}></p>
+                            <p>{{ upload.description }}</p>
+                          </div>
+                          <div class="modal-footer">
+                              <button id="remove" onclick="removeButtonClicked({{ upload.user_id }}, {{ upload.id }})" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
             {% endfor %}
 

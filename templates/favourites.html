@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Timeline
+    Favourites
 {% endblock %}
 
 {% block main %}
-  {% for post in uploads %}
+  {% for post in favourites %}
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal">
             <label for="modal">
@@ -42,7 +42,7 @@
                 <p>{{ post.description }}</p>
               </div>
               <div class="modal-footer">
-                <button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ post.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-heart"></span></button>
+                <button id="remove_favourite" onclick="removeFavouriteButtonClicked({{ user_id }}, {{ post.id }})" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
           </div>
