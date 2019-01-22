@@ -139,10 +139,9 @@ def account():
     # get username
     username = get_username(session["user_id"])
 
-    photos = []
     followers = []
     following = []
-    user_photos = all_photos(session["user_id"])
+    user_photos = get_all_uploads(session["user_id"])
     followers_id = get_followers(session["user_id"])
     followings_id = get_following(session["user_id"])
 
@@ -157,10 +156,9 @@ def account():
         following.append(name)
 
     for p in user_photos:
-        full_filename = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
-        photos.append(full_filename)
+        p["upload"] = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
 
-    return render_template("account.html", name=username, photos=photos, followers=followers, following=following)
+    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following)
 
 
 @app.route("/profile/<username>")

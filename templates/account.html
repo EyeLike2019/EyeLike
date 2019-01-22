@@ -23,8 +23,8 @@
 
             {% for upload in photos %}
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                    <img src={{ upload }} class="img-responsive">
-                    <button id="remove" onclick="removeButtonClicked()" class="btn btn-dark">Remove <span class="glyphicon glyphicon-remove"></span></button>
+                    <img src={{ upload.upload }} class="img-responsive">
+                    <button id="remove" onclick="removeButtonClicked({{ upload.user_id }}, {{ upload.id }})" class="btn btn-dark">Remove <span class="glyphicon glyphicon-remove"></span></button>
                 </div>
             {% endfor %}
 

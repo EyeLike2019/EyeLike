@@ -105,13 +105,6 @@ def upload_photo(user_id, upload, description, username):
     return
 
 
-def all_photos(user_id):
-    """Get all photo's of user"""
-
-    user_photos = db.execute("SELECT upload FROM uploads WHERE user_id = :user_id", user_id=user_id)
-
-    return user_photos
-
 def remove_photo(user_id, photo_id):
     """Remove photo from user"""
 
