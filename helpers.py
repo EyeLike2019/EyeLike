@@ -166,3 +166,4 @@ def get_all_photos():
 
     all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
     return all_photos
+
