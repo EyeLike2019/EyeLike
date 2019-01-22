@@ -176,4 +176,9 @@ def get_all_photos():
     """Get all photos in database"""
 
     all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
+    for p in all_photos:
+        date = p["timestamp"]
+        date = date[5:16]
+        p["timestamp"] = date
+
     return all_photos
