@@ -126,10 +126,9 @@ main #login {
 
 .img-responsive {
     border: 0.5px solid lightgray;
-    /*object-fit: cover;*/
-    width:600px !important;
-    height:30em !important;
-    /*max-width:400px;*/
+    object-fit: cover;
+    width:250px !important;
+    height:250px !important;
     border-radius: 8px;
 }
 
@@ -148,9 +147,8 @@ main #login {
 .like_buttons {
     margin-bottom:10px;
     display: block;
-    margin-left: 1px;
-    /*margin-right: auto;*/
-    margin-top:200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .float-button {

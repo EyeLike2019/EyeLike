@@ -5,24 +5,18 @@
 {% endblock %}
 
 {% block main %}
-<div class="col-3">
-    <div class="like-buttons">
-        <button id="like" onclick="likeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open"></span></b></button>
-    </div>
-</div>
-<div class="col-2" id="random_image">
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6" id="random_image">
     <label id="username">{{ random.username }} </label>
     <label id="timestamp">{{ random.timestamp }} </label>
     <label id="score">{{ random.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
     <img src={{ file }} class="img-responsive" id="random_file">
     <label id="discription">{{ random.description }} </label>
 </div>
-<div class="col-sm-2"></div>
 
-<!--<div class="like_buttons">-->
-<!--    <button id="like" onclick="likeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open"></span></b></button>-->
-<!--    <button id="skip" onclick="skipButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-fast-forward"></span></b></button>-->
-<!--    <button id="dislike" onclick="dislikeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-close"></span></b></button>-->
-<!--</div>-->
+<div class="like_buttons">
+    <button id="like" onclick="likeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open"></span></b></button>
+    <button id="skip" onclick="skipButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-fast-forward"></span></b></button>
+    <button id="dislike" onclick="dislikeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-close"></span></b></button>
+</div>
 
 {% endblock %}
