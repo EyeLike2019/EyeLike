@@ -208,6 +208,10 @@ def profile(username):
 def search(username):
     """Search for user"""
 
+    # check if @ need to be added
+    if username[0] != "@":
+        username = "@" + username
+
     # check if username exists
     if len(check_username(username)) != 1:
         flash("Username doesn't exist")
@@ -240,13 +244,16 @@ def login():
             flash("Must provide password!")
             return render_template("login.html")
 
+        elif request.form.get("username")[0] != "@":
+            username = "@" + request.form.get("username")
+
         # ensure username exists and password is correct
-        elif len(check_username(request.form.get("username"))) != 1 or not verify_password(request.form.get("username"), request.form.get("password")):
+        if len(check_username(username)) != 1 or not verify_password(username, request.form.get("password")):
             flash("Invalid username/password!")
             return render_template("login.html")
 
         # remember which user has logged in
-        session["user_id"] = get_user_id(request.form.get("username"))
+        session["user_id"] = get_user_id(username)
 
         # redirect user to home page
         return redirect(url_for("account"))
@@ -282,6 +289,10 @@ def register():
             flash("Must provide username!")
             return render_template("register.html")
 
+        elif request.form.get("username")[0] == "@":
+            flash("Username can't begin with this symbol!")
+            return render_template("register.html")
+
         # ensure password was submitted
         elif not request.form.get("password"):
             flash("Must provide password!")
@@ -313,10 +324,10 @@ def register():
             return render_template("register.html")
 
         # register user into database
-        register_user(request.form.get("username"), request.form.get("password"), request.form.get("email"))
+        register_user("@" + request.form.get("username"), request.form.get("password"), request.form.get("email"))
 
         # remember which user has logged in
-        session["user_id"] = get_user_id(request.form.get("username"))
+        session["user_id"] = get_user_id("@" + request.form.get("username"))
 
         # redirect user to home page
         return redirect(url_for("index"))

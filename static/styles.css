@@ -48,7 +48,8 @@ main td
 main #login {
     border-radius: 8px;
     padding: 125px;
-    padding-top: 50px;
+    padding-top: 45px;
+    padding-bottom: 90px;
     background-color: white;
     position: absolute;
     left: 50%; top: 50%;
