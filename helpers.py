@@ -172,17 +172,17 @@ def get_all_uploads(user_id):
 
     return user_photos
 
-def get_all_trending():
-    """Get all the current trending photo's"""
+def get_all_recents():
+    """Get all the photo's posted in the past week"""
 
-    all_trending = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
-    for p in all_trending:
+    all_recents = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
+    for p in all_recents:
         date = p["timestamp"]
         date = date[5:16]
         p["timestamp"] = date
-    print(all_trending)
+    print(all_recents)
 
-    return all_trending
+    return all_recents
 
 
 def get_favourites(user_id):
@@ -192,20 +192,18 @@ def get_favourites(user_id):
 
     return photo_id
 
+def add_favourite(user_id, photo_id):
+    """Add favourite into database"""
+
+    db.execute("INSERT INTO favourites (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
+
+    return "Success"
 
 def remove_favourite(user_id, photo_id):
     """Remove favourite from database"""
 
     db.execute("DELETE FROM favourites WHERE user_id = :user_id AND photo_id = :photo_id",
                user_id=user_id, photo_id=photo_id)
-
-    return "Success"
-
-
-def add_favourite(user_id, photo_id):
-    """Add favourite into database"""
-
-    db.execute("INSERT INTO favourites (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
 
     return "Success"
 
