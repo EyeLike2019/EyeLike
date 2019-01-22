@@ -41,6 +41,9 @@
                 <p><img src="/upload/{{ post.upload }}"></p>
                 <p>{{ post.description }}</p>
               </div>
+              <div class="modal-footer">
+                <button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ post.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-heart"></span></button>
+              </div>
             </div>
           </div>
         </div>

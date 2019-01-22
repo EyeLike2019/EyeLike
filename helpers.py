@@ -69,7 +69,7 @@ def register_user(username, password, email):
     db.execute("INSERT INTO users (username, hash, email) VALUES(:username, :password, :email)",
                username=username, password=pwd_context.hash(password), email=email)
 
-    return
+    return "Success"
 
 
 def random_upload():
@@ -93,7 +93,7 @@ def update_score(change, photo_id):
 
     db.execute("UPDATE uploads SET score = score + :change WHERE id=:photo_id", change=change, photo_id=photo_id)
 
-    return
+    return "Success"
 
 
 def upload_photo(user_id, upload, description, username):
@@ -102,7 +102,7 @@ def upload_photo(user_id, upload, description, username):
     db.execute("INSERT INTO uploads (user_id, upload, description, username) VALUES(:user_id, :upload, :description, :username)",
                user_id=user_id, upload=upload, description=description, username=username)
 
-    return
+    return "Success"
 
 
 def remove_photo(user_id, photo_id):
@@ -111,6 +111,7 @@ def remove_photo(user_id, photo_id):
     db.execute("DELETE FROM uploads WHERE user_id = :user_id AND id = :photo_id",
                user_id=user_id, photo_id=photo_id)
 
+    return "Success"
 
 def follow_user(user_id, follower_id):
     """Follow user"""
@@ -118,7 +119,7 @@ def follow_user(user_id, follower_id):
     db.execute("INSERT INTO followers (user_id, follower_id) VALUES(:user_id, :follower_id)",
                user_id=user_id, follower_id=follower_id)
 
-    return
+    return "Success"
 
 
 def unfollow_user(user_id, follower_id):
@@ -127,7 +128,7 @@ def unfollow_user(user_id, follower_id):
     db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
                user_id=user_id, follower_id=follower_id)
 
-    return
+    return "Success"
 
 
 def is_following(user_id, follower_id):
@@ -172,6 +173,7 @@ def get_all_uploads(user_id):
 
     return user_photos
 
+
 def get_all_photos():
     """Get all photos in database"""
 
@@ -182,3 +184,42 @@ def get_all_photos():
         p["timestamp"] = date
 
     return all_photos
+
+
+def get_favourites(user_id):
+    """Get all favourites of user"""
+
+    photo_id = db.execute(
+        "SELECT photo_id FROM favourites WHERE user_id = :user_id", user_id=user_id)
+
+    return photo_id
+
+
+def remove_favourite(user_id, photo_id):
+    """Remove favourite from database"""
+
+    db.execute("DELETE FROM favourites WHERE user_id = :user_id AND photo_id = :photo_id",
+               user_id=user_id, photo_id=photo_id)
+
+    return "Success"
+
+
+def add_favourite(user_id, photo_id):
+    """Add favourite into database"""
+
+    db.execute("INSERT INTO favourites (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
+
+    return "Success"
+
+
+def get_info(post_id):
+    """Get all info of a post"""
+
+    post_info = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE id=:post_id",
+                           post_id=post_id)[0]
+
+    date = post_info["timestamp"]
+    date = date[5:16]
+    post_info["timestamp"] = date
+
+    return post_info

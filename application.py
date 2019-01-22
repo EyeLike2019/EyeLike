@@ -76,7 +76,7 @@ def timeline():
     # sort uploads on timestamp
     uploads.sort(key=lambda d: d['timestamp'])
 
-    return render_template("timeline.html", uploads=uploads)
+    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
 
 
 @app.route('/upload', methods=['POST', 'GET'])
@@ -362,6 +362,7 @@ def unfollow():
     follower_id = request.args['follower_id']
 
     unfollow_user(user_id, follower_id)
+
     return "Succes"
 
 @app.route("/remove")
@@ -372,13 +373,59 @@ def remove():
     photo_id = request.args['photo_id']
 
     remove_photo(user_id, photo_id)
+
     return "Succes"
 
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
+
     trendingphotos = []
     all_photos = get_all_photos()
     for p in all_photos:
         trendingphotos.append(p)
+
     return render_template("trending.html", trendingphotos=trendingphotos)
+
+@app.route("/removefavourite")
+def rm_favourite():
+    """"Remove photo from favourites"""
+
+    user_id = request.args['user_id']
+    photo_id = request.args['photo_id']
+
+    remove_favourite(user_id, photo_id)
+
+    return redirect(url_for("favourites"))
+
+@app.route("/addfavourite")
+@login_required
+def new_favourite():
+    """"Add photo to favourites"""
+
+    user_id = request.args['user_id']
+    photo_id = request.args['photo_id']
+
+    add_favourite(user_id, photo_id)
+    return "Succes"
+
+@app.route("/favourites")
+@login_required
+def favourites():
+    """Show favourites of user"""
+
+    favourites = []
+    post_id = get_favourites(session["user_id"])
+
+    if len(post_id) == 0:
+        flash("You have no favourite posts!")
+        return render_template("favourites.html")
+
+    # get all uploads of following accounts
+    for p in post_id:
+        favourites.append(get_info(p["photo_id"]))
+    print(favourites)
+    # sort uploads on timestamp
+    favourites.sort(key=lambda d: d['timestamp'])
+
+    return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
