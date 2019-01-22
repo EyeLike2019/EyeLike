@@ -394,7 +394,13 @@ def trending():
     trendingphotos = []
     all_photos = get_all_photos()
     for p in all_photos:
-        trendingphotos.append(p)
+        if p["score"] >= 5:
+            trendingphotos.append(p)
+
+    if len(trendingphotos) == 0:
+        flash("There aren't any trending pictures!")
+        return render_template("trending.html")
+
 
     return render_template("trending.html", trendingphotos=trendingphotos)
 
