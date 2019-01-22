@@ -394,8 +394,11 @@ def trending():
     trendingphotos = []
     all_photos = get_all_photos()
     for p in all_photos:
-        if p["score"] >= 5:
+        if p["score"] >= -5:
             trendingphotos.append(p)
+
+    # sort uploads on timestamp
+    trendingphotos.sort(key=lambda d: d['timestamp'], reverse=True)
 
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
