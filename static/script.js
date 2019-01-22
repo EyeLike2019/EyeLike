@@ -81,13 +81,3 @@ function removeButtonClicked(user_id, photo_id) {
 
     });
 }
-
-
-
-$.getJSON(
-    "https://api.unsplash.com/photos/random/?query=fashion&client_id=8f5cd8cd9e1c27d5b5c6d283c243726afcf1a7ad7602c1ee0f6a0702f5272a0f",
-    function(data) {
-        var pic = data.links.html
-
-    $(".api").attr("src", pic)
-    });

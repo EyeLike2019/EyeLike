@@ -182,7 +182,7 @@ def profile(username):
     following = []
     uid = get_user_id(username)
     follower_id = session["user_id"]
-    user_photos = all_photos(uid)
+    user_photos = get_all_uploads(uid)
     followers_id = get_followers(uid)
     followings_id = get_following(uid)
 
