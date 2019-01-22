@@ -392,8 +392,8 @@ def trending():
     """Show trending pictures"""
 
     trendingphotos = []
-    all_photos = get_all_photos()
-    for p in all_photos:
+    all_trending = get_all_trending()
+    for p in all_trending:
         if p["score"] >= -5:
             trendingphotos.append(p)
 
