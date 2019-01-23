@@ -377,6 +377,12 @@ def show(path):
 
     return send_from_directory('upload', path)
 
+@app.route('/uploadprofilepic/<path:path>')
+def show_profile(path):
+    """Show image"""
+
+    return send_from_directory('uploadprofilepic', path)
+
 @app.route("/follow")
 def follow():
     """"Follow user"""
