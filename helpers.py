@@ -240,3 +240,6 @@ def get_profile_pic(user_id):
     profile_pic = db.execute("SELECT * FROM profilepictures WHERE user_id=:user_id", user_id=user_id)
 
     return profile_pic
+    all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
+    return all_photos
+

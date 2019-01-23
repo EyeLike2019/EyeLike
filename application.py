@@ -108,9 +108,11 @@ def upload_file():
                 os.remove(f)
                 return redirect(url_for("index"))
 
+            description = request.form.get("description")
+            print("test",description)
             # upload image into database
-            upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
-
+            upload_photo(session["user_id"], filename, description, get_username(session["user_id"]))
+            print(request.args["userInput"])
             flash('Upload successful')
             return redirect(url_for("index"))
 
@@ -139,6 +141,7 @@ def update():
 
 
 @app.route("/account")
+
 @login_required
 def account():
     """Show account"""
