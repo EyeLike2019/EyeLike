@@ -233,3 +233,10 @@ def update_profile_pic(user_id, file):
         db.execute("INSERT INTO profilepictures (user_id, profile_picture) VALUES(:user_id, :file)", user_id=user_id, file=file)
 
     return "Success"
+
+def get_profile_pic(user_id):
+    """Get profile picture from user"""
+
+    profile_pic = db.execute("SELECT * FROM profilepictures WHERE user_id=:user_id", user_id=user_id)
+
+    return profile_pic

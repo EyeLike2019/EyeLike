@@ -502,27 +502,27 @@ def profile_picture():
     """Update user's profile picture"""
 
     try:
-        # save the file in upload-folder
+        # save the file in profile-folder
         file = request.files['file']
         filename = str(session["user_id"]) + "_" + file.filename
         if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
             flash('Invalid file!')
-            return redirect(url_for("index"))
+            return redirect(url_for("account"))
 
-        f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        f = os.path.join(app.config['PROFILE_FOLDER'], filename)
 
         file.save(f)
         if os.path.getsize(f) > 4194304:
             flash("file size is to big, limit is 4mb")
             os.remove(f)
-            return redirect(url_for("index"))
+            return redirect(url_for("account"))
 
         # upload image into database
         update_profile_pic(session["user_id"], filename)
 
         flash('Upload successful')
-        return redirect(url_for("index"))
+        return redirect(url_for("account"))
 
     except Exception:
         flash("Please select photo you want to upload first!")
-        return redirect(url_for("index"))
+        return redirect(url_for("account"))
