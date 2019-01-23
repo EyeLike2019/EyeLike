@@ -134,7 +134,7 @@ def unfollow_user(user_id, follower_id):
 def is_following(user_id, follower_id):
     """Check if user is following other user"""
 
-    follow = db.execute("SELECT follower_id, user_id FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+    follow = db.execute("SELECT * FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
                         user_id=user_id, follower_id=follower_id)
 
     if len(follow) != 1:
@@ -162,8 +162,7 @@ def get_following(follower_id):
 def get_all_uploads(user_id):
     """Get all uploads of user"""
 
-    user_photos = db.execute(
-        "SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE user_id = :user_id", user_id=user_id)
+    user_photos = db.execute("SELECT * FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
     # change timestamp to prevered format
     for p in user_photos:
@@ -173,27 +172,32 @@ def get_all_uploads(user_id):
 
     return user_photos
 
+def get_all_recents():
+    """Get all the photo's posted in the past week"""
 
-def get_all_photos():
-    """Get all photos in database"""
-
-    all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
-    for p in all_photos:
+    all_recents = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
+    for p in all_recents:
         date = p["timestamp"]
         date = date[5:16]
         p["timestamp"] = date
+    print(all_recents)
 
-    return all_photos
+    return all_recents
 
 
 def get_favourites(user_id):
     """Get all favourites of user"""
 
-    photo_id = db.execute(
-        "SELECT photo_id FROM favourites WHERE user_id = :user_id", user_id=user_id)
+    photo_id = db.execute("SELECT photo_id FROM favourites WHERE user_id = :user_id", user_id=user_id)
 
     return photo_id
 
+def add_favourite(user_id, photo_id):
+    """Add favourite into database"""
+
+    db.execute("INSERT INTO favourites (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
+
+    return "Success"
 
 def remove_favourite(user_id, photo_id):
     """Remove favourite from database"""
@@ -204,18 +208,10 @@ def remove_favourite(user_id, photo_id):
     return "Success"
 
 
-def add_favourite(user_id, photo_id):
-    """Add favourite into database"""
-
-    db.execute("INSERT INTO favourites (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
-
-    return "Success"
-
-
 def get_info(post_id):
     """Get all info of a post"""
 
-    post_info = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads WHERE id=:post_id",
+    post_info = db.execute("SELECT * FROM uploads WHERE id=:post_id",
                            post_id=post_id)[0]
 
     date = post_info["timestamp"]

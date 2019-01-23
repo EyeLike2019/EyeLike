@@ -15,28 +15,38 @@ Groep 20:
 -   Naar de registreerpagina (GET) → register
     
 -   Een account registreren (POST) → register
+
+-   Naar de eigen accountpagina (GET) → account
     
--   Naar de verkennenpagina (GET) → explore
-    
--   Foto’s liken, disliken of skippen (POST)
-    
+-   Het uploaden van een foto/gif (POST) → upload
+
 -   Een account zoeken (GET) → search
+
+-   Naar de pagina van een gebruiker (GET) → profile
     
--   Een account volgen (POST) → follow
-    
--   Naar een accountpagina (GET) → account
-    
+-   Een account (ont)volgen (POST) → (un)follow
+
 -   Bekijken wat een account volgt (GET) → following
     
 -   Bekijken door wie een account gevolgd wordt (GET) → followers
     
+-   Naar de tijdlijn (GET) → timeline
+
+-   Naar de verkennenpagina (GET) → explore
+    
+-   Foto’s (dis)liken (POST) → (dis)like
+
+-   Foto’s skippen (POST) → skip
+
+-   Foto's verwijderen (POST) → remove
+
 -   Naar de trendingpagina (GET) → trending
 
--   Naar de tijdlijn (GET) → timeline
-    
--   Het uploaden van een foto/gif (POST) → upload
-    
--   Naar hun eigen pagina → account
+-   Foto's aan favorieten toevoegen (POST) → favourite
+
+-   Naar de pagina met favoriete berichten (GET) → favourites
+
+-   Foto's uit favoriteten verwijderen (POST) → remove favourite
 
 
 ## Schetsen
@@ -69,19 +79,28 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
     Controleert of het gegeven wachtwoord correct is.
     
 -   register_user(username, password, email)  
-    Registreert gebruiker in de database
+    Registreert gebruiker in de database.
     
 -   random_upload()  
     Selecteert een random foto voor de verkenner-pagina.
     
+-   update_score(change, photo_id) 
+    Verandert de score van een foto in de database.
+    
 -   upload_photo(user_id, upload, description, username)  
     Uploadt de gegevens van een foto in de database.
     
--   all_photos(user_id)  
-    Haalt alle nodige informatie, zoals de gebruikersnaam en de beschrijving, op van alle foto's van een gebruiker op in de database voor het laten zien van de post.
+-   remove_photo(user_id, photo_id) 
+    Verwijdert de foto die een gebruiker geplaatst heeft uit de database. 
     
--   get_all_uploads(user_id)  
-    Haalt alle nodige informatie op van de uploads van degenen die de gebruiker volgt voor de tijdlijn.
+-   follow_user(user_id, follower_id)  
+    Voegt een volger toe in de database. 
+    
+-   unfollow_user(user_id, follower_id)  
+    Verwijdert een volger uit de database.
+
+-   is_following(user_id, follower_id)  
+    Controleert of de gebruiker het desbetreffende account volgt, zodat er een mogelijkheid gecreëerd wordt om te ontvolgen.
     
 -   get_followers(user_id)  
     Vraagt de volgers op van een account voor op de profielpagina.
@@ -89,14 +108,24 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
 -   get_following(follower_id)  
     Vraagt de accounts op die iemand volgt voor op de profielpagina.
     
--   follow_user(user_id, follower_id)  
-    Voegt een volger toe in de database. 
+-   get_all_uploads(user_id)  
+    Haalt alle nodige informatie op van de uploads van degenen die de gebruiker volgt voor de tijdlijn.
     
--   unfollow_user(user_id, follower_id)  
-    Verwijdert een volger uit de database.
+-   get_all_trending()
+    Haalt foto's op uit de database die de afgelopen week geplaatst zijn.
     
--   is_following(user_id, follower_id)  
-    Controleert of de gebruiker het desbetreffende account volgt, zodat de mogelijkheid om te volgen verandert naar een                   mogelijkheid om te ontvolgen.
+-   get_favourites(user_id)
+    Haalt foto's op uit de database die door de gebruiker als favoriet zijn gemarkeerd. 
+    
+-   add_favourite(user_id)
+    Voegt een favoriet van een gebruiker toe aan de database. 
+    
+-   remove_favourite(user_id, photo_id)
+    Verwijdert een favoriet van een gebruiker uit de database.
+    
+-   get_info(post_id)  
+    Haalt alle nodige informatie op van een foto's uit de database voor het laten zien van de post.
+    
 
 ## Plugins en frameworks
 -   Bootstrap (https://getbootstrap.com)

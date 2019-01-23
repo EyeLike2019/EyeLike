@@ -392,9 +392,20 @@ def trending():
     """Show trending pictures"""
 
     trendingphotos = []
-    all_photos = get_all_photos()
-    for p in all_photos:
-        trendingphotos.append(p)
+    all_recents = get_all_recents()
+
+    # check if the score of the photo is high enough
+    for p in all_recents:
+        if p["score"] >= 2:
+            trendingphotos.append(p)
+
+    # sort uploads on timestamp
+    trendingphotos.sort(key=lambda d: d['timestamp'], reverse=True)
+
+    if len(trendingphotos) == 0:
+        flash("There aren't any trending pictures!")
+        return render_template("trending.html")
+
 
     return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
 
