@@ -117,7 +117,7 @@ def upload_file():
             return redirect(url_for("index"))
 
         except Exception:
-            flash("Please select photo you want to upload first!")
+            flash("Upload successful")
             return redirect(url_for("index"))
 
     else:
