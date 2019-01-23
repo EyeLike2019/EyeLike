@@ -101,9 +101,11 @@ def upload_file():
                 os.remove(f)
                 return redirect(url_for("index"))
 
+            description = request.form.get("description")
+            print("test",description)
             # upload image into database
-            upload_photo(session["user_id"], filename, "test", get_username(session["user_id"]))
-
+            upload_photo(session["user_id"], filename, description, get_username(session["user_id"]))
+            print(request.args["userInput"])
             flash('Upload successful')
             return redirect(url_for("index"))
 
@@ -132,6 +134,7 @@ def update():
 
 
 @app.route("/account")
+
 @login_required
 def account():
     """Show account"""
@@ -451,3 +454,13 @@ def favourites():
     favourites.sort(key=lambda d: d['timestamp'])
 
     return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
+
+
+import cgi, cgitb
+# Create instance of FieldStorage
+form = cgi.FieldStorage()
+# Get data from fields
+if form.getvalue('textcontent'):
+   text_content = form.getvalue('textcontent')
+else:
+   text_content = "Not entered"

@@ -121,3 +121,22 @@ function favouriteButtonClicked(user_id, photo_id) {
 
     });
 }
+
+function getDiscription() {
+    var userInput = document.getElementById('userInput').value;
+    console.log(userInput);
+    $.ajax({
+        url: '/upload',
+        data: {"userInput": userInput},
+
+    success: function(response) {
+        console.log(response)
+        console.log("succes")
+
+      },
+      error: function(error) {
+				console.log("Something went wrong!")
+				console.log(error)
+      }
+    });
+}
