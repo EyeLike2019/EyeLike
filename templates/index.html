@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block main %}
+<div class="container-title" id="explore-title">
+    <h1><b>Explore</b></h1>
+</div>
 <div id="random_image">
     <div class="description-post">
         <label id="username">{{ random.username }} </label>
@@ -15,12 +18,12 @@
     <div class="bottom-description">
         <label id="description">{{ random.description }} </label>
     </div>
-</div>
-
-<div class="like_buttons">
+    <div class="like_buttons">
     <button id="like" onclick="likeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open"></span></b></button>
     <button id="skip" onclick="skipButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-fast-forward"></span></b></button>
     <button id="dislike" onclick="dislikeButtonClicked({{ photo_id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-close"></span></b></button>
 </div>
+</div>
+
 
 {% endblock %}

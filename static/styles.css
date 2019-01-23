@@ -134,10 +134,10 @@ main #login {
 .img-responsive-home {
     /*border: 0.5px solid lightgray;*/
     object-fit: cover;
-    min-width:400px !important;
-    min-height:400px !important;
+    min-width: 400px !important;
+    min-height:350px !important;
     max-width: 650px !important;
-    max-height: 650px !important;
+    max-height: 450px !important;
     /*border-radius: 8px;*/
 }
 
@@ -154,6 +154,7 @@ main #login {
 }
 
 #random_image {
+    margin-top:50px;
     border-radius: 8px;
     position: absolute;
     left: 50%; top: 50%;
@@ -165,7 +166,8 @@ main #login {
 }
 
 .like_buttons {
-    margin-bottom:10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -223,4 +225,70 @@ main #login {
         width: 400px;
         height: 400px;
     }
+
+    .btn {
+        width: 0px;
+        max-width:120px !important;
+    }
+
+    #random_image {
+        margin-top:-10px;
+    }
+
+    #explore-title h1 {
+        visibility: hidden;
+    }
+}
+
+.button-images {
+    margin-top:50px;
+}
+
+.button-images button {
+  cursor: pointer;
+  width: 100%;
+  display: block;
+}
+
+.button-images img {
+    object-fit: cover;
+    min-width:400px !important;
+    min-height:400px !important;
+    max-width: 650px !important;
+    max-height: 650px !important;
+    border-radius: 0;
+}
+
+.timeline-description {
+    text-align: left;
+    padding-left: 25px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.timeline-container {
+    background-color: rgba(246,246,246,1);
+    border-radius: 8px;
+    padding-top:25px;
+    padding-bottom:25px;
+}
+
+.timeline-bottom {
+    text-align: left;
+    padding-left: 25px;
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+    -webkit-transform: translateY(50%);
+}
+
+#score {
+    float:right;
+    padding-right: 25px
+}
+
+#explore-title h1 {
+    margin-top: 5px !important;
 }
