@@ -134,10 +134,10 @@ main #login {
 .img-responsive-home {
     /*border: 0.5px solid lightgray;*/
     object-fit: cover;
-    min-width:500px !important;
-    min-height:500px !important;
-    max-width: 750px !important;
-    min-widthL 750px !important;
+    min-width:400px !important;
+    min-height:400px !important;
+    max-width: 650px !important;
+    max-height: 650px !important;
     /*border-radius: 8px;*/
 }
 
@@ -220,7 +220,7 @@ main #login {
 @media only screen and (max-width: 800px) {
 
     .img-responsive-home {
-        width: 500px;
-        height: 500px;
+        width: 400px;
+        height: 400px;
     }
 }
