@@ -407,7 +407,7 @@ def trending():
         return render_template("trending.html")
 
 
-    return render_template("trending.html", trendingphotos=trendingphotos)
+    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
 
 @app.route("/removefavourite")
 def rm_favourite():
