@@ -96,6 +96,10 @@ def upload_file():
             # save the file in upload-folder
             file = request.files['file']
             filename = str(session["user_id"]) + "_" + file.filename
+
+            # change file type to lowercase
+            filename = filename[:-3] + filename[-3:].lower()
+
             if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
                 flash('Invalid file!')
                 return redirect(url_for("index"))
