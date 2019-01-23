@@ -85,6 +85,7 @@
 </script>
 <div id="profile_wrapper">
     <div id="user">
+        <img src="{{ profile_pic }}" class="img-responsive">
         <h1><b>{{ name }}</b></h1>
         <button id="follow" onclick="followButtonClicked()" class="btn btn-dark"><b>Follow</b></button>
         <p><b>Followers:</b></p>
@@ -102,7 +103,7 @@
 
             {% for upload in photos %}
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                    <img src="/{{ upload }}" class="img-responsive">
+                    <img src="/upload/{{ upload.upload }}" class="img-responsive">
                 </div>
             {% endfor %}
 

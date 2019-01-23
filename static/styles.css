@@ -150,6 +150,7 @@ main #login {
 
 #profile_wrapper {
     overflow:auto;
+    margin-left:15px;
 }
 
 .img-responsive-home {
@@ -168,6 +169,13 @@ main #login {
     width:250px !important;
     height:250px !important;
     border-radius: 8px;
+}
+
+.profile-picture {
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 
 .imagetiles {
@@ -314,3 +322,9 @@ main #login {
     margin-top: 5px !important;
 }
 
+#close-pic {
+    position: fixed;
+    right:40px;
+    background-color: white;
+    border:0px;
+}

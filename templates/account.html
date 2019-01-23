@@ -6,76 +6,105 @@
 
 {% block main %}
 <div id="profile_wrapper">
-    <div id="user">
-      <img src="{{ profile_pic }}" class="img-responsive">
-        <h1><b>{{ name }}</b></h1>
-        <p><b>Followers:</b></p>
-        {% for follower in followers %}
-             <p>{{ follower }}</p>
-        {% endfor %}
+  <div id="user">
+    <img src="{{ profile_pic }}" class="profile-picture" data-toggle="modal" data-target="#photomodal_profile">
 
-        <p><b>Following:</b></p>
-        {% for a in following %}
-             <p>{{ a }}</p>
-        {% endfor %}
-    </div>
-    <div class="container" id="collage">
-    <div class="row imagetiles">
+    <h1><b>{{ name }}</b></h1>
+    <p><b>Followers:</b></p>
+    {% for follower in followers %}
+      <p>{{ follower }}</p>
+    {% endfor %}
 
-            {% for upload in photos %}
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
-                        <label for="modal">
-                          <label id="timestamp">{{ upload.timestamp }} </label>
-                          <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
-                          <img src={{ upload.upload }} class="img-responsive">
-                          <label id="discription">{{ upload.description }} </label>
-                        </label>
-                    </button>
+    <p><b>Following:</b></p>
+    {% for a in following %}
+      <p>{{ a }}</p>
+    {% endfor %}
 
-                    <div class="modal fade" id="photomodal{{ upload.id }}" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <div class="row">
-                              <div class="col-sm-2"></div>
-                              <div class="col-sm-8"><h4 class="modal-title" id="username">{{ upload.username }} </h4></div>
-                              <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button></div>
-                            </div>
+  </div>
 
-                            <div class="row">
-                              <div class="col-sm-2"></div>
-                              <div class="col-sm-8"><h5 class="modal-title" id="timestamp">{{ upload.timestamp }}</h5></div>
-                              <div class="col-sm-2">
-                                <h5>{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></h5>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-body">
-                            <p><img src={{ upload.upload }}></p>
-                            <p>{{ upload.description }}</p>
-                          </div>
-                          <div class="modal-footer">
-                              <button id="remove" onclick="removeButtonClicked({{ upload.user_id }}, {{ upload.id }})" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
-                          </div>
-                        </div>
+  <div class="container" id="collage">
+  <div class="row imagetiles">
+
+    {% for upload in photos %}
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
+                <label for="modal">
+                  <label id="timestamp">{{ upload.timestamp }} </label>
+                  <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+                  <img src="/upload/{{ upload.upload }}" class="img-responsive">
+                  <label id="discription">{{ upload.description }} </label>
+                </label>
+            </button>
+
+            <div class="modal fade" id="photomodal{{ upload.id }}" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-8"><h4 class="modal-title" id="username">{{ upload.username }} </h4></div>
+                      <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-8"><h5 class="modal-title" id="timestamp">{{ upload.timestamp }}</h5></div>
+                      <div class="col-sm-2">
+                        <h5>{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></h5>
                       </div>
                     </div>
+                  </div>
+                  <div class="modal-body">
+                    <p><img src={{ upload.upload }}></p>
+                    <p>{{ upload.description }}</p>
+                  </div>
+                  <div class="modal-footer">
+                      <button id="remove" onclick="removeButtonClicked({{ upload.user_id }}, {{ upload.id }})" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
+                  </div>
                 </div>
-            {% endfor %}
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col">
-            <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >
-                <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />
-                <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700; padding-top: 9px;"><b>Upload <span class="glyphicon glyphicon-upload"></span></b></label>
-            </form>
+              </div>
+            </div>
         </div>
-    </div>
-    <!--</div>-->
+    {% endfor %}
 </div>
+
+<!--<div class="container-fluid">-->
+    <!--<div class="row">-->
+      <!--<div class="col">-->
+      <!--    <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >-->
+      <!--        <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />-->
+      <!--        <label for="file" class="profilepic-button" style="font-size:14px; font-weight:700; padding-top: 9px;"><h4><span class="glyphicon glyphicon-upload"></span></h4></label>-->
+      <!--    </form>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+<div class="modal fade" id="photomodal_profile" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row">
+          <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button></div>
+        </div>
+      <div class="modal-body">
+        <img src="{{ profile_pic }}">
+      </div>
+      <div class="footer">
+        {% if check is sameas true %}
+        <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >
+          <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />
+          <label for="file" class="btn btn-dark">Change <span class="glyphicon glyphicon-refresh"></span></label>
+        </form>
+        <!--<button id="change" class="btn btn-dark">Change <span class="glyphicon glyphicon-refresh"></span></button>-->
+        <button id="remove" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
+        {% else %}
+        <button id="change" class="btn btn-dark">Upload <span class="glyphicon glyphicon-upload"></span></button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
