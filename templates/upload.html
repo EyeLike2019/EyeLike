@@ -13,9 +13,15 @@
                 <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700; padding-top: 9px;"><b>Upload <span class="glyphicon glyphicon-upload"></span></b></label>
             </form>
         </div>
-    </div>
+    </div><br>
+<form id="form" onsubmit="return false;">
+    <input style= width:40%; type="text" id="userInput" class="userInput"/>
+    <input style="position:absolute; top:50%; left:5%; width:40%;" type="submit" onclick="othername();" class="othername" />
+</form><br>
     <div class="col-5">
         <h1><b>Or use one of our favourites!</b></h1>
+
+
         {% for photo in url %}
             <img src={{ photo.urls.raw + url2 }}/>
         {% endfor %}

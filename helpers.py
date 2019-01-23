@@ -221,10 +221,7 @@ def get_info(post_id):
     date = date[5:16]
     post_info["timestamp"] = date
 
-<<<<<<< HEAD
+    return post_info
     all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
     return all_photos
 
-=======
-    return post_info
->>>>>>> 55a880352db559c35e23ed84770ac70773044bfc

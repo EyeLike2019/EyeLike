@@ -84,6 +84,23 @@ main #login {
     display: inline-block;
 }
 
+.userInput {
+    width: 20px;
+	height: 200px;
+
+
+
+}
+
+.othername {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
 .inputfile:focus + label,
 .inputfile + label:hover {
     color: #333;
