@@ -40,6 +40,10 @@ db = SQL("sqlite:///database.db")
 UPLOAD_FOLDER = os.path.basename('upload')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# declare profile-folder
+PROFILE_FOLDER = os.path.basename('uploadprofilepic')
+app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
+
 
 @app.route("/")
 def index():
@@ -108,7 +112,7 @@ def upload_file():
             return redirect(url_for("index"))
 
         except Exception:
-            flash("Please select photo you want to upload first!")
+            flash("hallo")
             return redirect(url_for("index"))
 
     else:
@@ -400,7 +404,7 @@ def trending():
             trendingphotos.append(p)
 
     # sort uploads on timestamp
-    trendingphotos.sort(key=lambda d: d['timestamp'], reverse=True)
+    trendingphotos.sort(key=lambda d: d['score'], reverse=True)
 
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
@@ -451,3 +455,33 @@ def favourites():
     favourites.sort(key=lambda d: d['timestamp'])
 
     return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
+
+@app.route("/uploadprofilepic", methods=["POST"])
+def profile_picture():
+    """Update user's profile picture"""
+
+    try:
+        # save the file in profile-folder
+        file = request.files['pf']
+        filename = str(session["user_id"]) + "_" + file.filename
+        if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
+            flash('Invalid file!')
+            return redirect(url_for("account"))
+
+        f = os.path.join(app.config['PROFILE_FOLDER'], filename)
+
+        file.save(f)
+        if os.path.getsize(f) > 4194304:
+            flash("file size is to big, limit is 4mb")
+            os.remove(f)
+            return redirect(url_for("account"))
+
+        # upload image into database
+        update_profile_pic(session["user_id"], filename)
+
+        flash('Upload successful')
+        return redirect(url_for("account"))
+
+    except Exception:
+        flash("Please select photo you want to upload first!")
+        return redirect(url_for("account"))

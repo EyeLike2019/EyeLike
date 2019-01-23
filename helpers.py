@@ -219,3 +219,24 @@ def get_info(post_id):
     post_info["timestamp"] = date
 
     return post_info
+
+def update_profile_pic(user_id, file):
+    """Updates user's profile picture in database"""
+
+    # check if user already has profile picture
+    existing_pic = db.execute("SELECT * FROM profilepictures WHERE user_id=:user_id", user_id=user_id)
+
+    if len(existing_pic) > 0:
+        db.execute("UPDATE profilepictures SET profile_picture=:file WHERE user_id=:user-id", file=file, user_id=user_id)
+
+    else:
+        db.execute("INSERT INTO profilepictures (user_id, profile_picture) VALUES(:user_id, :file)", user_id=user_id, file=file)
+
+    return "Success"
+
+def get_profile_pic(user_id):
+    """Get profile picture from user"""
+
+    profile_pic = db.execute("SELECT * FROM profilepictures WHERE user_id=:user_id", user_id=user_id)
+
+    return profile_pic
