@@ -6,6 +6,10 @@
     text-align: center;
 }
 
+.navbar {
+    z-index: 999;
+}
+
 /* colors for navbar */
 .navbar-default .navbar-brand .blue
 {
@@ -292,3 +296,4 @@ main #login {
 #explore-title h1 {
     margin-top: 5px !important;
 }
+
