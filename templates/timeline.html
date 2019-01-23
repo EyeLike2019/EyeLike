@@ -8,10 +8,10 @@
 <div class="container-title" id="timeline-title">
   <h1><b>Timeline</b></h1>
 </div>
-<div class="button-images">
-  {% for post in uploads %}
 
-        <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal">
+  {% for post in uploads %}
+      <div class="button-images">
+        <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal{{ post.id }}">
             <label for="modal">
               <div class="timeline-container">
               <div class="timeline-description">
@@ -26,9 +26,9 @@
               </div>
             </label>
         </button>
+      </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <div class="modal fade" id="photomodal" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+        <div class="modal fade" id="photomodal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -58,7 +58,5 @@
             </div>
           </div>
         </div>
-    </div>
   {% endfor %}
-  </div>
 {% endblock %}

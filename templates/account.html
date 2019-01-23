@@ -23,7 +23,7 @@
 
             {% for upload in photos %}
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal">
+                    <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
                         <label for="modal">
                           <label id="timestamp">{{ upload.timestamp }} </label>
                           <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
@@ -32,7 +32,7 @@
                         </label>
                     </button>
 
-                    <div class="modal fade" id="photomodal" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+                    <div class="modal fade" id="photomodal{{ upload.id }}" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
