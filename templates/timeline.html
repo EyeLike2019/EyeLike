@@ -7,7 +7,7 @@
 {% block main %}
   {% for post in uploads %}
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal">
+        <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal{{ post.id }}">
             <label for="modal">
               <label id="username">{{ post.username }} </label>
               <label id="timestamp">{{ post.timestamp }} </label>
@@ -17,7 +17,7 @@
             </label>
         </button>
 
-        <div class="modal fade" id="photomodal" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+        <div class="modal fade" id="photomodal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
