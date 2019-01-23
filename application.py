@@ -451,3 +451,32 @@ def favourites():
     favourites.sort(key=lambda d: d['timestamp'])
 
     return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
+
+def profile_picture():
+    """Update user's profile picture"""
+
+    try:
+        # save the file in upload-folder
+        file = request.files['file']
+        filename = str(session["user_id"]) + "_" + file.filename
+        if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
+            flash('Invalid file!')
+            return redirect(url_for("index"))
+
+        f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+        file.save(f)
+        if os.path.getsize(f) > 4194304:
+            flash("file size is to big, limit is 4mb")
+            os.remove(f)
+            return redirect(url_for("index"))
+
+        # upload image into database
+        update_profile_pic(session["user_id"], filename)
+
+        flash('Upload successful')
+        return redirect(url_for("index"))
+
+    except Exception:
+        flash("Please select photo you want to upload first!")
+        return redirect(url_for("index"))
