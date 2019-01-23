@@ -112,7 +112,7 @@ def upload_file():
             return redirect(url_for("index"))
 
         except Exception:
-            flash("Please select photo you want to upload first!")
+            flash("hallo")
             return redirect(url_for("index"))
 
     else:
@@ -133,48 +133,6 @@ def update():
 
     update_score(change, photo_id)
     return "Succes"
-
-
-@app.route('/uploadprofilepic', methods=['POST', 'GET'])
-@login_required
-def upload_profilepic():
-    """Upload a picture on your profilepage"""
-
-    if request.method == "POST":
-        try:
-            # save the file in upload-folder
-            file = request.files['file']
-            filename = str(session["user_id"]) + "_" + file.filename
-            if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
-                flash('Invalid file!')
-                return redirect(url_for("account"))
-
-            f = os.path.join(app.config['PROFILE_FOLDER'], filename)
-
-            file.save(f)
-            if os.path.getsize(f) > 4194304:
-                flash("file size is to big, limit is 4mb")
-                os.remove(f)
-                return redirect(url_for("account"))
-
-            # upload profile picture into database
-            upload_profile_pic(session["user_id"], filename, get_username(session["user_id"]))
-
-            flash('Upload successful')
-            return redirect(url_for("account"))
-
-        except Exception:
-            flash("Please select photo you want to upload first!")
-            return redirect(url_for("account"))
-
-    else:
-        # configure API
-        api = requests.get(
-            "https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=8f5cd8cd9e1c27d5b5c6d283c243726afcf1a7ad7602c1ee0f6a0702f5272a0f&query=clothes&count=28")
-        url = json.loads(api.content)
-
-        return render_template("account.html", url=url, url2="&fit=fill&fill=blur&w=250&h=200&dpi=2")
-
 
 
 @app.route("/account")
@@ -498,12 +456,13 @@ def favourites():
 
     return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
 
+@app.route("/uploadprofilepic", methods=["POST"])
 def profile_picture():
     """Update user's profile picture"""
 
     try:
         # save the file in profile-folder
-        file = request.files['file']
+        file = request.files['pf']
         filename = str(session["user_id"]) + "_" + file.filename
         if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
             flash('Invalid file!')
