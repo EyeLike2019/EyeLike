@@ -7,6 +7,7 @@
 {% block main %}
 <div id="profile_wrapper">
     <div id="user">
+      <img src="{{ profile_pic }}" class="img-responsive">
         <h1><b>{{ name }}</b></h1>
         <p><b>Followers:</b></p>
         {% for follower in followers %}

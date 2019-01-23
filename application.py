@@ -8,6 +8,7 @@ import os
 import requests
 import json
 import pprint as pp
+import random
 
 from helpers import *
 
@@ -44,6 +45,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 PROFILE_FOLDER = os.path.basename('uploadprofilepic')
 app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
 
+# declare client-id's API
+client_id = ["8f5cd8cd9e1c27d5b5c6d283c243726afcf1a7ad7602c1ee0f6a0702f5272a0f", "2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21"]
 
 @app.route("/")
 def index():
@@ -112,7 +115,7 @@ def upload_file():
             return redirect(url_for("index"))
 
         except Exception:
-            flash("hallo")
+            flash("Please select photo you want to upload first!")
             return redirect(url_for("index"))
 
     else:
@@ -162,7 +165,31 @@ def account():
     for p in user_photos:
         p["upload"] = os.path.join(app.config['UPLOAD_FOLDER'], p["upload"])
 
-    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following)
+    # get user's profile picture
+    profile_pic = get_profile_pic(session["user_id"])
+
+    if len(profile_pic) > 0:
+        profile_pic = os.path.join(app.config['PROFILE_FOLDER'], profile_pic[0]["profile_picture"])
+
+    else:
+
+        # select random client-id
+        id = random.choice(client_id)
+
+        try:
+
+            # get photo from API
+            api = requests.get(
+                "https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=" + id + "&query=profile-pic")
+            url = json.loads(api.content)
+            profile_pic= url["urls"]["raw"]
+
+        except Exception:
+
+            # if API's request limit is reached, show standard profile picture
+            profile_pic = "https://source.unsplash.com/random"
+
+    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic)
 
 
 @app.route("/profile/<username>")
@@ -346,7 +373,6 @@ def show(path):
     """Show image"""
 
     return send_from_directory('upload', path)
-
 
 @app.route("/follow")
 def follow():
