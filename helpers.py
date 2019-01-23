@@ -3,6 +3,7 @@ import urllib.request
 import random
 import requests
 import json
+import os
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
@@ -240,10 +241,17 @@ def update_profile_pic(user_id, file):
     existing_pic = db.execute("SELECT * FROM profilepictures WHERE user_id=:user_id", user_id=user_id)
 
     if len(existing_pic) > 0:
-        db.execute("UPDATE profilepictures SET profile_picture=:file WHERE user_id=:user-id", file=file, user_id=user_id)
+        db.execute("UPDATE profilepictures SET profile_picture=:file WHERE user_id=:user_id", file=file, user_id=user_id)
 
     else:
         db.execute("INSERT INTO profilepictures (user_id, profile_picture) VALUES(:user_id, :file)", user_id=user_id, file=file)
+
+    return "Success"
+
+def remove_profile_pic(user_id):
+    """Deletes profile picture of user in database"""
+
+    db.execute("DELETE FROM profilepictures WHERE user_id=:user_id", user_id=user_id)
 
     return "Success"
 
@@ -259,11 +267,15 @@ def get_profile_pic(user_id):
 def check_profile_picture(user_id):
     """Check if user has profile picture and return picture"""
 
+    # declare variable
+    has_pp = False
+
     # get user's profile picture
     profile_pic = get_profile_pic(user_id)
 
     if len(profile_pic) > 0:
-        profile_pic = "1" + profile_pic[0]["profile_picture"]
+        profile_pic = profile_pic[0]["profile_picture"]
+        has_pp = True
 
     else:
         # select random client-id
@@ -280,4 +292,4 @@ def check_profile_picture(user_id):
             # if API's request limit is reached, show standard profile picture
             profile_pic = "https://source.unsplash.com/random"
 
-    return profile_pic
+    return profile_pic, has_pp

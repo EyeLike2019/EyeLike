@@ -140,3 +140,23 @@ function getDiscription() {
       }
     });
 }
+
+function removeProfilePicButtonClicked() {
+    console.log("Remove button clicked");
+    $.ajax({
+        url: '/removeprofilepicture',
+        data: {"pic" : profile_pic},
+
+    success: function(response) {
+        console.log(response)
+        console.log("1")
+        location.reload();
+
+      },
+      error: function(error) {
+				console.log("Something went wrong!")
+				console.log(error)
+      }
+
+    });
+}

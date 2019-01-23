@@ -164,7 +164,6 @@ def account():
     username = get_username(session["user_id"])
 
     # declare variables
-    has_picture = False
     followers = []
     following = []
     user_photos = get_all_uploads(session["user_id"])
@@ -182,12 +181,15 @@ def account():
         following.append(name)
 
     # check if user has profile picture and get (random) profile picture
-    profile_pic = check_profile_picture(get_user_id(username))
-    if profile_pic[0] == "1":
-        profile_pic = os.path.join(app.config['PROFILE_FOLDER'], profile_pic[1:])
-        has_picture = True
+    pp_check = check_profile_picture(get_user_id(username))
 
-    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, check=has_picture)
+    if pp_check[1] == True:
+        profile_pic = os.path.join(app.config['PROFILE_FOLDER'], pp_check[0])
+
+    else:
+        profile_pic = pp_check[0]
+
+    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1])
 
 
 @app.route("/profile/<username>")
@@ -224,11 +226,15 @@ def profile(username):
         following.append(name2)
 
     # check if user has profile picture and get (random) profile picture
-    profile_pic = check_profile_picture(get_user_id(username))
-    if profile_pic[0] == "1":
-        profile_pic = os.path.join(app.config['PROFILE_FOLDER'], profile_pic[1:])
+    pp_check = check_profile_picture(get_user_id(username))
 
-    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic)
+    if pp_check[1] == True:
+        profile_pic = os.path.join(app.config['PROFILE_FOLDER'], pp_check[0])
+
+    else:
+        profile_pic = pp_check[0]
+
+    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1])
 
 
 @app.route("/")
@@ -373,7 +379,18 @@ def remove():
 
     remove_photo(user_id, photo_id)
 
-    return "Succes"
+    return "Success"
+
+@app.route("/removeprofilepicture")
+def rm_profile_picture():
+    """Remove profile picture of user"""
+
+    # remove profile picture from database
+    remove_profile_pic(session["user_id"])
+
+    flash("Profile picture deleted!")
+
+    return "Success"
 
 
 @app.route("/removefavourite")
@@ -466,7 +483,7 @@ def upload_file():
         return render_template("upload.html")
 
 
-@app.route("/uploadprofilepic", methods=["POST"])
+@app.route("/uploadprofilepic", methods=['POST'])
 def profile_picture():
     """Update user's profile picture"""
 
@@ -488,5 +505,5 @@ def profile_picture():
     # upload image into database
     update_profile_pic(session["user_id"], filename)
 
-    flash('Upload successful')
+    flash('Upload successful!')
     return redirect(url_for("account"))

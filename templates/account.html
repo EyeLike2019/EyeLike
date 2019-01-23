@@ -8,7 +8,6 @@
 <div id="profile_wrapper">
   <div id="user">
     <img src="{{ profile_pic }}" class="profile-picture" data-toggle="modal" data-target="#photomodal_profile">
-
     <h1><b>{{ name }}</b></h1>
     <p><b>Followers:</b></p>
     {% for follower in followers %}
@@ -68,41 +67,38 @@
             </div>
         </div>
     {% endfor %}
-</div>
+  </div>
+  </div>
 
-<!--<div class="container-fluid">-->
-    <!--<div class="row">-->
-      <!--<div class="col">-->
-      <!--    <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >-->
-      <!--        <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />-->
-      <!--        <label for="file" class="profilepic-button" style="font-size:14px; font-weight:700; padding-top: 9px;"><h4><span class="glyphicon glyphicon-upload"></span></h4></label>-->
-      <!--    </form>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-<div class="modal fade" id="photomodal_profile" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="row">
-          <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button></div>
+
+  <div class="modal fade" id="photomodal_profile" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="row">
+            <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></div>
+          </div>
+        <div class="modal-body">
+          <img src="{{ profile_pic }}">
         </div>
-      <div class="modal-body">
-        <img src="{{ profile_pic }}">
-      </div>
-      <div class="footer">
-        {% if check is sameas true %}
-        <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >
-          <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />
-          <label for="file" class="btn btn-dark">Change <span class="glyphicon glyphicon-refresh"></span></label>
-        </form>
-        <!--<button id="change" class="btn btn-dark">Change <span class="glyphicon glyphicon-refresh"></span></button>-->
-        <button id="remove" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
-        {% else %}
-        <button id="change" class="btn btn-dark">Upload <span class="glyphicon glyphicon-upload"></span></button>
-        {% endif %}
+        <div class="footer">
+          {% if has_pp is sameas true %}
+          <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >
+            <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />
+            <label for="file" class="btn btn-dark">Change <span class="glyphicon glyphicon-refresh"></span></label>
+          </form>
+          <button id="remove" onclick="removeProfilePicButtonClicked()" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
+          {% else %}
+          <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >
+            <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />
+            <label for="file" class="btn btn-dark">Upload <span class="glyphicon glyphicon-upload"></span></label>
+          </form>
+          <font size="1">Photo by <a href src="https://unsplash.com/">Unsplash</a></font>
+          {% endif %}
+        </div>
+        </div>
       </div>
     </div>
   </div>
