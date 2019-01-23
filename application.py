@@ -392,9 +392,11 @@ def trending():
     """Show trending pictures"""
 
     trendingphotos = []
-    all_trending = get_all_trending()
-    for p in all_trending:
-        if p["score"] >= -5:
+    all_recents = get_all_recents()
+
+    # check if the score of the photo is high enough
+    for p in all_recents:
+        if p["score"] >= 2:
             trendingphotos.append(p)
 
     # sort uploads on timestamp
