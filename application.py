@@ -459,17 +459,6 @@ def favourites():
 
     return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
 
-<<<<<<< HEAD
-
-import cgi, cgitb
-# Create instance of FieldStorage
-form = cgi.FieldStorage()
-# Get data from fields
-if form.getvalue('textcontent'):
-   text_content = form.getvalue('textcontent')
-else:
-   text_content = "Not entered"
-=======
 @app.route("/uploadprofilepic", methods=["POST"])
 def profile_picture():
     """Update user's profile picture"""
@@ -499,4 +488,3 @@ def profile_picture():
     except Exception:
         flash("Please select photo you want to upload first!")
         return redirect(url_for("account"))
->>>>>>> e3f54cf83a1992ab6dcfaefb07f7b5eb5d0b4e74

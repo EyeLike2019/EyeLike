@@ -219,11 +219,6 @@ def get_info(post_id):
     post_info["timestamp"] = date
 
     return post_info
-<<<<<<< HEAD
-    all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
-    return all_photos
-
-=======
 
 def update_profile_pic(user_id, file):
     """Updates user's profile picture in database"""
@@ -245,4 +240,6 @@ def get_profile_pic(user_id):
     profile_pic = db.execute("SELECT * FROM profilepictures WHERE user_id=:user_id", user_id=user_id)
 
     return profile_pic
->>>>>>> e3f54cf83a1992ab6dcfaefb07f7b5eb5d0b4e74
+    all_photos = db.execute("SELECT id, user_id, upload, description, timestamp, username, score FROM uploads")
+    return all_photos
+
