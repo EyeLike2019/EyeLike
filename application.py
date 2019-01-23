@@ -396,7 +396,7 @@ def trending():
     for p in all_photos:
         trendingphotos.append(p)
 
-    return render_template("trending.html", trendingphotos=trendingphotos)
+    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
 
 @app.route("/removefavourite")
 def rm_favourite():
