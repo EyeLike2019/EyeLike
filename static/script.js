@@ -145,7 +145,6 @@ function removeProfilePicButtonClicked() {
     console.log("Remove button clicked");
     $.ajax({
         url: '/removeprofilepicture',
-        data: {"pic" : profile_pic},
 
     success: function(response) {
         console.log(response)
