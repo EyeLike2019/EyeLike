@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<div id="profile_wrapper">
+<div id="profile_wrapper" class="account-wrapper">
   <div id="user">
     <img src="{{ profile_pic }}" class="profile-picture" data-toggle="modal" data-target="#photomodal_profile">
     <h1><b>{{ name }}</b></h1>
@@ -25,13 +25,17 @@
   <div class="row imagetiles">
 
     {% for upload in photos %}
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+            <button name="modal" class="photo_modal" id="account-photo-modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
                 <label for="modal">
-                  <label id="timestamp">{{ upload.timestamp }} </label>
-                  <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
-                  <img src="/upload/{{ upload.upload }}" class="img-responsive">
-                  <label id="discription">{{ upload.description }} </label>
+                  <div class="account-photo-description">
+                    <label id="timestamp">{{ upload.timestamp }} </label>
+                    <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+                  </div>
+                  <img src="/upload/{{ upload.upload }}" class="img-responsive" id="account-image">
+                  <div class="account-photo-bottom-description">
+                    <label id="discription">{{ upload.description }} </label>
+                  </div>
                 </label>
             </button>
 

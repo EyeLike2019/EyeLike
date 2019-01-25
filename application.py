@@ -241,16 +241,30 @@ def profile(username):
 def index():
     """Show homepage/random page"""
 
-    # redirect to account-page if there are no pictures available
-    random_check = random_upload()
-    if random_check == None:
-        print("No pictures")
-        return redirect(url_for("account"))
+    # declare variables
+    user_id = check_logged_in()
+    random = random_upload()
+    seen = request_seen(user_id)
 
-    # show random picture
-    else:
-        random = random_upload()[0]
-        return render_template("index.html", random=random)
+    for post in random:
+        if post["id"] not in seen:
+            return render_template("index.html", random=post)
+
+    flash("No more pictures available at the moment! Please come back later!")
+    return redirect(url_for("account"))
+
+
+    # # redirect to account-page if there are no pictures available
+    # random_check = random_upload()
+    # print(random_check)
+    # if random_check == None:
+    #     print("No pictures")
+    #     return
+
+    # # show random picture
+    # else:
+    #     random = random_upload()[0]
+    #     return render_template("index.html", random=random)
 
 
 @app.route("/timeline")
@@ -437,13 +451,8 @@ def update():
     # update score in database
     update_score(change, photo_id)
 
-    # check if user is logged in
-    try:
-        user_id = session["user_id"]
-
-    except Exception:
-        # give anonymous user a standard user_id
-        user_id = 0
+    # check if user is logged in and get user_id
+    user_id = check_logged_in()
 
     # keep track of which photo user has seen
     if user_id != 0:
@@ -482,7 +491,7 @@ def upload_file():
 
         if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
             flash('Invalid file!')
-            return redirect(url_for("index"))
+            return redirect(url_for("upload_file"))
 
         f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
@@ -492,7 +501,7 @@ def upload_file():
         if os.path.getsize(f) > 4194304:
             flash("file size is to big, limit is 4mb")
             os.remove(f)
-            return redirect(url_for("index"))
+            return redirect(url_for("upload_file"))
 
         # get description
         description = request.form.get("description")
@@ -501,7 +510,7 @@ def upload_file():
         upload_photo(session["user_id"], filename, description, get_username(session["user_id"]))
         flash('Upload successful')
 
-        return redirect(url_for("index"))
+        return redirect(url_for("upload_file"))
 
     else:
         return render_template("upload.html")
