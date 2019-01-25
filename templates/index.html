@@ -16,10 +16,14 @@
         <label id="description">{{ random.description }} </label>
     </div>
     <div class="like_buttons">
-    <button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open"></span></b></button>
-    <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-fast-forward"></span></b></button>
-    <button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-close"></span></b></button>
-</div>
+        {% if user_id is not sameas 0 %}
+        <button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open"></span></b></button>
+        <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
+        <button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-close"></span></b></button>
+        {% else %}
+        <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
+        {% endif %}
+    </div>
 </div>
 
 
