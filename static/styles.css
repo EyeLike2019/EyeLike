@@ -37,6 +37,11 @@ main .form-control
     width: auto;
 }
 
+#input-description {
+    width:598px !important;
+
+    text-align: left;
+}
 main img
 {
     /* constrain images on small screens */
@@ -141,15 +146,11 @@ main #login {
 }
 
 #collage {
-    float: right;
-    max-width: 70%;
-    margin-top: 0px;
+    float:right;
 }
 
 #user {
-    float: left;
-    max-width: 25%;
-    margin-left: 25px;
+    float:left;
 }
 
 #profile_wrapper {
@@ -177,10 +178,9 @@ main #login {
 
 .profile-picture {
     object-fit: cover;
-    width: 150px !important;
-    height: 150px !important;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    border: 0.5px lightgray;
 }
 
 .imagetiles {
@@ -219,7 +219,6 @@ main #login {
  	text-align:center;
  	box-shadow: 2px 2px 2px #999;
  	text-decoration: none !important;
- 	z-index: 999;
 }
 
 .camera-button {
@@ -272,25 +271,6 @@ main #login {
 
     #explore-title h1 {
         visibility: hidden;
-    }
-
-    #collage {
-        float: none;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-top: 50px;
-    }
-
-    #user {
-        float: none;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0px;
-    }
-
-    #account-image {
-        width: 150px !important;
-        height: 150px !important;
     }
 }
 
@@ -352,42 +332,4 @@ main #login {
     right:40px;
     background-color: white;
     border:0px;
-}
-
-#account-photo-modal {
-    background-color: rgba(246,246,246,1);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-}
-
-.account-photo-description {
-    text-align: left;
-    margin-left: 10px;
-    position: relative;
-    top: 30%;
-    transform: translateY(-30%);
-    -webkit-transform: translateY(-30%);
-}
-
-.account-photo-bottom-description {
-    text-align: left;
-    margin-left: 10px;
-    position: relative;
-    top: 50%;
-    transform: translateY(50%);
-    -webkit-transform: translateY(50%);
-}
-
-#account-image {
-    width: 200px !important;
-    height: 200px !important;
-}
-
-.account-wrapper {
-    width: 100%;
-    margin-left: 0px !important;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
 }
