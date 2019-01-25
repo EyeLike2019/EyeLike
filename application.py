@@ -196,7 +196,6 @@ def account():
 @login_required
 def profile(username):
     """Show profile of other user"""
-    print(username)
 
     # check if username exists
     if len(check_username(username)) != 1:
@@ -242,16 +241,30 @@ def profile(username):
 def index():
     """Show homepage/random page"""
 
-    # redirect to account-page if there are no pictures available
-    random_check = random_upload()
-    if random_check == None:
-        print("No pictures")
-        return redirect(url_for("account"))
+    # declare variables
+    user_id = check_logged_in()
+    random = random_upload()
+    seen = request_seen(user_id)
 
-    # show random picture
-    else:
-        random = random_upload()[0]
-        return render_template("index.html", random=random)
+    for post in random:
+        if post["id"] not in seen:
+            return render_template("index.html", random=post)
+
+    flash("No more pictures available at the moment! Please come back later!")
+    return redirect(url_for("account"))
+
+
+    # # redirect to account-page if there are no pictures available
+    # random_check = random_upload()
+    # print(random_check)
+    # if random_check == None:
+    #     print("No pictures")
+    #     return
+
+    # # show random picture
+    # else:
+    #     random = random_upload()[0]
+    #     return render_template("index.html", random=random)
 
 
 @app.route("/timeline")
@@ -378,6 +391,12 @@ def remove():
     user_id = request.args['user_id']
     photo_id = request.args['photo_id']
 
+    # remove photo from upload folder
+    filename = os.path.join(app.config['UPLOAD_FOLDER'], get_info(photo_id)["upload"])
+    print(filename)
+    # os.remove(filename)
+
+    # remove photo from database
     remove_photo(user_id, photo_id)
 
     return "Success"
@@ -385,6 +404,10 @@ def remove():
 @app.route("/removeprofilepicture")
 def rm_profile_picture():
     """Remove profile picture of user"""
+
+    # remove profile picture from upload folder
+    filename = request.args["profile_pic"]
+    os.remove(filename)
 
     # remove profile picture from database
     remove_profile_pic(session["user_id"])
@@ -425,7 +448,16 @@ def update():
     change = request.args['newscore']
     photo_id = request.args['photo_id']
 
+    # update score in database
     update_score(change, photo_id)
+
+    # check if user is logged in and get user_id
+    user_id = check_logged_in()
+
+    # keep track of which photo user has seen
+    if user_id != 0:
+        already_seen(user_id, photo_id)
+
     return "Succes"
 
 

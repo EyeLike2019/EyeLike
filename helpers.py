@@ -84,17 +84,12 @@ def register_user(username, password, email):
 def random_upload():
     """Select random row from database"""
 
-    random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM() LIMIT 1")
+    random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM()")
 
-    if len(random) < 1:
-        print("No pictures")
-        flash("No pictures available")
-        return None
-    else:
-        date = random[0]["timestamp"]
-        date = date[5:11]
-        random[0]["timestamp"] = date
-        return random
+    # change timestamp
+    random = change_timestamp(random)
+
+    return random
 
 
 def update_score(change, photo_id):
@@ -174,11 +169,8 @@ def get_all_uploads(user_id):
 
     user_photos = db.execute("SELECT * FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
-    # change timestamp to prevered format
-    for p in user_photos:
-        date = p["timestamp"]
-        date = date[5:11]
-        p["timestamp"] = date
+    # change timestamp
+    user_photos = change_timestamp(user_photos)
 
     return user_photos
 
@@ -187,11 +179,9 @@ def get_all_recents():
     """Get all the photo's posted in the past week"""
 
     all_recents = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
-    for p in all_recents:
-        date = p["timestamp"]
-        date = date[5:11]
-        p["timestamp"] = date
-    print(all_recents)
+
+    # change timestamp
+    all_recents = change_timestamp(all_recents)
 
     return all_recents
 
@@ -225,11 +215,10 @@ def get_info(post_id):
     """Get all info of a post"""
 
     post_info = db.execute("SELECT * FROM uploads WHERE id=:post_id",
-                           post_id=post_id)[0]
+                           post_id=post_id)
 
-    date = post_info["timestamp"]
-    date = date[5:11]
-    post_info["timestamp"] = date
+    # change timestamp
+    post_info = change_timestamp(post_info)[0]
 
     return post_info
 
@@ -293,3 +282,47 @@ def check_profile_picture(user_id):
             profile_pic = "https://source.unsplash.com/random"
 
     return profile_pic, has_pp
+
+
+def already_seen(user_id, photo_id):
+    """Keep track of which photo's user has seen"""
+
+    db.execute("INSERT INTO explore (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
+
+    return "Success"
+
+
+def request_seen(user_id):
+    """Get all photo's that user has seen"""
+
+    seen = db.execute("SELECT * FROM explore WHERE user_id=:user_id", user_id=user_id)
+    seen_id = []
+
+    for post in seen:
+        seen_id.append(post["photo_id"])
+
+    return seen_id
+
+
+def change_timestamp(post_list):
+    """Change timestamp to prevered format"""
+
+    for post in post_list:
+        date = post["timestamp"]
+        date = date[5:11]
+        post["timestamp"] = date
+
+    return post_list
+
+
+def check_logged_in():
+    """Check if user is logged in"""
+
+    try:
+        user_id = session["user_id"]
+
+    except Exception:
+        # give anonymous user a standard user_id
+        user_id = 0
+
+    return user_id
