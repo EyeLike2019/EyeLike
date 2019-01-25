@@ -92,7 +92,7 @@ def random_upload():
         return None
     else:
         date = random[0]["timestamp"]
-        date = date[5:16]
+        date = date[5:11]
         random[0]["timestamp"] = date
         return random
 
@@ -177,7 +177,7 @@ def get_all_uploads(user_id):
     # change timestamp to prevered format
     for p in user_photos:
         date = p["timestamp"]
-        date = date[5:16]
+        date = date[5:11]
         p["timestamp"] = date
 
     return user_photos
@@ -189,7 +189,7 @@ def get_all_recents():
     all_recents = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
     for p in all_recents:
         date = p["timestamp"]
-        date = date[5:16]
+        date = date[5:11]
         p["timestamp"] = date
     print(all_recents)
 
@@ -228,7 +228,7 @@ def get_info(post_id):
                            post_id=post_id)[0]
 
     date = post_info["timestamp"]
-    date = date[5:16]
+    date = date[5:11]
     post_info["timestamp"] = date
 
     return post_info
