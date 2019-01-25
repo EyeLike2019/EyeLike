@@ -248,23 +248,10 @@ def index():
 
     for post in random:
         if post["id"] not in seen:
-            return render_template("index.html", random=post)
+            return render_template("index.html", random=post, user_id=user_id)
 
     flash("No more pictures available at the moment! Please come back later!")
     return redirect(url_for("account"))
-
-
-    # # redirect to account-page if there are no pictures available
-    # random_check = random_upload()
-    # print(random_check)
-    # if random_check == None:
-    #     print("No pictures")
-    #     return
-
-    # # show random picture
-    # else:
-    #     random = random_upload()[0]
-    #     return render_template("index.html", random=random)
 
 
 @app.route("/timeline")
