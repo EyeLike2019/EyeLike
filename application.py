@@ -196,6 +196,7 @@ def account():
 @login_required
 def profile(username):
     """Show profile of other user"""
+    print(username)
 
     # check if username exists
     if len(check_username(username)) != 1:
