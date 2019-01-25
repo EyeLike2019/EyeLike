@@ -123,10 +123,11 @@ function favouriteButtonClicked(user_id, photo_id) {
 }
 
 
-function removeProfilePicButtonClicked() {
+function removeProfilePicButtonClicked(profile_pic) {
     console.log("Remove button clicked");
     $.ajax({
         url: '/removeprofilepicture',
+        data: {"profile_pic" : profile_pic},
 
     success: function(response) {
         console.log(response)

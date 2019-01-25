@@ -196,7 +196,6 @@ def account():
 @login_required
 def profile(username):
     """Show profile of other user"""
-    print(username)
 
     # check if username exists
     if len(check_username(username)) != 1:
@@ -378,6 +377,12 @@ def remove():
     user_id = request.args['user_id']
     photo_id = request.args['photo_id']
 
+    # remove photo from upload folder
+    filename = os.path.join(app.config['UPLOAD_FOLDER'], get_info(photo_id)["upload"])
+    print(filename)
+    # os.remove(filename)
+
+    # remove photo from database
     remove_photo(user_id, photo_id)
 
     return "Success"
@@ -385,6 +390,10 @@ def remove():
 @app.route("/removeprofilepicture")
 def rm_profile_picture():
     """Remove profile picture of user"""
+
+    # remove profile picture from upload folder
+    filename = request.args["profile_pic"]
+    os.remove(filename)
 
     # remove profile picture from database
     remove_profile_pic(session["user_id"])
@@ -425,7 +434,21 @@ def update():
     change = request.args['newscore']
     photo_id = request.args['photo_id']
 
+    # update score in database
     update_score(change, photo_id)
+
+    # check if user is logged in
+    try:
+        user_id = session["user_id"]
+
+    except Exception:
+        # give anonymous user a standard user_id
+        user_id = 0
+
+    # keep track of which photo user has seen
+    if user_id != 0:
+        already_seen(user_id, photo_id)
+
     return "Succes"
 
 

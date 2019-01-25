@@ -84,17 +84,15 @@ def register_user(username, password, email):
 def random_upload():
     """Select random row from database"""
 
-    random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM() LIMIT 1")
+    random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM()")
 
-    if len(random) < 1:
-        print("No pictures")
-        flash("No pictures available")
-        return None
-    else:
-        date = random[0]["timestamp"]
+    # change timestamp
+    for post in random:
+        date = post["timestamp"]
         date = date[5:16]
-        random[0]["timestamp"] = date
-        return random
+        post["timestamp"] = date
+
+    return random
 
 
 def update_score(change, photo_id):
@@ -293,3 +291,19 @@ def check_profile_picture(user_id):
             profile_pic = "https://source.unsplash.com/random"
 
     return profile_pic, has_pp
+
+
+def already_seen(user_id, photo_id):
+    """Keep track of which photo's user has seen"""
+
+    db.execute("INSERT INTO explore (user_id, photo_id) VALUES(:user_id, :photo_id)", user_id=user_id, photo_id=photo_id)
+
+    return "Success"
+
+
+def request_seen(user_id):
+    """Get all photo's that user has seen"""
+
+    seen = db.execute("SELECT * FROM explore WHERE user_id=:user_id", user_id=user_id)
+
+    return seen

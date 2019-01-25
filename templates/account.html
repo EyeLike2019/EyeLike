@@ -56,7 +56,7 @@
                     </div>
                   </div>
                   <div class="modal-body">
-                    <p><img src={{ upload.upload }}></p>
+                    <p><img src=/upload/{{ upload.upload }}></p>
                     <p>{{ upload.description }}</p>
                   </div>
                   <div class="modal-footer">
@@ -89,7 +89,7 @@
             <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />
             <label for="file" class="btn btn-dark">Change <span class="glyphicon glyphicon-refresh"></span></label>
           </form>
-          <button id="remove" onclick="removeProfilePicButtonClicked()" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
+          <button id="remove" onclick="removeProfilePicButtonClicked('{{ profile_pic }}')" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
           {% else %}
           <form action="/uploadprofilepic" method="post" enctype="multipart/form-data" >
             <input type="file" name="pf" id="file" class="inputfile" onchange="form.submit()" />
