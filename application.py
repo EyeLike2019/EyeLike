@@ -243,15 +243,20 @@ def index():
 
     # declare variables
     user_id = check_logged_in()
-    random = random_upload()
+    random_photo = random_upload()
     seen = request_seen(user_id)
 
-    for post in random:
-        if post["id"] not in seen:
-            return render_template("index.html", random=post, user_id=user_id)
+    if user_id == 0:
+        flash("Log in or register to like and dislike the pictures!")
+        return render_template("index.html", random=random_photo[0], user_id=user_id)
 
-    flash("No more pictures available at the moment! Please come back later!")
-    return redirect(url_for("account"))
+    else:
+        for post in random_photo:
+            if post["id"] not in seen:
+                return render_template("index.html", random=post, user_id=user_id)
+
+        flash("No more pictures available at the moment! Please come back later!")
+        return redirect(url_for("account"))
 
 
 @app.route("/timeline")

@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+
 <div id="random_image">
     <div class="description-post">
         <label id="username">{{ random.username }} </label>
@@ -15,16 +16,18 @@
     <div class="bottom-description">
         <label id="description">{{ random.description }} </label>
     </div>
-    <div class="like_buttons">
+    <div class="skip_buttons">
+        <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
         {% if user_id is not sameas 0 %}
-        <button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-open" style="color: green;"></span></b></button>
-        <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
-        <button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn btn-dark"><b><span class="glyphicon glyphicon-eye-close" style="color: red;"></span></b></button>
-        {% else %}
-        <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
+        <button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ random.id }})" class="btn btn-red"><span class="glyphicon glyphicon-heart"></span></button>
         {% endif %}
     </div>
 </div>
+
+{% if user_id is not sameas 0 %}
+<button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn like-btn"><b><font size="10" color="green">👁</font></b></button>
+<button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn dislike-btn"><b><font size="10" color="red">👁</font></b></button>
+{% endif %}
 
 
 {% endblock %}
