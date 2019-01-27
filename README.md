@@ -118,7 +118,9 @@ Deze websites zijn geen directe concurrentie, aangezien er nog geen grote websit
 
   
 
-- Een moeilijk onderdeel van de website is het “wachtwoord vergeten”, aangezien er bij dit deel een mail moet worden verstuurd met een automatisch gegenereerd wachtwoord. Bij dit deel moet dus een e-mail platform worden aangeroepen en automatisch een e-mail worden verstuurd. Ook moet er kunnen worden ingelogd met het gegenereerde wachtwoord.
+- Een moeilijk onderdeel van de website is het implementeren van de API, aangezien deze alleen moet worden aangeroepen als een gebruiker nog geen profielfoto heeft.  
+
+- Een ander struikelblok is het ervoor zorgen dat als de gebruiker is ingelogd hij niet dezelfde foto's ziet op de random pagina. Anders zou het voor de gebruiker mogelijk zijn één foto meerdere keren te beoordelen.
 
 - Het maken van de trending pagina is ook een uitdaging. Hierop komen foto’s die een bepaalde waarde behaald hebben binnen een bepaalde tijd. De tijd verbinden aan de waardes is een lastig onderdeel.
 
@@ -132,6 +134,6 @@ Verder kunnen wij momenteel geen andere extreme moeilijkheden verzinnen, maar di
 
   
 
-Ons voorstel voldoet aan de projecteisen. Het is op EyeLike namelijk mogelijk foto’s te posten met of zonder beschrijving, andere gebruikers te volgen en uploads van elkaar te liken. Daarnaast is er gebruik gemaakt van een API wat gebruikers de mogelijkheid geeft naast hun eigen foto’s, ook foto’s van de API up te loaden.
+Ons voorstel voldoet aan de projecteisen. Het is op EyeLike namelijk mogelijk foto’s te posten met of zonder beschrijving, andere gebruikers te volgen en uploads van elkaar te liken. Daarnaast is er gebruik gemaakt van een API die ervoor zorgt dat gebruikers altijd een profielfoto hebben. 
 
 
