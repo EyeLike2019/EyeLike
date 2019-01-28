@@ -144,6 +144,7 @@ main #login {
      background-color:black;
      color:white;
      height:40px;
+     margin-top: 5px;
 }
 
 .btn-red {
@@ -151,6 +152,7 @@ main #login {
     background-color:#cc0000;
     color:white;
     height:40px;
+    margin-top: 5px;
 }
 .imagetiles .col-lg-3.col-md-3.col-sm-3.col-xs-6 {
   padding: 10px !important;
@@ -215,10 +217,68 @@ main #login {
     padding-bottom:25px;
 }
 
+#like-span-button, #dislike-span-button {
+    font-size: 3em;
+    color:black;
+}
+
 .skip_button {
     margin-bottom: 10px;
     margin-top: 20px;
     display: block;
+    width: 200px !important;
+    background-color: black;
+    color: white;
+    height: 40px;
+}
+
+.like-btn:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+
+}
+
+.like-btn:hover > #like-span-button {
+    color:white !important;
+}
+
+.dislike-btn:hover {
+    background-color: rgba(237, 91, 107, 1);
+    box-shadow: 0px 15px 20px rgba(237, 91, 107, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+
+}
+
+.dislike-btn:hover > #dislike-span-button {
+    color:white !important;
+}
+
+.float-button {
+    position:fixed;
+ 	width:60px;
+ 	height:60px;
+ 	bottom:40px;
+ 	right:40px;
+ 	background-color: white;
+ 	color:#FFF;
+ 	border-radius:50px;
+ 	text-align:center;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+ 	text-decoration: none !important;
+ 	z-index: 999;
+ 	transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.float-button:hover {
+    background-color: rgba(0,122,255,1);
+    box-shadow: 0px 15px 20px rgba(0,122,255,0.4);
+    color: #fff;
+    transform: translateY(-7px);
 }
 
 .like-btn {
@@ -229,7 +289,10 @@ main #login {
     height:150px;
     width:150px !important;
     background-color:white;
-    box-shadow: 2px 2px 2px 2px #999;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 }
 
 .dislike-btn {
@@ -241,23 +304,12 @@ main #login {
     width:150px !important;
     background-color:white;
     /*border-color:black;*/
-    box-shadow: 2px 2px 2px 2px #999;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 }
 
-.float-button {
-    position:fixed;
- 	width:60px;
- 	height:60px;
- 	bottom:40px;
- 	right:40px;
- 	background-color: rgba(0,122,255,1);
- 	color:#FFF;
- 	border-radius:50px;
- 	text-align:center;
- 	box-shadow: 2px 2px 2px #999;
- 	text-decoration: none !important;
- 	z-index: 999;
-}
 
 .camera-button {
     margin-top:15px !important;
@@ -289,9 +341,36 @@ main #login {
     -webkit-transform: translateY(50%);
     text-align: left;
     padding-left: 25px;
+    margin-bottom: 25px;
+}
+
+#mobile-like {
+    color:green;
+}
+
+#mobile-dislike {
+    color:red;
+}
+
+@media only screen and (min-width: 800px) {
+    #mobile-like, #mobile-dislike {
+        display: none;
+    }
+
+    #like, #dislike {
+        display: inline-block;
+    }
 }
 
 @media only screen and (max-width: 800px) {
+
+    #mobile-like, #mobile-dislike {
+        display: inline-block;
+    }
+
+    #like, #dislike {
+        display: none;
+    }
 
     .img-responsive-home {
         width: 400px;
