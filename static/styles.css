@@ -251,6 +251,31 @@ main #login {
     color:white !important;
 }
 
+.float-button {
+    position:fixed;
+ 	width:60px;
+ 	height:60px;
+ 	bottom:40px;
+ 	right:40px;
+ 	background-color: white;
+ 	color:#FFF;
+ 	border-radius:50px;
+ 	text-align:center;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+ 	text-decoration: none !important;
+ 	z-index: 999;
+ 	transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.float-button:hover {
+    background-color: rgba(0,122,255,1);
+    box-shadow: 0px 15px 20px rgba(0,122,255,0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
 .like-btn {
     position: absolute;
     left:125px;
@@ -280,20 +305,6 @@ main #login {
     outline: none;
 }
 
-.float-button {
-    position:fixed;
- 	width:60px;
- 	height:60px;
- 	bottom:40px;
- 	right:40px;
- 	background-color: rgba(0,122,255,1);
- 	color:#FFF;
- 	border-radius:50px;
- 	text-align:center;
- 	box-shadow: 2px 2px 2px #999;
- 	text-decoration: none !important;
- 	z-index: 999;
-}
 
 .camera-button {
     margin-top:15px !important;
