@@ -172,6 +172,8 @@ def get_all_uploads(user_id):
     # change timestamp
     user_photos = change_timestamp(user_photos)
 
+    user_photos.sort(key=lambda d: d['timestamp'], reverse=True)
+
     return user_photos
 
 
