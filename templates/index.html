@@ -17,7 +17,9 @@
         <label id="description">{{ random.description }} </label>
     </div>
     <div class="skip_buttons">
+        <button id="mobile-like" onclick="likeButtonClicked({{ random.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-eye-open"></button>
         <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
+        <button id="mobile-dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-eye-close"></button>
         {% if user_id is not sameas 0 %}
         <button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ random.id }})" class="btn btn-red"><span class="glyphicon glyphicon-heart"></span></button>
         {% endif %}
@@ -25,8 +27,8 @@
 </div>
 
 {% if user_id is not sameas 0 %}
-<button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn like-btn"><b><font size="10" color="green">👁</font></b></button>
-<button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn dislike-btn"><b><font size="10" color="red">👁</font></b></button>
+<button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn like-btn"><span class="glyphicon glyphicon-eye-open" id="like-span-button"></button>
+<button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn dislike-btn"><span class="glyphicon glyphicon-eye-close" id="dislike-span-button"></button>
 {% endif %}
 
 
