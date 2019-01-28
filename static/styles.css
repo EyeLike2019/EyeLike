@@ -39,9 +39,16 @@ main .form-control
 
 #input-description {
     width:598px !important;
-
     text-align: left;
 }
+
+input {
+    background-color: rgba(244,244,244,1) !important;
+    border:none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
 main img
 {
     /* constrain images on small screens */
@@ -132,6 +139,7 @@ main #login {
 
 #input {
     width:200px !important;
+    height: 40px;
 }
 
 #input_description {
