@@ -116,6 +116,10 @@ def register():
             flash("Must provide password!")
             return render_template("register.html")
 
+        elif not any(x.isupper() for x in request.form.get("password")) or not any(x.isdigit() for x in request.form.get("password")):
+            flash("Password must contain at least one upperchase letter and one digit!")
+            return render_template("register.html")
+
         # ensure email was submitted
         elif not request.form.get("email"):
             flash("Must provide email!")
