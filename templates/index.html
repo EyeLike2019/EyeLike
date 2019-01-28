@@ -6,11 +6,24 @@
 
 {% block main %}
 
-<div id="random_image">
-    <div class="description-post">
-        <a href="{{ url_for('profile', username= random.username) }}"><label id="username">{{ random.username }} </label></a>
-        <label id="timestamp">{{ random.timestamp }} </label>
-        <label id="score">{{ random.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+    <div id="random_image">
+        <div class="description-post">
+            <a href="{{ url_for('profile', username= random.username) }}"><label id="username">{{ random.username }} </label></a>
+            <label id="timestamp">{{ random.timestamp }} </label>
+            <label id="score">{{ random.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+        </div>
+        <img src="/upload/{{ random.upload }}" class="img-responsive-home" id="random_file">
+        <div class="bottom-description">
+            <label id="description">{{ random.description }} </label>
+        </div>
+        <div class="skip_buttons">
+            <button id="mobile-like" onclick="likeButtonClicked({{ random.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-eye-open"></button>
+            <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
+            <button id="mobile-dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-eye-close"></button>
+            {% if user_id is not sameas 0 %}
+            <button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ random.id }})" class="btn btn-red"><span class="glyphicon glyphicon-heart"></span></button>
+            {% endif %}
+        </div>
     </div>
     <img src="/upload/{{ random.upload }}" class="img-responsive-home" id="random_file">
     <div class="bottom-description">
@@ -26,10 +39,10 @@
     </div>
 </div>
 
-{% if user_id is not sameas 0 %}
-<button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn like-btn"><span class="glyphicon glyphicon-eye-open" id="like-span-button"></button>
-<button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn dislike-btn"><span class="glyphicon glyphicon-eye-close" id="dislike-span-button"></button>
-{% endif %}
 
+    {% if user_id is not sameas 0 %}
+    <button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn like-btn"><span class="glyphicon glyphicon-eye-open" id="like-span-button"></button>
+    <button id="dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn dislike-btn"><span class="glyphicon glyphicon-eye-close" id="dislike-span-button"></button>
+    {% endif %}
 
 {% endblock %}
