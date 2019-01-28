@@ -74,7 +74,7 @@
                 </div>
             </nav>
 
-            {% if user_id is sameas 0 %}
+            {% if session.user_id  %}
             <a class="float-button">
                 <h3 data-toggle="modal" data-target="#myModal" class="camera-button">📷</h3>
             </a>
