@@ -252,7 +252,7 @@ def index():
 
     else:
         for post in random_photo:
-            if post["id"] not in seen:
+            if post["id"] not in seen and get_user_id(post["username"]) != user_id:
                 return render_template("index.html", random=post, user_id=user_id)
 
         flash("No more pictures available at the moment! Please come back later!")
