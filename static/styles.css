@@ -431,6 +431,11 @@ main #login {
      .trending-image {
          width: 100% !important;
      }
+
+     .btn-fav-explore {
+        max-width: 100% !important;
+        min-width: 370px;
+     }
 }
 
 .button-images {
