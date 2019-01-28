@@ -181,6 +181,7 @@ main #login {
 #profile_wrapper {
     overflow:auto;
     margin-left:15px;
+    margin-top: 50px !important;
 }
 
 .img-responsive-home {
