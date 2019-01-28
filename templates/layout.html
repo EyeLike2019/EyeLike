@@ -77,30 +77,30 @@
             <a  class="float-button">
                 <h3 data-toggle="modal" data-target="#myModal" class="camera-button">📷</h3>
             </a>
-        <div id="myModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Upload</h4>
-              </div>
-              <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <form action="/upload" method="post" enctype="multipart/form-data" >
-                                <input type="text" autocomplete="off" id="input" autofocus class="form-control" name="description" placeholder="Description" type="text" maxlength="100"/> <br>
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Upload</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <form action="/upload" method="post" enctype="multipart/form-data" >
+                                    <input type="text" autocomplete="off" id="input" autofocus class="form-control" name="description" placeholder="Description" type="text" maxlength="100"/> <br>
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                            <input type="file" name="file" id="file" class="inputfile" onchange="form.submit()" />
+                            <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700; padding-top: 9px;"><b>Upload <span class="glyphicon glyphicon-upload"></span></b></label><br>
+                        </form>
+                    </div>
                 </div>
-              <div class="modal-footer">
-                    <input type="file" name="file" id="file" class="inputfile" onchange="form.submit()" />
-                    <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700; padding-top: 9px;"><b>Upload <span class="glyphicon glyphicon-upload"></span></b></label><br>
-                </form>
-              </div>
+                </div>
             </div>
 
-  </div>
-</div>
         <div class="container">
             {% if get_flashed_messages() %}
                 <header>
