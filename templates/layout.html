@@ -87,18 +87,12 @@
               <div class="container-fluid">
                     <div class="row">
                         <div class="col">
-
-                            <fieldset>
-                            <div class="form-group"><br>
-                                <input autocomplete="off" id="input" autofocus class="form-control" name="description" placeholder="Description" type="text" maxlength="100"/>
-                            </div>
-                            </fieldset>
-                            </form>
+                            <form action="/upload" method="post" enctype="multipart/form-data" >
+                                <input type="text" autocomplete="off" id="input" autofocus class="form-control" name="description" placeholder="Description" type="text" maxlength="100"/> <br>
                         </div>
                     </div>
                 </div>
               <div class="modal-footer">
-                <form action="/upload" method="post" enctype="multipart/form-data" >
                     <input type="file" name="file" id="file" class="inputfile" onchange="form.submit()" />
                     <label for="file" class="btn btn-dark" style="font-size:14px; font-weight:700; padding-top: 9px;"><b>Upload <span class="glyphicon glyphicon-upload"></span></b></label><br>
                 </form>

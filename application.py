@@ -483,7 +483,7 @@ def upload_file():
 
         if not filename.endswith(".jpg") and not filename.endswith(".png") and not filename.endswith(".jpeg"):
             flash('Invalid file!')
-            return redirect(url_for("upload_file"))
+            return redirect(url_for("account"))
 
         f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
@@ -493,7 +493,7 @@ def upload_file():
         if os.path.getsize(f) > 4194304:
             flash("file size is to big, limit is 4mb")
             os.remove(f)
-            return redirect(url_for("upload_file"))
+            return redirect(url_for("account"))
 
         # get description
         description = request.form.get("description")
@@ -502,10 +502,10 @@ def upload_file():
         upload_photo(session["user_id"], filename, description, get_username(session["user_id"]))
         flash('Upload successful')
 
-        return redirect(url_for("upload_file"))
+        return redirect(url_for("account"))
 
     else:
-        return render_template("upload.html")
+        return render_template("account.html")
 
 
 @app.route("/uploadprofilepic", methods=['POST'])
