@@ -368,6 +368,11 @@ main #login {
     #like, #dislike {
         display: inline-block;
     }
+
+    .trending-image {
+         width: 200px;
+         height: 200px;
+     }
 }
 
 @media only screen and (max-width: 800px) {
@@ -416,10 +421,23 @@ main #login {
          width: 150px !important;
          height: 150px !important;
      }
+
+      .trending_modal {
+        margin-left:0;
+        margin-right:0;
+     }
+
+     .trending-image {
+         width: 100% !important;
+     }
 }
 
 .button-images {
-    margin-top:50px;
+    margin-bottom:50px;
+}
+
+#timeline-title {
+    margin-bottom: 50px !important;
 }
 
 .button-images button {
@@ -448,7 +466,7 @@ main #login {
 
 .timeline-container {
     background-color: rgba(246,246,246,1);
-    border-radius: 8px;
+    border-radius: 8px 8px 0px 0px;
     padding-top:25px;
     padding-bottom:25px;
 }
@@ -462,9 +480,22 @@ main #login {
     -webkit-transform: translateY(50%);
 }
 
+.btn-fav {
+    margin-left:auto;
+    margin-right: auto;
+    width: 400px !important;
+    max-width:400px !important;
+    margin-top: -8px !important;
+    border-radius: 0px 0px 8px 8px;
+}
 #score {
     float:right;
     padding-right: 25px
+}
+
+#score-profile {
+    padding-right: 0px !important;
+    float:right;
 }
 
 #explore-title h1 {
@@ -514,4 +545,8 @@ main #login {
      margin-right: 0px;
      padding-left: 0px;
      padding-right: 0px;
+ }
+
+ .trending_modal {
+    margin: 25px;
  }

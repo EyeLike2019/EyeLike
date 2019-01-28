@@ -5,19 +5,18 @@
 {% endblock %}
 
 {% block main %}
-
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <!--Modal for posts-->
     {% for post in trendingphotos %}
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <button name="modal" class="photo_modal" id="account-photo-modal" data-toggle="modal" data-target="#photomodal{{ post.id }}">
+        <button name="modal" class="photo_modal trending_modal" id="account-photo-modal" data-toggle="modal" data-target="#photomodal{{ post.id }}">
             <label for="modal">
                 <div class="account-photo-description">
                     <a href="{{ url_for('profile', username=post.username) }}"><label id="username">{{ post.username }} </label></a>
                     <label id="timestamp">{{ post.timestamp }} </label>
-                    <label id="score">{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+                    <label id="score-profile">{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
                 </div>
 
-                <img src="/upload/{{ post.upload }}" class="img-responsive" id="account-image">
+                <img src="/upload/{{ post.upload }}" class="img-responsive trending-image">
 
                 <div class="account-photo-bottom-description">
                     <label id="discription">{{ post.description }} </label>
@@ -57,7 +56,6 @@
                 </div>
             </div>
         </div>
-    </div>
     {% endfor %}
-
+  </div>
 {% endblock %}
