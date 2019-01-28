@@ -21,7 +21,7 @@
         <button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark"><b>Skip</b></button>
         <button id="mobile-dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-eye-close"></button>
         {% if user_id is not sameas 0 %}
-        <button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ random.id }})" class="btn btn-red"><span class="glyphicon glyphicon-heart"></span></button>
+        <button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ random.id }})" class="btn btn-red"><span class="glyphicon glyphicon-plus"></span><b> Add to favourites</b></button>
         {% endif %}
     </div>
 </div>

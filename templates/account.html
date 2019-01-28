@@ -19,10 +19,6 @@
             <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
         {% endfor %}
 
-        <p><b>Following:</b></p>
-        {% for a in following %}
-            <p>{{ a }}</p>
-        {% endfor %}
     </div>
 
     <!--Modal for posts-->
