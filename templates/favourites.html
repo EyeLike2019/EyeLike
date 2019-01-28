@@ -7,15 +7,19 @@
 {% block main %}
   {% for post in favourites %}
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal">
-            <label for="modal">
-              <a href="{{ url_for('profile', username= post.username) }}"><label id="username">{{ post.username }} </label></a>
-              <label id="timestamp">{{ post.timestamp }} </label>
-              <label id="score">{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
-              <img src="/upload/{{ post.upload }}" class="img-responsive">
-              <label id="discription">{{ post.description }} </label>
-            </label>
-        </button>
+              <button name="modal" class="photo_modal" id="account-photo-modal" data-toggle="modal" data-target="#photomodal">
+                <label for="modal">
+                  <div class="account-photo-description">
+                    <a href="{{ url_for('profile', username= post.username) }}"><label id="username">{{ post.username }} </label></a>
+                    <label id="timestamp">{{ post.timestamp }} </label>
+                    <label id="score">{{ post.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+                  </div>
+                  <img src="/upload/{{ post.upload }}" class="img-responsive" id="account-image">
+                  <div class="account-photo-bottom-description">
+                    <label id="discription">{{ post.description }} </label>
+                  </div>
+                </label>
+            </button>
 
         <div class="modal fade" id="photomodal" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
