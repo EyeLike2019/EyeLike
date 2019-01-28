@@ -180,7 +180,7 @@ def get_all_uploads(user_id):
 def get_all_recents():
     """Get all the photo's posted in the past week"""
 
-    all_recents = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-12 days')")
+    all_recents = db.execute("SELECT * FROM uploads WHERE DATE(timestamp) >= DATE('now', 'weekday 0', '-20 days')")
 
     # change timestamp
     all_recents = change_timestamp(all_recents)

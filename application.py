@@ -434,7 +434,7 @@ def new_favourite():
     photo_id = request.args['photo_id']
 
     add_favourite(user_id, photo_id)
-    Flash("Added to favourites!")
+    flash("Added to favourites!")
     return "Succes"
 
 
