@@ -8,7 +8,7 @@
 
     <div id="random_image">
         <div class="description-post">
-            <a href="{{ url_for('profile', username= random.username) }}"><label id="username">{{ random.username }} </label></a>
+            <a href="{{ url_for('profile', username=random.username) }}"><label id="username">{{ random.username }} </label></a>
             <label id="timestamp">{{ random.timestamp }} </label>
             <label id="score">{{ random.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
         </div>
