@@ -16,7 +16,7 @@
             if (response == "True") {
                 button = document.getElementById("follow")
                 button.style.background='green';
-                button.innerHTML='<b>Volgend</b>'
+                button.innerHTML='<b>Following</b>'
             }
 
           },
@@ -46,7 +46,7 @@
     	            console.log("1")
     	            button = document.getElementById("follow")
                     button.style.background='green';
-                    button.innerHTML='<b>Volgend</b>'
+                    button.innerHTML='<b>Following</b>'
 
                     },
                     error: function(error) {
@@ -63,7 +63,7 @@
 
     	            button = document.getElementById("follow")
                     button.style.background='black';
-                    button.innerHTML='<b>Volgen</b>'
+                    button.innerHTML='<b>Follow</b>'
 
                     },
                     error: function(error) {
@@ -91,12 +91,12 @@
         <br><br>
         <p><b>Followers:</b></p>
         {% for follower in followers %}
-             <p>{{ follower }}</p>
+             <a href="{{ url_for('profile', username= follower) }}"><p>{{ follower }}</p></a>
         {% endfor %}
 
         <p><b>Following:</b></p>
         {% for a in following %}
-             <p>{{ a }}</p>
+             <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
         {% endfor %}
     </div>
     <div class="container" id="collage">
