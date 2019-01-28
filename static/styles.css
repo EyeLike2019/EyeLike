@@ -134,6 +134,11 @@ main #login {
     width:200px !important;
 }
 
+#input_description {
+    width:598px !important;
+    height:100px !important;
+}
+
 .btn {
      width:200px !important;
      background-color:black;
