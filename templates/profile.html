@@ -88,16 +88,19 @@
             <button id="follow" onclick="followButtonClicked()" class="btn btn-dark"><b>Follow</b></button>
 
             <br><br>
-
-            <p><b>Followers:</b></p>
-            {% for follower in followers %}
+            <details>
+              <summary>Followers</summary>
+                {% for follower in followers %}
                  <a href="{{ url_for('profile', username= follower) }}"><p>{{ follower }}</p></a>
-            {% endfor %}
+                {% endfor %}
+            </details>
 
-            <p><b>Following:</b></p>
-            {% for a in following %}
+            <details>
+              <summary>Following</summary>
+                {% for a in following %}
                  <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
-            {% endfor %}
+                {% endfor %}
+            </details>
         </div>
 
         <!--Modal for posts-->
