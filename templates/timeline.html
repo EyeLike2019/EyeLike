@@ -12,7 +12,7 @@
     {% for post in uploads %}
     <div class="button-images">
         <button name="modal" class="photo_modal" data-toggle="modal" data-target="#photomodal{{ post.id }}">
-            <label for="modal">
+            <label for="modal" class="modal-label">
                 <div class="timeline-container">
                     <div class="timeline-description">
                         <a href="{{ url_for('profile', username=post.username) }}"><label id="username">{{ post.username }} </label></a>

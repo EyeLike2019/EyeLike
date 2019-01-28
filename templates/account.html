@@ -31,7 +31,7 @@
     <div class="row imagetiles">
         {% for upload in photos %}
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-            <button name="modal" class="photo_modal" id="account-photo-modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
+            <button name="modal" class="photo_modal modal-label" id="account-photo-modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
                 <label for="modal">
                     <div class="account-photo-description">
                         <label id="timestamp">{{ upload.timestamp }} </label>

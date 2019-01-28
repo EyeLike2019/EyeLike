@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block main %}
-    <script>
+<script>
+
         $.ajax({
             url: '/already_following',
 			data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
@@ -25,163 +26,152 @@
           }
         });
 
-        function followButtonClicked() {
-            console.log("Follow button clicked");
+    function followButtonClicked() {
+        console.log("Follow button clicked");
 
-            $.ajax({
-                url: '/already_following',
-    			data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+        $.ajax({
+            url: '/already_following',
+			data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
 
-              success: function(response) {
-                console.log(response)
-                if (response == "False") {
-                    $.ajax({
-                        url: '/follow',
-    			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+          success: function(response) {
+            console.log(response)
+            if (response == "False") {
+                $.ajax({
+                    url: '/follow',
+			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
 
-                        success: function(response) {
+                    success: function(response) {
 
-                        console.log(response)
-        	            console.log("1")
-        	            button = document.getElementById("follow")
-                        button.style.background='green';
-                        button.innerHTML='<b>Following</b>'
+                    console.log(response)
+    	            console.log("1")
+    	            button = document.getElementById("follow")
+                    button.style.background='green';
+                    button.innerHTML='<b>Following</b>'
 
-                        },
-                        error: function(error) {
-        				    console.log("Something went wrong!")
-        				    console.log(error)
-                        }
-                    });
-                } else {
-                    $.ajax({
-                        url: '/unfollow',
-    			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+                    },
+                    error: function(error) {
+    				    console.log("Something went wrong!")
+    				    console.log(error)
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: '/unfollow',
+			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
 
-                        success: function(response) {
+                    success: function(response) {
 
-        	            button = document.getElementById("follow")
-                        button.style.background='black';
-                        button.innerHTML='<b>Follow</b>'
+    	            button = document.getElementById("follow")
+                    button.style.background='black';
+                    button.innerHTML='<b>Follow</b>'
 
-                        },
-                        error: function(error) {
-        				    console.log("Something went wrong!")
-        				    console.log(error)
-                        }
-                    });
-                }
+                    },
+                    error: function(error) {
+    				    console.log("Something went wrong!")
+    				    console.log(error)
+                    }
+                });
+            }
 
-              },
-              error: function(error) {
-        				console.log("Something went wrong!")
-        				console.log(error)
-              }
-            });
-        }
-    </script>
+          },
+          error: function(error) {
+    				console.log("Something went wrong!")
+    				console.log(error)
+          }
+        });
 
-    <div id="profile_wrapper">
-        <div id="user">
-            <img src="{{ profile_pic }}" class="profile-picture" data-toggle="modal" data-target="#photomodal_profile">
-            <h1><b>{{ name }}</b></h1>
-            <button id="follow" onclick="followButtonClicked()" class="btn btn-dark"><b>Follow</b></button>
+    }
 
-            <br><br>
-            <details>
-              <summary>Followers</summary>
-                {% for follower in followers %}
-                 <a href="{{ url_for('profile', username= follower) }}"><p>{{ follower }}</p></a>
-                {% endfor %}
-            </details>
+</script>
+<div id="profile_wrapper">
+    <div id="user">
+        <img src="{{ profile_pic }}" class="profile-picture" data-toggle="modal" data-target="#photomodal_profile">
+        <h1><b>{{ name }}</b></h1>
+        <button id="follow" onclick="followButtonClicked()" class="btn btn-dark"><b>Follow</b></button>
+        <br><br>
+        <p><b>Followers:</b></p>
+        {% for follower in followers %}
+             <a href="{{ url_for('profile', username= follower) }}"><p>{{ follower }}</p></a>
+        {% endfor %}
 
-            <details>
-              <summary>Following</summary>
-                {% for a in following %}
-                 <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
-                {% endfor %}
-            </details>
-        </div>
+        <p><b>Following:</b></p>
+        {% for a in following %}
+             <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
+        {% endfor %}
+    </div>
+    <div class="container" id="collage">
+    <div class="row imagetiles">
 
-        <!--Modal for posts-->
-        <div class="container" id="collage">
-        <div class="row imagetiles">
-            {% for upload in photos %}
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <button name="modal" class="photo_modal" id="account-photo-modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
-                    <label for="modal">
-                        <div class="account-photo-description">
-                            <label id="timestamp">{{ upload.timestamp }} </label>
-                            <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
-                        </div>
+        {% for upload in photos %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+            <button name="modal" class="photo_modal modal-label" id="account-photo-modal" data-toggle="modal" data-target="#photomodal{{ upload.id }}">
+                <label for="modal">
+                  <div class="account-photo-description">
+                    <label id="timestamp">{{ upload.timestamp }} </label>
+                    <label id="score">{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></label>
+                  </div>
+                  <img src="/upload/{{ upload.upload }}" class="img-responsive" id="account-image">
+                  <div class="account-photo-bottom-description">
+                    <label id="discription">{{ upload.description }} </label>
+                  </div>
+                </label>
+            </button>
 
-                        <img src="/upload/{{ upload.upload }}" class="img-responsive" id="account-image">
-
-                        <div class="account-photo-bottom-description">
-                            <label id="discription">{{ upload.description }} </label>
-                        </div>
-                    </label>
-                </button>
-
-                <div class="modal fade" id="photomodal{{ upload.id }}" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="row">
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-8"><h4 class="modal-title" id="username">{{ upload.username }} </h4></div>
-                                    <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-8"><h5 class="modal-title" id="timestamp">{{ upload.timestamp }}</h5></div>
-                                    <div class="col-sm-2">
-                                        <h5>{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal-body">
-                                <p><img src=/upload/{{ upload.upload }}></p>
-                                <p>{{ upload.description }}</p>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button id="favourite" onclick="favouriteButtonClicked({{ follower_id }}, {{ upload.id }})" class="btn btn-red"><span class="glyphicon glyphicon-plus"></span><b> Add to favourites</b></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        </div>
-
-        <!--Modal for profile picture-->
-        <div class="modal fade" id="photomodal_profile" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal fade" id="photomodal{{ upload.id }}" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button></div>
-                        </div>
+                  <div class="modal-header">
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-8"><h4 class="modal-title" id="username">{{ upload.username }} </h4></div>
+                      <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button></div>
                     </div>
 
-                    <div class="modal-body">
-                        <img src="{{ profile_pic }}">
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-8"><h5 class="modal-title" id="timestamp">{{ upload.timestamp }}</h5></div>
+                      <div class="col-sm-2">
+                        <h5>{{ upload.score }} <span class="glyphicon glyphicon-eye-open"></span></h5>
+                      </div>
                     </div>
-
+                  </div>
+                  <div class="modal-body">
+                    <p><img src=/upload/{{ upload.upload }}></p>
+                    <p>{{ upload.description }}</p>
+                  </div>
                     <div class="modal-footer">
-                        {% if has_pp is sameas false %}
-                        <font size="1">Photo by <a href src="https://unsplash.com/">Unsplash</a></font>
-                        {% endif %}
+                        <button id="favourite" onclick="favouriteButtonClicked({{ follower_id }}, {{ upload.id }})" class="btn btn-dark"><span class="glyphicon glyphicon-heart"></span></button>
+                      </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+
+    <div class="modal fade" id="photomodal_profile" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-sm-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></div>
                     </div>
+                <div class="modal-body">
+                    <img src="{{ profile_pic }}">
+                </div>
+                <div class="modal-footer">
+                    {% if has_pp is sameas false %}
+                    <font size="1">Photo by <a href src="https://unsplash.com/">Unsplash</a></font>
+                    {% endif %}
+                </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

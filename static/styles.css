@@ -329,6 +329,17 @@ main #login {
     border: 0px;
 }
 
+.modal-label {
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.modal-label:hover {
+    box-shadow: 0px 15px 20px rgba(50, 50, 50, 0.4);
+    transform: translateY(-7px);
+}
+
 .col-5 img {
     padding: 5px;
     border-radius: 8px;
