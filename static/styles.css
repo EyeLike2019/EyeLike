@@ -1,3 +1,8 @@
+html,body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 .container
 {
     /* center contents */
@@ -176,6 +181,7 @@ main #login {
     float:left;
     max-width: 25%;
     margin-left: 25px;
+    margin-top: 7px;
 }
 
 #profile_wrapper {
