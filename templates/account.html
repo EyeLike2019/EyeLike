@@ -11,12 +11,12 @@
     <h1><b>{{ name }}</b></h1>
     <p><b>Followers:</b></p>
     {% for follower in followers %}
-      <p>{{ follower }}</p>
+      <a href="{{ url_for('profile', username= follower) }}"><p>{{ follower }}</p></a>
     {% endfor %}
 
     <p><b>Following:</b></p>
     {% for a in following %}
-      <p>{{ a }}</p>
+      <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
     {% endfor %}
 
   </div>
