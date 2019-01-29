@@ -9,16 +9,17 @@
     <div id="user">
         <img src="{{ profile_pic }}" class="profile-picture modal-label" data-toggle="modal" data-target="#photomodal_profile">
         <h1><b>{{ name }}</b></h1>
+        <br><br>
 
         <details>
-            <summary class="summary">Followers</summary>
+            <summary class="summary">Followers: {{ num_followers }}</summary>
                 {% for follower in followers %}
                     <a href="{{ url_for('profile', username= follower) }}"><p>{{ follower }}</p></a>
                 {% endfor %}
         </details>
 
         <details>
-            <summary class="summary">Following</summary>
+            <summary class="summary">Following: {{ num_following }}</summary>
                 {% for a in following %}
                     <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
                 {% endfor %}

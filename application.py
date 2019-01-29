@@ -193,7 +193,7 @@ def account():
     else:
         profile_pic = pp_check[0]
 
-    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1])
+    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following))
 
 
 @app.route("/profile/<username>")
@@ -238,7 +238,7 @@ def profile(username):
     else:
         profile_pic = pp_check[0]
 
-    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1])
+    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following))
 
 
 @app.route("/")
