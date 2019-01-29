@@ -330,12 +330,8 @@ def check_logged_in():
     return user_id
 
 def get_all_users():
-    """Get all usernames"""
+    """Get all users and convert to JSON-format"""
 
-    user_list = []
-    users = db.execute("SELECT * FROM users")
+    users = json.dumps(db.execute("SELECT * FROM users"))
 
-    for user in users:
-        user_list.append(user["username"])
-
-    return user_list
+    return users

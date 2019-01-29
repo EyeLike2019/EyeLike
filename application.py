@@ -42,6 +42,14 @@ PROFILE_FOLDER = os.path.basename('uploadprofilepic')
 app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
 
 
+@app.route("/py_autocomplete")
+def py_autocomplete():
+    """Get all users"""
+
+    users = get_all_users()
+
+    return users
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in."""

@@ -26,12 +26,12 @@
         //         }
         //     }
 
-            function keypress(event){
-                if (event.keyCode == 13 || event.which == 13){
-                    searchFunction()
-                    console.log("Success")
-                }
-            }
+            // function keypress(event){
+            //     if (event.keyCode == 13 || event.which == 13){
+            //         searchFunction()
+            //         console.log("Success")
+            //     }
+            // }
 
         </script>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
@@ -64,7 +64,7 @@
                                 <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><input autocomplete="off" class="form-control" onkeypress="keypress(event);"  name="lookup" id="searchbar" placeholder="Search" type="text"></li>
+                                <li><input autocomplete="off" class="form-control" name="lookup" id="searchbar" placeholder="Search" type="text"></li>
                             </ul>
                         {% else %}
                             <ul class="nav navbar-nav navbar-right">
@@ -106,8 +106,18 @@
             </div>
 
         <script>
-            var users = ['furkan']//get_all_users();
-            autocomplete(document.getElementById("searchbar"), users)
+            $.getJSON("{{ url_for('py_autocomplete') }}",
+                function(data) {
+                    var users = []
+
+                    for (var i = 0; i < data.length; i++) {
+                        var username = data[i]["username"]
+                        users.push(username)
+                    }
+
+                    autocomplete(document.getElementById("searchbar"), users)
+                }
+            )
         </script>
 
         <div class="container">

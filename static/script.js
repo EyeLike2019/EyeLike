@@ -143,16 +143,15 @@ function removeProfilePicButtonClicked(profile_pic) {
     });
 }
 
+
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
-    console.log()
     var currentFocus;
 
     /*execute a function when someone writes in the text field:*/
     inp.addEventListener("input", function(e) {
-        var a, b, i, val = this.value;
-
+        var a, b, i, val = "@" + this.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();
 
@@ -168,10 +167,8 @@ function autocomplete(inp, arr) {
         this.parentNode.appendChild(a);
 
         for (i = 0; i < arr.length; i++) {
-
             /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() && val.length > 1) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
 
