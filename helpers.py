@@ -176,6 +176,11 @@ def get_all_uploads(user_id):
 
     return user_photos
 
+def load_more():
+    counter = 2
+    return counter
+    counter = counter + 2
+    return render_template("trending.html")
 
 def get_all_recents():
     """Get all the photo's posted in the past week"""
