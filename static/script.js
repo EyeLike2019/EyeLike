@@ -187,7 +187,7 @@ function autocomplete(inp, arr) {
 
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
-                    searchFunction()
+                    searchFunction();
 
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
@@ -223,6 +223,7 @@ inp.addEventListener("keydown", function(e) {
         if (currentFocus > -1) {
             if (x) x[currentFocus].click();
         }
+        searchFunction();
     }
 });
 
