@@ -136,6 +136,13 @@ main #login {
     max-width:95%;
 }
 
+#input_description {
+    width: 90% !important;
+    height: 80px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #body_login {
     background: url(https://source.unsplash.com/1000x1000/) ;
     background-repeat: no-repeat;
@@ -147,10 +154,6 @@ main #login {
     height: 40px;
 }
 
-#input_description {
-    width:598px !important;
-    height:100px !important;
-}
 
 .btn {
      width:200px !important;
