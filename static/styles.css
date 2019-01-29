@@ -137,8 +137,10 @@ main #login {
 }
 
 #input_description {
-    width: 598px !important;
+    width: 90% !important;
     height: 80px !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #body_login {
