@@ -573,3 +573,7 @@ main #login {
  .trending_modal {
     margin: 25px;
  }
+
+ .summary {
+     cursor: pointer;
+ }
