@@ -328,3 +328,14 @@ def check_logged_in():
         user_id = 0
 
     return user_id
+
+def get_all_users():
+    """Get all usernames"""
+
+    user_list = []
+    users = db.execute("SELECT * FROM users")
+
+    for user in users:
+        user_list.append(user["username"])
+
+    return user_list
