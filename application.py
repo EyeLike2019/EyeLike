@@ -292,7 +292,7 @@ def trending():
 
     # check if the score of the photo is high enough
     for p in all_recents:
-        if p["score"] >= 2:
+        if p["score"] >= 100:
             trendingphotos.append(p)
 
     # sort uploads on timestamp
