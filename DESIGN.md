@@ -46,11 +46,12 @@ Groep 20:
 
 -   Naar de pagina met favoriete berichten (GET) → favourites
 
--   Foto's uit favoriteten verwijderen (POST) → remove favourite
+-   Foto's uit favorieten verwijderen (POST) → remove
 
 
 ## Schetsen
-De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verkennenpagina. Het doel van deze pagina is bezoekers kennis te laten maken met de site. Doordat ze al zonder hoeven in te loggen berichten kunnen liken, disliken of overslaan. Uiteraard is het ook mogelijk om een account aan te maken. Hierna kan men inloggen. Zo kunnen gebruikers van EyeLike ook daadwerkelijk zien welke foto's populair zijn, op de trendingpagina, en accounts bekijken. Dit is niet mogelijk zonder ingelogd te zijn. Als er op een (dis)like knop gedrukt wordt zal er te zien zijn dat de rating van een foto omhoog/omlaag gaat. Hierna zal, of na het klikken van de skipbutton, een nieuwe foto verschijnen. Als men zijn gegevens invult en op de knop registreren klikt wordt diegene doorgestuurd naar de inlogpagina. De knop inloggen zal de gebruiker naar zijn/haar persoonlijke accountpagina brengen. Als er op de knop volgen wordt geklikt, zal de kleur van de volgknop veranderen, "volgen" in "volgend" worden veranderd en dit account zal toegevoegd worden aan de lijst met personen die de ingelogde persoon volgt. Het klikken op een accountnaam brengt de ingelogde gebruiker naar de accountpagina van de aangeklikte naam.
+De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verkennenpagina. Het doel van deze pagina is bezoekers kennis te laten maken met de site. Zo kunnen ze al zonder hoeven in te loggen random gegenereerde berichten bekijken van de website. Uiteraard is het ook mogelijk om een account aan te maken. Hierna kan men inloggen. De inlogknop zal de gebruiker naar zijn/haar persoonlijke accountpagina brengen. Hierna kunnen gebruikers van EyeLike ook daadwerkelijk foto's (dis)liken, zien welke foto's populair zijn, foto's toevoegen aan favorieten en accounts bekijken. Daarnaast is het ook mogelijk andere accounts te volgen en daarna een persoonlijke tijdlijn te bekijken met de foto's van accounts die je volgt.  Als er op een (dis)like knop gedrukt wordt, gaat de rating van een foto omhoog/omlaag gaat. Hierna zal, of na het klikken van de skipbutton, een nieuwe foto verschijnen. Als er op de knop volgen wordt geklikt, zal de volgknop veranderen. Dit account zal nu toegevoegd worden aan de lijst met personen die de ingelogde persoon volgt. Het klikken op een accountnaam brengt de ingelogde gebruiker naar de accountpagina van de aangeklikte naam. Op de explore, trending, timeline en profile pagina kunnen foto's aan de favorieten worden toegevoegd. Hier kunnen foto's opgeslagen worden. Op de favourites pagina kunnen foto's ook weer verwijderd worden uit de database. Als laatst is het op de accountpagina mogelijk de random foto van de API te vervangen voor een eigen profielfoto. 
+
 ![Explore](https://imgur.com/9t9uvkV.png)
 ![Register](https://i.imgur.com/gZr1M9Q.png)
 ![Log in](https://i.imgur.com/f85dBo9.jpg)
@@ -111,7 +112,7 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
 -   get_all_uploads(user_id)  
     Haalt alle nodige informatie op van de uploads van degenen die de gebruiker volgt voor de tijdlijn.
     
--   get_all_trending()
+-   get_all_recents()
     Haalt foto's op uit de database die de afgelopen week geplaatst zijn.
     
 -   get_favourites(user_id)
@@ -125,6 +126,30 @@ De eerste pagina die de bezoeker van EyeLike te zien krijgt is de explore/verken
     
 -   get_info(post_id)  
     Haalt alle nodige informatie op van een foto's uit de database voor het laten zien van de post.
+ 
+-   update_profile_pic(user_id, file) 
+    Laat een gebruiker zijn profielfoto veranderen.
+
+-   remove_profile_pic(user_id) 
+    Verwijdert profielfoto uit database.
+
+-   get_profile_pic(user_id) 
+    Haalt profielfoto op van een gebruiker uit de database.
+
+-   check_profile_picture(user_id) 
+    Controleert of gebruiker al een profielfoto heeft en laat deze zien als hij bestaat.
+
+-   already_seen(user_id, photo_id) 
+    Houdt bij welke foto's op de verkennenpagina door de gebruiker gezien zijn. 
+    
+-   request_seen(user_id) 
+    Vraagt alle foto's op die de gebruiker heeft gezien. 
+
+-   change_timestamp(post_list) 
+    Veranderd de datum en tijd naar het correcte formaat op de site.
+
+-   check_logged_in() 
+    Controleert of de gebruiker ingelogd is. 
     
 
 ## Plugins en frameworks
