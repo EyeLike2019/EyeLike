@@ -291,6 +291,7 @@ def timeline():
     return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
 
 
+
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
@@ -309,8 +310,9 @@ def trending():
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
         return render_template("trending.html")
-
+    trendingphotos = trendingphotos[:load_more()]
     return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
+
 
 
 @app.route("/favourites")
