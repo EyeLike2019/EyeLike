@@ -42,7 +42,7 @@ Groep 20:
 
 -   Naar de trendingpagina (GET) → trending
 
--   Foto's aan favorieten toevoegen (POST) → favourite
+-   Foto's aan favorieten toevoegen (POST) → add to favourites
 
 -   Naar de pagina met favoriete berichten (GET) → favourites
 
