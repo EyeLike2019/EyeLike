@@ -42,14 +42,6 @@ PROFILE_FOLDER = os.path.basename('uploadprofilepic')
 app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
 
 
-@app.route("/py_autocomplete")
-def py_autocomplete():
-    """Get all users"""
-
-    users = get_all_users()
-
-    return users
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in."""
@@ -357,6 +349,15 @@ def search(username):
     return redirect(url_for("profile", username=username))
 
 
+@app.route("/py_autocomplete")
+def py_autocomplete():
+    """Get all users"""
+
+    users = get_all_users()
+
+    return users
+
+
 @app.route("/already_following")
 def already_following():
     """"Check if user already follows"""
@@ -407,6 +408,7 @@ def remove():
 
     return "Success"
 
+
 @app.route("/removeprofilepicture")
 def rm_profile_picture():
     """Remove profile picture of user"""
@@ -440,8 +442,13 @@ def rm_favourite():
 def new_favourite():
     """"Add photo to favourites"""
 
-    user_id = request.args['user_id']
-    photo_id = request.args['photo_id']
+    user_id = int(request.args['user_id'])
+    photo_id = int(request.args['photo_id'])
+
+    for post in get_favourites(user_id):
+        if post["photo_id"] == photo_id:
+            flash("Photo already in your favourites!")
+            return "Success"
 
     add_favourite(user_id, photo_id)
     flash("Added to favourites!")

@@ -5,11 +5,26 @@
 {% endblock %}
 
 {% block main %}
-// <script>
-// var button = document.getElementById("follow")
-// console.log(button)
-// following(button, {{user_id}}, {{ follower_id }})
-// </script>
+<script>
+    $.ajax({
+        url: '/already_following',
+    	data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
+
+      success: function(response) {
+        console.log(response)
+        if (response == "True") {
+            button = document.getElementById("follow")
+            button.style.background='green';
+            button.innerHTML='<b>Following</b>'
+        }
+
+      },
+      error: function(error) {
+    			console.log("Something went wrong!")
+    			console.log(error)
+      }
+    });
+</script>
 <div id="profile_wrapper">
     <div id="user">
         <img src="{{ profile_pic }}" class="profile-picture modal-label" data-toggle="modal" data-target="#photomodal_profile">

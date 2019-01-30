@@ -122,7 +122,6 @@ function favouriteButtonClicked(user_id, photo_id) {
     });
 }
 
-
 function removeProfilePicButtonClicked(profile_pic) {
     console.log("Remove button clicked");
     $.ajax({
@@ -270,30 +269,10 @@ function searchFunction() {
         window.location = '/search/' + nameValue;
     }
 }
-// function following(button, user_id, follower_id) {
-//     console.log(button)
-//     $.ajax({
-//         url: '/already_following',
-//     	data: {"user_id": user_id, "follower_id" : follower_id },
-
-//       success: function(response) {
-//         console.log(response)
-//         if (response == "True") {
-//             button.style.background='green';
-//             button.innerHTML='<b>Following</b>'
-//         }
-
-//       },
-//       error: function(error) {
-//     			console.log("Something went wrong!")
-//     			console.log(error)
-//       }
-//     });
-// }
 
 function followButtonClicked(user_id, follower_id) {
     console.log("Follow button clicked");
-    var button = document.getElementById("follow")
+    var button = document.getElementById("follow");
 
     $.ajax({
         url: '/already_following',
@@ -301,10 +280,7 @@ function followButtonClicked(user_id, follower_id) {
 
       success: function(response) {
         console.log(response)
-        if (response == "True") {
-            button.style.background='green';
-            button.innerHTML='<b>Following</b>'
-        } else if (response == "False") {
+        if (response == "False") {
             $.ajax({
                 url: '/follow',
 		        data: {"user_id": user_id, "follower_id" : follower_id },

@@ -176,11 +176,13 @@ def get_all_uploads(user_id):
 
     return user_photos
 
+
 def load_more():
     counter = 2
     return counter
     counter = counter + 2
     return render_template("trending.html")
+
 
 def get_all_recents():
     """Get all the photo's posted in the past week"""
@@ -243,6 +245,7 @@ def update_profile_pic(user_id, file):
         db.execute("INSERT INTO profilepictures (user_id, profile_picture) VALUES(:user_id, :file)", user_id=user_id, file=file)
 
     return "Success"
+
 
 def remove_profile_pic(user_id):
     """Deletes profile picture of user in database"""
@@ -340,3 +343,5 @@ def get_all_users():
     users = json.dumps(db.execute("SELECT * FROM users"))
 
     return users
+
+
