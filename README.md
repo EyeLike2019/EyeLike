@@ -30,7 +30,7 @@ Eyelike is een webapplicatie met als doel om gebruikers te verbinden die geïnte
 
 ![Timeline](doc/timeline.png)
 
-![Trending](https://i.imgur.com/dUzkjZB.jpg)
+![Trending](moet nog toegevoegd)
 
 ![Favourites](doc/favourites.png)
 
