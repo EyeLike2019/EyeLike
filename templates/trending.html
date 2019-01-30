@@ -60,6 +60,6 @@
 
     {% endfor %}
   <div class="modal-footer">
-    <button id="favourite" onclick="load_more()" class="btn btn-red"><span class="glyphicon glyphicon-plus"></span><b> Add to favourites</b></button>
+    <button id="favourite" onclick="load_more({{counter}})" class="btn btn-red"><span class="glyphicon glyphicon-plus"></span><b> Add to favourites</b></button>
   </div>
 {% endblock %}

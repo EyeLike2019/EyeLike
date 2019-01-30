@@ -102,11 +102,12 @@ function removeFavouriteButtonClicked(user_id, photo_id) {
     });
 }
 
-function load_more() {
-    console.log("load more button clicked");
+function load_more(counter) {
+    console.log("Load more button clicked");
+    counter += 3;
     $.ajax({
         url: '/load_more',
-
+        data: {"counter" : counter},
 
     success: function(response) {
         console.log(response)

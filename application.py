@@ -42,14 +42,6 @@ PROFILE_FOLDER = os.path.basename('uploadprofilepic')
 app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
 
 
-@app.route("/py_autocomplete")
-def py_autocomplete():
-    """Get all users"""
-
-    users = get_all_users()
-
-    return users
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in."""
@@ -290,23 +282,24 @@ def timeline():
 
     return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
 
-counter = 2
+# counter = 0
 @app.route("/load_more")
 def load_more():
-    global counter
-    counter = counter + 1
-    return str(counter)
+    counter = request.args['counter']
+    # global counter
 
-@app.route("/reset")
-def reset():
-    counter = 2
-    return str(counter)
+    return counter
+
 
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
+    try:
+        counter = int(load_more())
+        print(counter)
+    except Exception:
+        counter = 3
 
-    counter = load_more()
     trendingphotos = []
     all_recents = get_all_recents()
 
@@ -321,9 +314,8 @@ def trending():
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
         return render_template("trending.html")
-    trendingphotos = trendingphotos[:int(counter)]
-    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
-
+    trendingphotos = trendingphotos[:counter]
+    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"], counter=counter)
 
 
 @app.route("/favourites")
@@ -417,6 +409,16 @@ def remove():
     remove_photo(user_id, photo_id)
 
     return "Success"
+
+
+@app.route("/py_autocomplete")
+def py_autocomplete():
+    """Get all users"""
+
+    users = get_all_users()
+
+    return users
+
 
 @app.route("/removeprofilepicture")
 def rm_profile_picture():
