@@ -398,6 +398,12 @@ main #login {
 
 @media only screen and (max-width: 800px) {
 
+    #body_login {
+        background: url(https://source.unsplash.com/1000x4000/) ;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
     #mobile-like, #mobile-dislike {
         display: inline-block;
     }
