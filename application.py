@@ -282,6 +282,8 @@ def index():
 def timeline():
     """Show timeline of following accounts"""
 
+    photos_empty = False
+
     uploads = []
     followings_id = get_following(session["user_id"])
 
@@ -291,10 +293,13 @@ def timeline():
         for u in user_uploads:
             uploads.append(u)
 
+    if not uploads:
+        photos_empty = True
+
     # sort uploads on timestamp
     uploads.sort(key=lambda d: d['timestamp'])
 
-    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
+    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"], photos_empty=photos_empty)
 
 counter = 3
 @app.route("/load_more")
