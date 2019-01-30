@@ -89,8 +89,8 @@ def logout():
     session.clear()
 
     # forget all counters
-    global counter
-    counter = 3
+    global counter_trending
+    counter_trending = 3
 
     # redirect user to login form
     return redirect(url_for("login"))

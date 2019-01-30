@@ -114,7 +114,7 @@ function load_more(template) {
         data: {"template" : template},
 
         success: function(response) {
-
+            console.log(template)
             location.reload();
 
         },
