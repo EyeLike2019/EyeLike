@@ -291,6 +291,7 @@ function followButtonClicked(user_id, follower_id) {
 	            console.log("1")
                 button.style.background='green';
                 button.innerHTML='<b>Following</b>'
+                location.reload();
 
                 },
                 error: function(error) {
@@ -307,6 +308,7 @@ function followButtonClicked(user_id, follower_id) {
 
                 button.style.background='black';
                 button.innerHTML='<b>Follow</b>'
+                location.reload();
 
                 },
                 error: function(error) {

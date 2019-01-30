@@ -33,16 +33,16 @@
         <br>
 
         <details>
-            <summary class="summary">Followers: {{ num_followers }}</summary>
+            <summary class="summary"><b>Followers:</b> {{ num_followers }}</summary>
             {% for follower in followers %}
-                <a href="{{ url_for('profile', username= follower) }}"><p>{{ follower }}</p></a>
+                <a href="{{ url_for('profile', username= follower) }}"><p id="summary-detail"><b>{{ follower }}</b></p></a>
             {% endfor %}
         </details>
 
         <details>
-            <summary class="summary">Following: {{ num_following }}</summary>
+            <summary class="summary"><b>Following:</b> {{ num_following }}</summary>
             {% for a in following %}
-                 <a href="{{ url_for('profile', username= a) }}"><p>{{ a }}</p></a>
+                 <a href="{{ url_for('profile', username= a) }}"><p id="summary-detail"><b>{{ a }}</b></p></a>
             {% endfor %}
         </details>
 
