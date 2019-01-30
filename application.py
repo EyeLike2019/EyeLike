@@ -41,6 +41,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 PROFILE_FOLDER = os.path.basename('uploadprofilepic')
 app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
 
+# declare counters
+counter_trending = counter_timeline = counter_account = counter_profile = counter_favourites = 3
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -89,8 +92,8 @@ def logout():
     session.clear()
 
     # forget all counters
-    global counter_trending
-    counter_trending = 3
+    global counter_trending, counter_timeline, counter_account, counter_profile, counter_favourites
+    counter_trending = counter_timeline = counter_account = counter_profile = counter_favourites = 3
 
     # redirect user to login form
     return redirect(url_for("login"))
@@ -169,6 +172,7 @@ def account():
     """Show account"""
 
     photos_empty = False
+    show = True
 
     # get username
     username = get_username(session["user_id"])
@@ -202,7 +206,14 @@ def account():
     else:
         profile_pic = pp_check[0]
 
-    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following), photos_empty=photos_empty)
+    # check if load-more button has to be shown
+    if len(user_photos) <= counter_account:
+        show = False
+
+    # show limited number of posts
+    user_photos = user_photos[:counter_account]
+
+    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following), photos_empty=photos_empty, show=show)
 
 
 @app.route("/profile/<username>")
@@ -211,6 +222,7 @@ def profile(username):
     """Show profile of other user"""
 
     photos_empty = False
+    show = True
 
     # check if username exists
     if len(check_username(username)) != 1:
@@ -252,7 +264,14 @@ def profile(username):
     else:
         profile_pic = pp_check[0]
 
-    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following), photos_empty=photos_empty)
+    # check if load-more button has to be shown
+    if len(user_photos) <= counter_profile:
+        show = False
+
+    # show limited number of posts
+    user_photos = user_photos[:counter_profile]
+
+    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following), photos_empty=photos_empty, show=show)
 
 
 @app.route("/")
@@ -283,6 +302,7 @@ def timeline():
     """Show timeline of following accounts"""
 
     photos_empty = False
+    show = True
 
     uploads = []
     followings_id = get_following(session["user_id"])
@@ -299,18 +319,14 @@ def timeline():
     # sort uploads on timestamp
     uploads.sort(key=lambda d: d['timestamp'])
 
-    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"], photos_empty=photos_empty)
+    # check if load-more button has to be shown
+    if len(uploads) <= counter_timeline:
+        show = False
 
-counter_trending = 3
-@app.route("/load_more")
-def load_more():
-    global counter_trending
+    # show limited number of posts
+    uploads = uploads[:counter_timeline]
 
-    template = request.args['template']
-    if template == 'trending':
-        counter_trending += 3
-
-    return counter_trending
+    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"], photos_empty=photos_empty, show=show)
 
 
 @login_required
@@ -320,6 +336,7 @@ def trending():
 
     trendingphotos = []
     all_recents = get_all_recents()
+    show = True
 
     # check if the score of the photo is high enough
     for p in all_recents:
@@ -332,8 +349,15 @@ def trending():
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
         return render_template("trending.html")
-    trendingphotos = trendingphotos[:int(counter_trending)]
-    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
+
+    # check if load-more button has to be shown
+    if len(trendingphotos) <= counter_trending:
+        show = False
+
+    # show limited amount of posts
+    trendingphotos = trendingphotos[:counter_trending]
+
+    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"], show=show)
 
 
 @app.route("/favourites")
@@ -343,6 +367,7 @@ def favourites():
 
     favourites = []
     post_id = get_favourites(session["user_id"])
+    show = True
 
     if len(post_id) == 0:
         flash("You have no favourite posts!")
@@ -355,7 +380,14 @@ def favourites():
     # sort uploads with most recent added upload first
     favourites.reverse()
 
-    return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
+    # check if load-more button has to be shown
+    if len(favourites) <= counter_favourites:
+        show = False
+
+    # show limited number of posts
+    favourites = favourites[:counter_favourites]
+
+    return render_template("favourites.html", favourites=favourites, user_id=session["user_id"], show=show)
 
 
 @app.route("/search/<username>", methods=["GET", "POST"])
@@ -376,6 +408,25 @@ def search(username):
         return redirect(url_for("account"))
 
     return redirect(url_for("profile", username=username))
+
+
+@app.route("/load_more")
+def load_more():
+    global counter_trending, counter_timeline, counter_account, counter_profile, counter_favourites
+
+    template = request.args['template']
+    if template == 'trending':
+        counter_trending += 3
+    elif template == 'timeline':
+        counter_timeline += 3
+    elif template == 'account':
+        counter_account += 3
+    elif template == 'profile':
+        counter_profile += 3
+    elif template == 'favourites':
+        counter_favourites += 3
+
+    return "Success"
 
 
 @app.route("/already_following")

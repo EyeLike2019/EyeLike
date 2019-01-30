@@ -88,4 +88,13 @@
 			</div>
 		</div>
     {% endfor %}
+
+    {% if show is sameas true %}
+    <div class="modal-footer">
+    	<button id="load_more" onclick="load_more('timeline')" class="btn btn-dark">
+    		<span class="glyphicon glyphicon-plus"></span>
+    		<b> Load more</b>
+    	</button>
+    </div>
+    {% endif %}
 {% endblock %}

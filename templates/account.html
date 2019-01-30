@@ -84,6 +84,16 @@
         </div>
     {% endfor %}
     </div>
+
+    {% if show is sameas true %}
+    <div class="modal-footer">
+    	<button id="load_more" onclick="load_more('account')" class="btn btn-dark">
+    		<span class="glyphicon glyphicon-plus"></span>
+    		<b> Load more</b>
+    	</button>
+    </div>
+    {% endif %}
+
     </div>
 
     <!--Modal for profile picture-->

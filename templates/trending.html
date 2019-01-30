@@ -79,10 +79,13 @@
 
     {% endfor %}
 
-			<div class="modal-footer">
-				<button id="favourite" onclick="load_more('trending')" class="btn btn-red">
-					<span class="glyphicon glyphicon-plus"></span>
-					<b> Add to favourites</b>
-				</button>
-			</div>
+	{% if show is sameas true %}
+    <div class="modal-footer">
+    	<button id="load_more" onclick="load_more('trending')" class="btn btn-dark">
+    		<span class="glyphicon glyphicon-plus"></span>
+    		<b> Load more</b>
+    	</button>
+    </div>
+    {% endif %}
+
 {% endblock %}

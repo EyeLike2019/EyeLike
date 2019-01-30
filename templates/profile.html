@@ -101,6 +101,16 @@
         </div>
         {% endfor %}
     </div>
+
+    {% if show is sameas true %}
+    <div class="modal-footer">
+    	<button id="load_more" onclick="load_more('profile')" class="btn btn-dark">
+    		<span class="glyphicon glyphicon-plus"></span>
+    		<b> Load more</b>
+    	</button>
+    </div>
+    {% endif %}
+
     </div>
 
     <div class="modal fade" id="photomodal_profile" tabindex="-1" role="dialog" aria-labelledby="photomodaltitle" aria-hidden="true">
