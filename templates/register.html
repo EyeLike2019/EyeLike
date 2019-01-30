@@ -5,30 +5,33 @@
 {% endblock %}
 
 {% block main %}
-    <body id="body_login">
-        <div id="login">
-            <form action="{{ url_for('register') }}" method="post">
-                <fieldset>
-                    <div class="logo">
+
+<body id="body_login">
+	<div id="login">
+		<form action="{{ url_for('register') }}" method="post">
+			<fieldset>
+				<div class="logo">
                         👁
                     </div>
-                    <div class="form-group">
-                        <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" id="input" minlength="5" maxlength="20"/>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" name="email" placeholder="Email" type="email" id="input"/>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" name="password" placeholder="Password" type="password" id="input" minlength="6"/>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" name="confirmation" placeholder="Confirm password" type="password" id="input" minlength="6"/>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-dark" type="submit"><b>Register</b></button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </body>
+				<div class="form-group">
+					<input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" id="input" minlength="5" maxlength="20"/>
+				</div>
+				<div class="form-group">
+					<input class="form-control" name="email" placeholder="Email" type="email" id="input"/>
+				</div>
+				<div class="form-group">
+					<input class="form-control" name="password" placeholder="Password" type="password" id="input" minlength="6"/>
+				</div>
+				<div class="form-group">
+					<input class="form-control" name="confirmation" placeholder="Confirm password" type="password" id="input" minlength="6"/>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-dark" type="submit">
+						<b>Register</b>
+					</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
 {% endblock %}
