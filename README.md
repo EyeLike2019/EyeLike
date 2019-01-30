@@ -18,7 +18,7 @@ Eyelike is een webapplicatie met als doel om gebruikers te verbinden die geïnte
 
 
 ## Schetsen
-![Explore](explore.png)
+![Explore](doc/explore.png)
 
 ![Register](register.png)
 
