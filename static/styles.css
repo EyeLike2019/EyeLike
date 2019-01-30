@@ -628,3 +628,7 @@ input[type=text] {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+#modal-image-timeline {
+    max-width:100%;
+}
