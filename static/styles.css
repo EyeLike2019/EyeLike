@@ -675,3 +675,7 @@ details[open] summary {
     margin-right: auto;
     display: none;
 }
+
+#no-pictures {
+    margin-top: 200px;
+}

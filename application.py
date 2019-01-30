@@ -168,6 +168,8 @@ def register():
 def account():
     """Show account"""
 
+    photos_empty = False
+
     # get username
     username = get_username(session["user_id"])
 
@@ -177,6 +179,9 @@ def account():
     user_photos = get_all_uploads(session["user_id"])
     followers_id = get_followers(session["user_id"])
     followings_id = get_following(session["user_id"])
+
+    if not user_photos:
+        photos_empty = True
 
     # get all followers of user
     for f in followers_id:
@@ -197,13 +202,15 @@ def account():
     else:
         profile_pic = pp_check[0]
 
-    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following))
+    return render_template("account.html", name=username, photos=user_photos, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following), photos_empty=photos_empty)
 
 
 @app.route("/profile/<username>")
 @login_required
 def profile(username):
     """Show profile of other user"""
+
+    photos_empty = False
 
     # check if username exists
     if len(check_username(username)) != 1:
@@ -222,6 +229,9 @@ def profile(username):
     user_photos = get_all_uploads(uid)
     followers_id = get_followers(uid)
     followings_id = get_following(uid)
+
+    if not user_photos:
+        photos_empty = True
 
     # get all followers of user
     for f in followers_id:
@@ -242,7 +252,7 @@ def profile(username):
     else:
         profile_pic = pp_check[0]
 
-    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following))
+    return render_template("profile.html", name=username, photos=user_photos, user_id=uid, follower_id=follower_id, followers=followers, following=following, profile_pic=profile_pic, has_pp=pp_check[1], num_followers=len(followers), num_following=len(following), photos_empty=photos_empty)
 
 
 @app.route("/")
