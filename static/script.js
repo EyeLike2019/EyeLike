@@ -107,13 +107,14 @@ function removeFavouriteButtonClicked(user_id, photo_id) {
     });
 }
 
-function load_more(counter) {
+function load_more(template) {
     console.log("Load more button clicked");
     $.ajax({
         url: '/load_more',
+        data: {"template" : template},
 
         success: function(response) {
-
+            console.log(template)
             location.reload();
 
         },

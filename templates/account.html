@@ -28,7 +28,7 @@
     </div>
 
     {% if photos_empty is sameas true %}
-    <p id="no-pictures">User has no pictures yet!</p>
+    <h1 id="no-pictures">You have no pictures yet!</h1>
     {% endif %}
 
     <!--Modal for posts-->
@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button id="remove" onclick="removeButtonClicked({{ upload.user_id }}, {{ upload.id }})" class="btn btn-dark">Remove <span class="glyphicon glyphicon-trash"></span></button>
+                            <button id="remove" onclick="removeButtonClicked({{ upload.user_id }}, {{ upload.id }})" class="btn btn-dark"><b>Remove <span class="glyphicon glyphicon-trash"></span></b></button>
                         </div>
                     </div>
                 </div>

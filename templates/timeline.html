@@ -12,6 +12,10 @@
 	</h1>
 </div>
 
+    {% if photos_empty is sameas true %}
+    <h1 id="no-pictures">You don't follow anyone yet!</h1>
+    {% endif %}
+
     {% for post in uploads %}
 
 <div class="button-images">

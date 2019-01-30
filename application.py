@@ -89,8 +89,8 @@ def logout():
     session.clear()
 
     # forget all counters
-    global counter
-    counter = 3
+    global counter_trending
+    counter_trending = 3
 
     # redirect user to login form
     return redirect(url_for("login"))
@@ -282,6 +282,8 @@ def index():
 def timeline():
     """Show timeline of following accounts"""
 
+    photos_empty = False
+
     uploads = []
     followings_id = get_following(session["user_id"])
 
@@ -291,18 +293,24 @@ def timeline():
         for u in user_uploads:
             uploads.append(u)
 
+    if not uploads:
+        photos_empty = True
+
     # sort uploads on timestamp
     uploads.sort(key=lambda d: d['timestamp'])
 
-    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
+    return render_template("timeline.html", uploads=uploads, user_id=session["user_id"], photos_empty=photos_empty)
 
-counter = 3
+counter_trending = 3
 @app.route("/load_more")
 def load_more():
-    global counter
-    counter += 3
+    global counter_trending
 
-    return str(counter)
+    template = request.args['template']
+    if template == 'trending':
+        counter_trending += 3
+
+    return counter_trending
 
 
 @login_required
@@ -324,7 +332,7 @@ def trending():
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
         return render_template("trending.html")
-    trendingphotos = trendingphotos[:int(counter)]
+    trendingphotos = trendingphotos[:int(counter_trending)]
     return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
 
 
