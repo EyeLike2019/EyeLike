@@ -88,6 +88,10 @@ def logout():
     # forget any user_id
     session.clear()
 
+    # forget all counters
+    global counter
+    counter = 3
+
     # redirect user to login form
     return redirect(url_for("login"))
 
@@ -282,23 +286,18 @@ def timeline():
 
     return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
 
-# counter = 0
+counter = 3
 @app.route("/load_more")
 def load_more():
-    counter = request.args['counter']
-    # global counter
+    global counter
+    counter += 3
 
-    return counter
+    return str(counter)
 
 
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
-    try:
-        counter = int(load_more())
-        print(counter)
-    except Exception:
-        counter = 3
 
     trendingphotos = []
     all_recents = get_all_recents()
@@ -314,8 +313,8 @@ def trending():
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
         return render_template("trending.html")
-    trendingphotos = trendingphotos[:counter]
-    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"], counter=counter)
+    trendingphotos = trendingphotos[:int(counter)]
+    return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
 
 
 @app.route("/favourites")
