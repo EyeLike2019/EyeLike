@@ -452,13 +452,15 @@ def rm_favourite():
 def new_favourite():
     """"Add photo to favourites"""
 
-    user_id = request.args['user_id']
-    photo_id = request.args['photo_id']
+    user_id = int(request.args['user_id'])
+    photo_id = int(request.args['photo_id'])
+
+    for post in get_favourites(user_id):
+        if post["photo_id"] == photo_id:
+            return "NoSucces"
 
     add_favourite(user_id, photo_id)
-    flash("Added to favourites!")
     return "Succes"
-
 
 @app.route("/updatescore")
 def update():

@@ -124,14 +124,24 @@ function load_more() {
 
 function favouriteButtonClicked(user_id, photo_id) {
     console.log("Favourite button clicked");
+    var alert = document.getElementById("succes-favorite-alert");
+    var alert2 = document.getElementById("fail-favorite-alert");
+
     $.ajax({
         url: '/addfavourite',
         data: {"user_id": user_id, "photo_id" : photo_id},
 
     success: function(response) {
-        console.log(response)
+        console.log("aaaa",response)
         console.log("1")
-        location.reload();
+
+        if (response == "Succes") {
+            alert.style.display = "block";
+            setTimeout(function(){ document.getElementById("succes-favorite-alert").style.display = "none"; }, 3000);
+        } else {
+            alert2.style.display = "block";
+            setTimeout(function(){ document.getElementById("fail-favorite-alert").style.display = "none"; }, 3000);
+        }
 
       },
       error: function(error) {
