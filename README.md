@@ -14,30 +14,32 @@ Groep 20:
 
 Eyelike is een webapplicatie met als doel om gebruikers te verbinden die geïnteresseerd zijn in het concept mode. Met behulp van Eyelike kunnen gebruikers foto’s plaatsen die gerelateerd zijn aan mode. Gebruikers kunnen de score van random gegenereerde posts beïnvloeden door de post te liken, disliken of er voor kiezen om de post over te slaan. Afhankelijk van deze waarde kan een post op de trending pagina terechtkomen. Een foto komt op de trending pagina terecht als hij een score heeft van minstens 100 en de afgelopen week geplaatst is. Als een gebruiker foto's wil opslaan om zijn/haar inspiratie te behouden kan een foto toegevoegd worden aan favorieten. Verder is het mogelijk om andere gebruikers te volgen en op de tijdlijn de foto's van de accounts die een gebruiker volgt te bekijken. Eyelike is een uniek online platform, omdat het zich in vergelijking met andere online platforms specialiseert in mode en het aantal volgers op EyeLike geen invloed heeft op de populariteit van een bericht.
 
-  
-  
 
-## Schetsen
-![Explore](https://imgur.com/9t9uvkV.png)
 
-![Register](https://i.imgur.com/gZr1M9Q.png)
 
-![Log in](https://i.imgur.com/f85dBo9.jpg)
+## Schermafbeeldingen
+![Explore](doc/explore.png)
 
-![Account](https://imgur.com/yDGV8s5.png)
+![Register](doc/register.png)
 
-![Timeline](https://imgur.com/yDGV8s5.png)
+![Log in](doc/login.png)
 
-![Trending](https://i.imgur.com/dUzkjZB.jpg)
+![Account](doc/account.png)
 
-![Favourites](https://imgur.com/yDGV8s5.png)
+![Explore when logged in](doc/exploreloggedin.png)
+
+![Timeline](doc/timeline.png)
+
+![Trending](moet nog toegevoegd)
+
+![Favourites](doc/favourites.png)
 
 
 
 
 ## Features
 
-  
+
 - gebruikers kunnen een account aanmaken
 
 - gebruikers kunnen inloggen op de website
@@ -69,43 +71,43 @@ Eyelike is een webapplicatie met als doel om gebruikers te verbinden die geïnte
 - gebruikers kunnen opgeslagen foto's van de favorieten pagina verwijderen
 
 - gebruikers kunnen uitloggen
-  
+
 
 ## Minimum Viable Product
 
 
 Het product moet minimaal voldoen aan een bepaald aantal functies die essentieel zijn voor de website. Zo moet een gebruiker zich kunnen registreren en vervolgens aanmelden op de site. De gebruiker moet verder mensen kunnen volgen en foto’s kunnen plaatsen met een beschrijving en posts van anderen kunnen liken. Daarnaast moet er een tijdelijke profielfoto van de API gehaald kunnen worden, indien de gebruiker zelf nog geen profielfoto heeft ingesteld. Verder moeten gebruikers hun eigen profiel, profielen van anderen en een tijdlijn kunnen zien. Tot slot moet er een trending pagina zijn waar elke gebruiker bij kan om te zien welke posts het meest geliked worden.
 
-  
+
 
 ## Afhankelijkheden
 
-  
-  
+
+
 
 **Databronnen:**
 
-  
+
 
 - [https://unsplash.com] voor de achtergronden op het inlogscherm en de API.
 
-  
 
-  
+
+
 
 **Externe componenten:**
 
-  
+
 
 - Bootstrap voor de opmaak en functionaliteiten van de website
 
-  
 
-  
+
+
 
 **Concurrerende websites:**
 
-  
+
 
 - Tumblr
 
@@ -117,34 +119,34 @@ Het product moet minimaal voldoen aan een bepaald aantal functies die essentieel
 
 - Instagram
 
-  
 
-Deze websites zijn geen directe concurrentie, aangezien er nog geen grote website is die alleen draait om mode. Verder onderscheidt onze website zich doordat men alleen foto’s kan beoordelen die op de verkennen pagina staan. Dit voorkomt dat het volgersaantal van een account invloed heeft op de hoogte van de waarde van een post en daarmee dus invloed heeft op het komen van de trending pagina. Het is namelijk alleen op de verkennen pagina mogelijk een beoordeling te geven aan een foto. Dit heeft tot gevolg dat de foto's op de trending pagina een goede afspiegeling is van wat de gebruikers van EyeLike op dit moment leuk vinden. 
 
-  
+Deze websites zijn geen directe concurrentie, aangezien er nog geen grote website is die alleen draait om mode. Verder onderscheidt onze website zich doordat men alleen foto’s kan beoordelen die op de verkennen pagina staan. Dit voorkomt dat het volgersaantal van een account invloed heeft op de hoogte van de waarde van een post en daarmee dus invloed heeft op het komen van de trending pagina. Het is namelijk alleen op de verkennen pagina mogelijk een beoordeling te geven aan een foto. Dit heeft tot gevolg dat de foto's op de trending pagina een goede afspiegeling is van wat de gebruikers van EyeLike op dit moment leuk vinden.
 
-  
+
+
+
 
 **Moeilijkste delen:**
 
-  
 
-- Een moeilijk onderdeel van de website is het implementeren van de API, aangezien deze alleen moet worden aangeroepen als een gebruiker nog geen profielfoto heeft.  
+
+- Een moeilijk onderdeel van de website is het implementeren van de API, aangezien deze alleen moet worden aangeroepen als een gebruiker nog geen profielfoto heeft.
 
 - Een ander struikelblok is het ervoor zorgen dat als de gebruiker is ingelogd hij niet dezelfde foto's ziet op de random pagina. Anders zou het voor de gebruiker mogelijk zijn één foto meerdere keren te beoordelen.
 
-- Het volgsysteem implementeren is een lastige functie aangezien er ook gezorgd moet worden dat, zodra een gebruiker een andere gebruiker volgt, gebruikers ontvolgt kunnen worden. Dit moet dan ook weer uit de database verwijderd worden. 
+- Het volgsysteem implementeren is een lastige functie aangezien er ook gezorgd moet worden dat, zodra een gebruiker een andere gebruiker volgt, gebruikers ontvolgt kunnen worden. Dit moet dan ook weer uit de database verwijderd worden.
 
-- Het maken van de tijdlijn is ook een uitdaging. Hierop verschijnen de foto's van iedereen die de ingelogde gebruiker volgt. 
- 
+- Het maken van de tijdlijn is ook een uitdaging. Hierop verschijnen de foto's van iedereen die de ingelogde gebruiker volgt.
+
 
 ## Sanity Check
 
-Ons voorstel voldoet aan de projecteisen. Het is op EyeLike namelijk mogelijk foto’s te posten met of zonder beschrijving, andere gebruikers te volgen en uploads van elkaar te liken. Daarnaast is er gebruik gemaakt van een API die ervoor zorgt dat gebruikers altijd een profielfoto hebben. 
+Ons voorstel voldoet aan de projecteisen. Het is op EyeLike namelijk mogelijk foto’s te posten met of zonder beschrijving, andere gebruikers te volgen en uploads van elkaar te liken. Daarnaast is er gebruik gemaakt van een API die ervoor zorgt dat gebruikers altijd een profielfoto hebben.
 
 ## Taakverdeling
 
-Luuk en Hannah hebben voornamelijk gewerkt aan delen van de html pagina's met onder andere Ajax en Furkan en Joost hebben de meeste tijd gestoken in het schrijven van de functies in helpers. Furkan heeft daarnaast de css gemaakt en iedereen heeft een bijdrage geleverd aan de routes op de application pagina. 
+Luuk en Hannah hebben voornamelijk gewerkt aan delen van de html pagina's met onder andere Ajax en Furkan en Joost hebben de meeste tijd gestoken in het schrijven van de functies in helpers. Furkan heeft daarnaast de css gemaakt en iedereen heeft een bijdrage geleverd aan de routes op de application pagina.
 
 ## Uitleg repository
 

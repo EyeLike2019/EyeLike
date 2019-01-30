@@ -144,7 +144,7 @@ main #login {
 }
 
 #body_login {
-    background: url(https://source.unsplash.com/1000x1000/) ;
+    background: url(https://source.unsplash.com/1000x1000/);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -398,6 +398,18 @@ main #login {
 
 @media only screen and (max-width: 800px) {
 
+    summary, #summary-detail {
+        margin-left:auto;
+        margin-right:auto;
+        max-width: 50%;
+    }
+
+    #body_login {
+        background: url(https://source.unsplash.com/1000x4000/) ;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
     #mobile-like, #mobile-dislike {
         display: inline-block;
     }
@@ -631,4 +643,28 @@ input[type=text] {
 
 #modal-image-timeline {
     max-width:100%;
+}
+
+#follow {
+    margin-bottom: 20px;
+}
+
+summary {
+  background: rgba(246,246,246,1);
+  color: black;
+  border-radius: 3px;
+  padding: 10px 10px;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+details[open] summary {
+  background: rgba(220,220,220,1);
+  color: #333;
+}
+
+#summary-detail {
+    padding: 5px;
+    border: 1px solid rgb(246, 246, 246);
+    border-radius: 5px;
 }
