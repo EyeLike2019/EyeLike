@@ -511,6 +511,9 @@ def upload_file():
 
         file.save(f)
 
+        # compress image size via API
+        compress_image(f)
+
         # check if file isn't to big
         if os.path.getsize(f) > 4194304:
             flash("file size is to big, limit is 4mb")
@@ -544,6 +547,10 @@ def profile_picture():
     f = os.path.join(app.config['PROFILE_FOLDER'], filename)
 
     file.save(f)
+
+    # compress image via API
+    compress_image(f)
+
     if os.path.getsize(f) > 4194304:
         flash("file size is to big, limit is 4mb")
         os.remove(f)

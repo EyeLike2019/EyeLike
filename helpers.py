@@ -4,6 +4,8 @@ import random
 import requests
 import json
 import os
+import tinify
+
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
@@ -14,9 +16,11 @@ from functools import wraps
 db = SQL("sqlite:///database.db")
 
 # declare client-id's API
-client_id = ["8f5cd8cd9e1c27d5b5c6d283c243726afcf1a7ad7602c1ee0f6a0702f5272a0f",
-             "2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21",
-             "0efa5a111f97fe99a9dc9fdd81c66b455e0cbb8e7fadbcc1d2a75f1bf501ecb1"]
+unsp_client_id = ["8f5cd8cd9e1c27d5b5c6d283c243726afcf1a7ad7602c1ee0f6a0702f5272a0f",
+                  "2a8d0cb26d41c89b6500699b0f67a3d26dda08dead3c5743dae7afec9b9ada21",
+                  "0efa5a111f97fe99a9dc9fdd81c66b455e0cbb8e7fadbcc1d2a75f1bf501ecb1"]
+tinify_client_id = ["ZPF88NBkpcTy9m2Bsz1qRq4ZRMf4H9WP", "xFbxqSzv7X9GRNRSwjpnX1vg4CHytqBm"]
+tinify.key = random.choice(tinify_client_id)
 
 
 def login_required(f):
@@ -278,7 +282,7 @@ def check_profile_picture(user_id):
 
     else:
         # select random client-id
-        id = random.choice(client_id)
+        id = random.choice(unsp_client_id)
 
         try:
             # get random photo from API
@@ -345,3 +349,23 @@ def get_all_users():
     return users
 
 
+def compress_image(file):
+    """Compress image size via API"""
+
+    # keep track how many times API have been used
+    if tinify.key == "ZPF88NBkpcTy9m2Bsz1qRq4ZRMf4H9WP":
+        db.execute("UPDATE api_count SET count1 = count1 + 1")
+    else:
+        db.execute("UPDATE api_count SET count2 = count2 + 1")
+
+    counter = db.execute("SELECT * FROM api_score")[0]
+
+    # don't compress image if API request limit is reached
+    if counter["count1"] == 495 or counter["count2"] == 495:
+        return "Limit reached"
+
+    # compress image
+    source = tinify.from_file(file)
+    source.to_file(file)
+
+    return "Success"
