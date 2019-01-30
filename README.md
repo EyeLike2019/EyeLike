@@ -20,17 +20,19 @@ Eyelike is een webapplicatie met als doel om gebruikers te verbinden die geïnte
 ## Schetsen
 ![Explore](doc/explore.png)
 
-![Register](register.png)
+![Register](doc/register.png)
 
-![Log in](https://i.imgur.com/f85dBo9.jpg)
+![Log in](doc/login.png)
 
-![Account](https://imgur.com/yDGV8s5.png)
+![Account](doc/account.png)
 
-![Timeline](https://imgur.com/yDGV8s5.png)
+![Explore when logged in](doc/exploreloggedin.png)
+
+![Timeline](doc/timeline.png)
 
 ![Trending](https://i.imgur.com/dUzkjZB.jpg)
 
-![Favourites](https://imgur.com/yDGV8s5.png)
+![Favourites](doc/favourites.png)
 
 
 
