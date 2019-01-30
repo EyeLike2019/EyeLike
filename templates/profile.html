@@ -5,89 +5,16 @@
 {% endblock %}
 
 {% block main %}
-<script>
-
-        $.ajax({
-            url: '/already_following',
-			data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
-
-          success: function(response) {
-            console.log(response)
-            if (response == "True") {
-                button = document.getElementById("follow")
-                button.style.background='green';
-                button.innerHTML='<b>Following</b>'
-            }
-
-          },
-          error: function(error) {
-    				console.log("Something went wrong!")
-    				console.log(error)
-          }
-        });
-
-    function followButtonClicked() {
-        console.log("Follow button clicked");
-
-        $.ajax({
-            url: '/already_following',
-			data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
-
-          success: function(response) {
-            console.log(response)
-            if (response == "False") {
-                $.ajax({
-                    url: '/follow',
-			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
-
-                    success: function(response) {
-
-                    console.log(response)
-    	            console.log("1")
-    	            button = document.getElementById("follow")
-                    button.style.background='green';
-                    button.innerHTML='<b>Following</b>'
-
-                    },
-                    error: function(error) {
-    				    console.log("Something went wrong!")
-    				    console.log(error)
-                    }
-                });
-            } else {
-                $.ajax({
-                    url: '/unfollow',
-			        data: {"user_id": {{ user_id }}, "follower_id" : {{ follower_id }}},
-
-                    success: function(response) {
-
-    	            button = document.getElementById("follow")
-                    button.style.background='black';
-                    button.innerHTML='<b>Follow</b>'
-
-                    },
-                    error: function(error) {
-    				    console.log("Something went wrong!")
-    				    console.log(error)
-                    }
-                });
-            }
-
-          },
-          error: function(error) {
-    				console.log("Something went wrong!")
-    				console.log(error)
-          }
-        });
-
-    }
-
-</script>
+// <script>
+// var button = document.getElementById("follow")
+// console.log(button)
+// following(button, {{user_id}}, {{ follower_id }})
+// </script>
 <div id="profile_wrapper">
     <div id="user">
         <img src="{{ profile_pic }}" class="profile-picture modal-label" data-toggle="modal" data-target="#photomodal_profile">
         <h1><b>{{ name }}</b></h1>
-        <button id="follow" onclick="followButtonClicked()" class="btn btn-dark"><b>Follow</b></button>
+        <button id="follow" value="1" onclick="followButtonClicked({{ user_id }}, {{ follower_id }})" class="btn btn-dark"><b>Follow</b></button>
         <br>
 
         <details>
