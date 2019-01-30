@@ -305,6 +305,7 @@ def load_more():
     return str(counter)
 
 
+@login_required
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
@@ -342,9 +343,9 @@ def favourites():
     # get all uploads of following accounts
     for p in post_id:
         favourites.append(get_info(p["photo_id"]))
-    print(favourites)
-    # sort uploads on timestamp
-    favourites.sort(key=lambda d: d['timestamp'])
+
+    # sort uploads with most recent added upload first
+    favourites.reverse()
 
     return render_template("favourites.html", favourites=favourites, user_id=session["user_id"])
 

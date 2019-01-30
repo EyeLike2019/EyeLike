@@ -353,7 +353,7 @@ def compress_image(file):
     else:
         db.execute("UPDATE api_count SET count2 = count2 + 1")
 
-    counter = db.execute("SELECT * FROM api_score")[0]
+    counter = db.execute("SELECT * FROM api_count")[0]
 
     # don't compress image if API request limit is reached
     if counter["count1"] == 495 or counter["count2"] == 495:
