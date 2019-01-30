@@ -296,13 +296,16 @@ def timeline():
 
     return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
 
-counter = 3
+counter_trending = 3
 @app.route("/load_more")
 def load_more():
-    global counter
-    counter += 3
+    global counter_trending
 
-    return str(counter)
+    template = request.args['template']
+    if template == 'trending':
+        counter_trending += 3
+
+    return counter_trending
 
 
 @app.route("/trending")
@@ -323,7 +326,7 @@ def trending():
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
         return render_template("trending.html")
-    trendingphotos = trendingphotos[:int(counter)]
+    trendingphotos = trendingphotos[:int(counter_trending)]
     return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
 
 
