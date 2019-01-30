@@ -102,6 +102,26 @@ function removeFavouriteButtonClicked(user_id, photo_id) {
     });
 }
 
+function load_more() {
+    console.log("load more button clicked");
+    $.ajax({
+        url: '/load_more',
+
+
+    success: function(response) {
+        console.log(response)
+        console.log("1")
+        location.reload();
+
+      },
+      error: function(error) {
+				console.log("Something went wrong!")
+				console.log(error)
+      }
+
+    });
+}
+
 function favouriteButtonClicked(user_id, photo_id) {
     console.log("Favourite button clicked");
     $.ajax({

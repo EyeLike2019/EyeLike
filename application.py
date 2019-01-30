@@ -42,6 +42,14 @@ PROFILE_FOLDER = os.path.basename('uploadprofilepic')
 app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
 
 
+@app.route("/py_autocomplete")
+def py_autocomplete():
+    """Get all users"""
+
+    users = get_all_users()
+
+    return users
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in."""
@@ -282,12 +290,23 @@ def timeline():
 
     return render_template("timeline.html", uploads=uploads, user_id=session["user_id"])
 
+counter = 2
+@app.route("/load_more")
+def load_more():
+    global counter
+    counter = counter + 1
+    return str(counter)
 
+@app.route("/reset")
+def reset():
+    counter = 2
+    return str(counter)
 
 @app.route("/trending")
 def trending():
     """Show trending pictures"""
 
+    counter = load_more()
     trendingphotos = []
     all_recents = get_all_recents()
 
@@ -302,7 +321,7 @@ def trending():
     if len(trendingphotos) == 0:
         flash("There aren't any trending pictures!")
         return render_template("trending.html")
-    trendingphotos = trendingphotos[:load_more()]
+    trendingphotos = trendingphotos[:int(counter)]
     return render_template("trending.html", trendingphotos=trendingphotos, user_id=session["user_id"])
 
 
@@ -347,15 +366,6 @@ def search(username):
         return redirect(url_for("account"))
 
     return redirect(url_for("profile", username=username))
-
-
-@app.route("/py_autocomplete")
-def py_autocomplete():
-    """Get all users"""
-
-    users = get_all_users()
-
-    return users
 
 
 @app.route("/already_following")
@@ -408,7 +418,6 @@ def remove():
 
     return "Success"
 
-
 @app.route("/removeprofilepicture")
 def rm_profile_picture():
     """Remove profile picture of user"""
@@ -437,18 +446,14 @@ def rm_favourite():
     return redirect(url_for("favourites"))
 
 
+
 @app.route("/addfavourite")
 @login_required
 def new_favourite():
     """"Add photo to favourites"""
 
-    user_id = int(request.args['user_id'])
-    photo_id = int(request.args['photo_id'])
-
-    for post in get_favourites(user_id):
-        if post["photo_id"] == photo_id:
-            flash("Photo already in your favourites!")
-            return "Success"
+    user_id = request.args['user_id']
+    photo_id = request.args['photo_id']
 
     add_favourite(user_id, photo_id)
     flash("Added to favourites!")

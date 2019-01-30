@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+<script src="script.js"></script>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <!--Modal for posts-->
     {% for post in trendingphotos %}
@@ -58,6 +59,7 @@
         </div>
 
     {% endfor %}
+  <div class="modal-footer">
+    <button id="favourite" onclick="load_more()" class="btn btn-red"><span class="glyphicon glyphicon-plus"></span><b> Add to favourites</b></button>
   </div>
-   <button id="favourite" onclick="load_more()" class="btn btn-dark"><b>Load more</b></button><br><br>
 {% endblock %}
