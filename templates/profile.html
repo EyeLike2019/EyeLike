@@ -47,6 +47,9 @@
         </details>
 
     </div>
+    {% if photos_empty is sameas true %}
+    <p id="no-pictures">User has no pictures yet!</p>
+    {% endif %}
     <div class="container" id="collage">
     <div class="row imagetiles">
 
