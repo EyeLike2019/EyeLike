@@ -230,7 +230,7 @@ def profile(username):
     # get all followers of user
     for f in followers_id:
         name = get_username(f["follower_id"])
-        followers.append(username)
+        followers.append(name)
 
     # get all people whom the user follows
     for j in followings_id:
