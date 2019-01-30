@@ -102,16 +102,46 @@ function removeFavouriteButtonClicked(user_id, photo_id) {
     });
 }
 
-function favouriteButtonClicked(user_id, photo_id) {
-    console.log("Favourite button clicked");
+function load_more() {
+    console.log("load more button clicked");
     $.ajax({
-        url: '/addfavourite',
-        data: {"user_id": user_id, "photo_id" : photo_id},
+        url: '/load_more',
+
 
     success: function(response) {
         console.log(response)
         console.log("1")
         location.reload();
+
+      },
+      error: function(error) {
+				console.log("Something went wrong!")
+				console.log(error)
+      }
+
+    });
+}
+
+function favouriteButtonClicked(user_id, photo_id) {
+    console.log("Favourite button clicked");
+    var alert = document.getElementById("succes-favorite-alert");
+    var alert2 = document.getElementById("fail-favorite-alert");
+
+    $.ajax({
+        url: '/addfavourite',
+        data: {"user_id": user_id, "photo_id" : photo_id},
+
+    success: function(response) {
+        console.log("aaaa",response)
+        console.log("1")
+
+        if (response == "Succes") {
+            alert.style.display = "block";
+            setTimeout(function(){ document.getElementById("succes-favorite-alert").style.display = "none"; }, 3000);
+        } else {
+            alert2.style.display = "block";
+            setTimeout(function(){ document.getElementById("fail-favorite-alert").style.display = "none"; }, 3000);
+        }
 
       },
       error: function(error) {
