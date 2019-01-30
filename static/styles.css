@@ -276,11 +276,11 @@ main #login {
 
 .float-button {
     position:fixed;
- 	width:60px;
- 	height:60px;
+ 	width:80px;
+ 	height:80px;
  	bottom:40px;
  	right:40px;
- 	background-color: pink;
+ 	background-color: rgba(0,122,255,0.75);;
  	color:#FFF;
  	border-radius:50px;
  	text-align:center;
@@ -294,7 +294,7 @@ main #login {
 
 .float-button:hover {
     background-color: rgba(0,122,255,1);
-    box-shadow: 0px 15px 20px rgba(0,122,255,0.4);
+    box-shadow: 0px 15px 20px rgba(0,122,255,0.4);;
     color: #fff;
     transform: translateY(-7px);
 }
@@ -329,7 +329,8 @@ main #login {
 
 
 .camera-button {
-    margin-top:15px !important;
+    margin-top:23px !important;
+    font-size: 2em;
 }
 
 .photo_modal {
