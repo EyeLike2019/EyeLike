@@ -184,7 +184,7 @@ def account():
     show = True
     followers = []
     following = []
-    user_photos = get_all_uploads(session["user_id"])
+    user_photos = change_timestamp(get_all_uploads(session["user_id"]))
     followers_id = get_followers(session["user_id"])
     followings_id = get_following(session["user_id"])
 
@@ -243,7 +243,7 @@ def profile(username):
     following = []
     user_id = get_user_id(username)
     follower_id = session["user_id"]
-    user_photos = get_all_uploads(user_id)
+    user_photos = change_timestamp(get_all_uploads(user_id))
     followers_id = get_followers(user_id)
     followings_id = get_following(user_id)
 
@@ -327,8 +327,9 @@ def timeline():
     if not uploads:
         photos_empty = True
 
-    # sort uploads on timestamp
-    uploads.sort(key=lambda d: d['timestamp'])
+    # sort uploads on timestamp and change timestamp after
+    uploads.sort(key=lambda d: d['timestamp'], reverse=True)
+    uploads = change_timestamp(uploads)
 
     # check if load-more button has to be shown
     if len(uploads) <= counter_timeline:

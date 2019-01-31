@@ -136,6 +136,22 @@ def is_following(user_id, follower_id):
         return True
 
 
+def get_followers(user_id):
+    """Get all followers of user"""
+
+    followers = db.execute("SELECT follower_id FROM followers WHERE user_id = :user_id", user_id=user_id)
+
+    return followers
+
+
+def get_following(follower_id):
+    """Get all following of user"""
+
+    following = db.execute("SELECT user_id FROM followers WHERE follower_id = :follower_id", follower_id=follower_id)
+
+    return following
+
+
 def change_timestamp(post_list):
     """Change timestamp to prevered format"""
 
@@ -206,30 +222,12 @@ def compress_image(file):
     return "Success"
 
 
-def get_followers(user_id):
-    """Get all followers of user"""
-
-    followers = db.execute("SELECT follower_id FROM followers WHERE user_id = :user_id", user_id=user_id)
-
-    return followers
-
-
-def get_following(follower_id):
-    """Get all following of user"""
-
-    following = db.execute("SELECT user_id FROM followers WHERE follower_id = :follower_id", follower_id=follower_id)
-
-    return following
-
-
 def get_all_uploads(user_id):
     """Get all uploads of user"""
 
     user_photos = db.execute("SELECT * FROM uploads WHERE user_id = :user_id", user_id=user_id)
 
-    # change timestamp
-    user_photos = change_timestamp(user_photos)
-
+    # sort photos on timestamp
     user_photos.sort(key=lambda d: d['timestamp'], reverse=True)
 
     return user_photos
