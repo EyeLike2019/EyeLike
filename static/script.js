@@ -1,6 +1,6 @@
-// like, skip and dislike button-actions
+/* like button */
 function likeButtonClicked(photo_id) {
-    console.log("Like button clicked")
+    console.log("Like button clicked");
     $.ajax({
         url: '/updatescore',
         data: {
@@ -9,20 +9,20 @@ function likeButtonClicked(photo_id) {
         },
 
         success: function(response) {
-
             location.reload();
 
         },
         error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
+            console.log("Something went wrong!");
+            console.log(error);
         }
-    });
 
+    });
 }
 
+/* skip button */
 function skipButtonClicked(photo_id) {
-    console.log("Skip button clicked")
+    console.log("Skip button clicked");
     $.ajax({
         url: '/updatescore',
         data: {
@@ -31,19 +31,20 @@ function skipButtonClicked(photo_id) {
         },
 
         success: function(response) {
-
             location.reload();
 
         },
         error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
+            console.log("Something went wrong!");
+            console.log(error);
         }
+
     });
 }
 
+/* dislike button */
 function dislikeButtonClicked(photo_id) {
-    console.log("Skip button clicked")
+    console.log("Skip button clicked");
     $.ajax({
         url: '/updatescore',
         data: {
@@ -51,18 +52,18 @@ function dislikeButtonClicked(photo_id) {
             "photo_id": photo_id
         },
         success: function(response) {
-
             location.reload();
 
         },
         error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
+            console.log("Something went wrong!");
+            console.log(error);
         }
 
     });
 }
 
+/* remove button */
 function removeButtonClicked(user_id, photo_id) {
     console.log("Remove button clicked");
     $.ajax({
@@ -73,94 +74,18 @@ function removeButtonClicked(user_id, photo_id) {
         },
 
         success: function(response) {
-
             location.reload();
 
         },
         error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
+            console.log("Something went wrong!");
+            console.log(error);
         }
 
     });
 }
 
-function removeFavouriteButtonClicked(user_id, photo_id) {
-    console.log("Remove button clicked");
-    $.ajax({
-        url: '/removefavourite',
-        data: {
-            "user_id": user_id,
-            "photo_id": photo_id
-        },
-
-        success: function(response) {
-
-            location.reload();
-
-        },
-        error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
-        }
-
-    });
-}
-
-function load_more(template) {
-    console.log("Load more button clicked");
-    $.ajax({
-        url: '/load_more',
-        data: {"template" : template},
-
-        success: function(response) {
-            console.log(template)
-            location.reload();
-
-        },
-        error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
-        }
-
-    });
-}
-
-function favouriteButtonClicked(user_id, photo_id) {
-    console.log("Favourite button clicked");
-    var alert = document.getElementById("succes-favorite-alert");
-    var alert2 = document.getElementById("fail-favorite-alert");
-
-    $.ajax({
-        url: '/addfavourite',
-        data: {
-            "user_id": user_id,
-            "photo_id": photo_id
-        },
-
-        success: function(response) {
-
-            if (response == "Succes") {
-                alert.style.display = "block";
-                setTimeout(function() {
-                    document.getElementById("succes-favorite-alert").style.display = "none";
-                }, 3000);
-            } else {
-                alert2.style.display = "block";
-                setTimeout(function() {
-                    document.getElementById("fail-favorite-alert").style.display = "none";
-                }, 3000);
-            }
-
-        },
-        error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
-        }
-
-    });
-}
-
+/* remove-profile picture button */
 function removeProfilePicButtonClicked(profile_pic) {
     console.log("Remove button clicked");
     $.ajax({
@@ -182,7 +107,89 @@ function removeProfilePicButtonClicked(profile_pic) {
     });
 }
 
+/* remove-favourite button */
+function removeFavouriteButtonClicked(user_id, photo_id) {
+    console.log("Remove button clicked");
+    $.ajax({
+        url: '/removefavourite',
+        data: {
+            "user_id": user_id,
+            "photo_id": photo_id
+        },
 
+        success: function(response) {
+            location.reload();
+
+        },
+        error: function(error) {
+            console.log("Something went wrong!");
+            console.log(error);
+        }
+
+    });
+}
+
+/* add-to-favourite button */
+function favouriteButtonClicked(user_id, photo_id) {
+    console.log("Favourite button clicked");
+
+    /* check if post is already in favourites */
+    var alert = document.getElementById("succes-favorite-alert");
+    var alert2 = document.getElementById("fail-favorite-alert");
+
+    $.ajax({
+        url: '/addfavourite',
+        data: {
+            "user_id": user_id,
+            "photo_id": photo_id
+        },
+
+        success: function(response) {
+
+            /* show the correct type of alert and let it disappear after 3 seconds*/
+            if (response == "Succes") {
+                alert.style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("succes-favorite-alert").style.display = "none";
+                }, 3000);
+            } else {
+                alert2.style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("fail-favorite-alert").style.display = "none";
+                }, 3000);
+            }
+
+        },
+        error: function(error) {
+            console.log("Something went wrong!");
+            console.log(error);
+        }
+
+    });
+}
+
+/* load-more button */
+function load_more(template) {
+    console.log("Load more button clicked");
+    $.ajax({
+        url: '/load_more',
+        data: {
+            "template" : template
+        },
+
+        success: function(response) {
+            location.reload();
+
+        },
+        error: function(error) {
+            console.log("Something went wrong!");
+            console.log(error);
+        }
+
+    });
+}
+
+/* autocomplete function search bar */
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
@@ -305,6 +312,7 @@ function autocomplete(inp, arr) {
     });
 }
 
+/* search user */
 function searchFunction() {
     var nameValue = document.getElementById("searchbar").value;
     if (nameValue) {
@@ -312,6 +320,7 @@ function searchFunction() {
     }
 }
 
+/* follow button */
 function followButtonClicked(user_id, follower_id) {
     console.log("Follow button clicked");
     var button = document.getElementById("follow");
@@ -324,7 +333,9 @@ function followButtonClicked(user_id, follower_id) {
         },
 
         success: function(response) {
-            console.log(response)
+            console.log(response);
+
+            /* if user doesn't follow concerned user, call follow-function */
             if (response == "False") {
                 $.ajax({
                     url: '/follow',
@@ -335,16 +346,20 @@ function followButtonClicked(user_id, follower_id) {
 
                     success: function(response) {
 
+                        /* change button style after user has followed concerned user */
                         button.style.background = 'green';
-                        button.innerHTML = '<b>Following</b>'
+                        button.innerHTML = '<b>Following</b>';
                         location.reload();
 
                     },
                     error: function(error) {
-                        console.log("Something went wrong!")
-                        console.log(error)
+                        console.log("Something went wrong!");
+                        console.log(error);
                     }
+
                 });
+
+            /* if user already follows concerned user, call unfollow-function */
             } else {
                 $.ajax({
                     url: '/unfollow',
@@ -355,23 +370,25 @@ function followButtonClicked(user_id, follower_id) {
 
                     success: function(response) {
 
+                        /* change button style after user has unfollowed concerned user */
                         button.style.background = 'black';
-                        button.innerHTML = '<b>Follow</b>'
+                        button.innerHTML = '<b>Follow</b>';
                         location.reload();
 
                     },
                     error: function(error) {
-                        console.log("Something went wrong!")
-                        console.log(error)
+                        console.log("Something went wrong!");
+                        console.log(error);
                     }
+
                 });
             }
 
         },
         error: function(error) {
-            console.log("Something went wrong!")
-            console.log(error)
+            console.log("Something went wrong!");
+            console.log(error);
         }
-    });
 
+    });
 }

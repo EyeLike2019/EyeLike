@@ -21,8 +21,9 @@
 			<label id="description">{{ random.description }} </label>
 		</div>
 		<div class="skip_buttons">
-            {% if user_id is not sameas 0 %}
 
+			<!-- Show small like and dislike button if user is logged in and website is displayed on mobile -->
+            {% if user_id is not sameas 0 %}
 			<button id="mobile-like" onclick="likeButtonClicked({{ random.id }})" class="btn btn-dark">
 				<span class="glyphicon glyphicon-eye-open"></span>
 			</button>
@@ -31,11 +32,13 @@
 			<button id="skip" onclick="skipButtonClicked({{ random.id }})" class="btn btn-dark">
 				<b>Skip</b>
 			</button>
-            {% if user_id is not sameas 0 %}
 
+            {% if user_id is not sameas 0 %}
 			<button id="mobile-dislike" onclick="dislikeButtonClicked({{ random.id }})" class="btn btn-dark">
 				<span class="glyphicon glyphicon-eye-close"></span>
 			</button>
+
+			<!-- Show favourite button if user is logged in -->
 			<button id="favourite" onclick="favouriteButtonClicked({{ user_id }}, {{ random.id }})" class="btn btn-red btn-fav-explore">
 				<span class="glyphicon glyphicon-plus"></span>
 				<b> Add to favourites</b>
@@ -45,8 +48,8 @@
 		</div>
 	</div>
 
+	<!-- Show normal like and dislike button if user is logged in and website is displayed on desktop -->
     {% if user_id is not sameas 0 %}
-
 	<button id="like" onclick="likeButtonClicked({{ random.id }})" class="btn like-btn">
 		<span class="glyphicon glyphicon-eye-open" id="like-span-button"></span>
 	</button>

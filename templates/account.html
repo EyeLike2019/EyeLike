@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block main %}
+
 <div id="profile_wrapper" class="account-wrapper">
+
+    <!-- User's info -->
     <div id="user">
         <img src="{{ profile_pic }}" class="profile-picture modal-label" data-toggle="modal" data-target="#photomodal_profile">
         <h1><b>{{ name }}</b></h1>
@@ -24,9 +27,9 @@
                     <a href="{{ url_for('profile', username= a) }}"><p id="summary-detail"><b>{{ a }}</b></p></a>
                 {% endfor %}
         </details>
-
     </div>
 
+    <!-- Check if user has any photos -->
     {% if photos_empty is sameas true %}
     <h1 id="no-pictures">You have no pictures yet!</h1>
     {% endif %}
@@ -82,9 +85,10 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 
+    <!-- Show load-more button if needed -->
     {% if show is sameas true %}
     <div class="modal-footer">
     	<button id="load_more" onclick="load_more('account')" class="btn btn-dark">
@@ -93,7 +97,6 @@
     	</button>
     </div>
     {% endif %}
-
     </div>
 
     <!--Modal for profile picture-->
@@ -131,4 +134,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

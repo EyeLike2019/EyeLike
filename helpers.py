@@ -62,7 +62,7 @@ def get_username(user_id):
 
 
 def get_user_id(username):
-    """Query database for user-id"""
+    """Query database for user-id with username"""
 
     return check_username(username)[0]["user_id"]
 
@@ -85,7 +85,69 @@ def register_user(username, password, email):
     return "Success"
 
 
-def random_upload():
+def check_logged_in():
+    """Check if user is logged in"""
+
+    try:
+        user_id = session["user_id"]
+
+    except Exception:
+        # give anonymous user a standard user_id
+        user_id = 0
+
+    return user_id
+
+
+def get_all_users():
+    """Get all users and convert to JSON-format"""
+
+    users = json.dumps(db.execute("SELECT * FROM users"))
+
+    return users
+
+
+def follow_user(user_id, follower_id):
+    """Follow user"""
+
+    db.execute("INSERT INTO followers (user_id, follower_id) VALUES(:user_id, :follower_id)",
+               user_id=user_id, follower_id=follower_id)
+
+    return "Success"
+
+
+def unfollow_user(user_id, follower_id):
+    """Unfollow user"""
+
+    db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+               user_id=user_id, follower_id=follower_id)
+
+    return "Success"
+
+
+def is_following(user_id, follower_id):
+    """Check if user is following other user"""
+
+    follow = db.execute("SELECT * FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
+                        user_id=user_id, follower_id=follower_id)
+
+    if len(follow) != 1:
+        return False
+    else:
+        return True
+
+
+def change_timestamp(post_list):
+    """Change timestamp to prevered format"""
+
+    for post in post_list:
+        date = post["timestamp"]
+        date = date[5:11]
+        post["timestamp"] = date
+
+    return post_list
+
+
+def get_random_photo():
     """Select random row from database"""
 
     random = db.execute("SELECT username, upload, description, score, timestamp, id FROM uploads ORDER BY RANDOM()")
@@ -122,34 +184,26 @@ def remove_photo(user_id, photo_id):
     return "Success"
 
 
-def follow_user(user_id, follower_id):
-    """Follow user"""
+def compress_image(file):
+    """Compress image size via API"""
 
-    db.execute("INSERT INTO followers (user_id, follower_id) VALUES(:user_id, :follower_id)",
-               user_id=user_id, follower_id=follower_id)
-
-    return "Success"
-
-
-def unfollow_user(user_id, follower_id):
-    """Unfollow user"""
-
-    db.execute("DELETE FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
-               user_id=user_id, follower_id=follower_id)
-
-    return "Success"
-
-
-def is_following(user_id, follower_id):
-    """Check if user is following other user"""
-
-    follow = db.execute("SELECT * FROM followers WHERE user_id = :user_id AND follower_id = :follower_id",
-                        user_id=user_id, follower_id=follower_id)
-
-    if len(follow) != 1:
-        return False
+    # keep track how many times API have been used
+    if tinify.key == "ZPF88NBkpcTy9m2Bsz1qRq4ZRMf4H9WP":
+        db.execute("UPDATE api_count SET count1 = count1 + 1")
     else:
-        return True
+        db.execute("UPDATE api_count SET count2 = count2 + 1")
+
+    counter = db.execute("SELECT * FROM api_count")[0]
+
+    # don't compress image if API request limit is reached
+    if counter["count1"] == 495 or counter["count2"] == 495:
+        return "Limit reached"
+
+    # compress image
+    source = tinify.from_file(file)
+    source.to_file(file)
+
+    return "Success"
 
 
 def get_followers(user_id):
@@ -179,8 +233,6 @@ def get_all_uploads(user_id):
     user_photos.sort(key=lambda d: d['timestamp'], reverse=True)
 
     return user_photos
-
-
 
 
 def get_all_recents():
@@ -284,7 +336,7 @@ def check_profile_picture(user_id):
             api = requests.get(
                 "https://api.unsplash.com/photos/random?order_by=popular&orientation=squarish&client_id=" + id + "&query=profile-pic&count=30")
             url = json.loads(api.content)
-            profile_pic = url[random.randint(1,30)]["urls"]["full"]
+            profile_pic = url[random.randint(1, 30)]["urls"]["full"]
 
         except Exception:
             # if API's request limit is reached, show standard profile picture
@@ -311,56 +363,3 @@ def request_seen(user_id):
         seen_id.append(post["photo_id"])
 
     return seen_id
-
-
-def change_timestamp(post_list):
-    """Change timestamp to prevered format"""
-
-    for post in post_list:
-        date = post["timestamp"]
-        date = date[5:11]
-        post["timestamp"] = date
-
-    return post_list
-
-
-def check_logged_in():
-    """Check if user is logged in"""
-
-    try:
-        user_id = session["user_id"]
-
-    except Exception:
-        # give anonymous user a standard user_id
-        user_id = 0
-
-    return user_id
-
-def get_all_users():
-    """Get all users and convert to JSON-format"""
-
-    users = json.dumps(db.execute("SELECT * FROM users"))
-
-    return users
-
-
-def compress_image(file):
-    """Compress image size via API"""
-
-    # keep track how many times API have been used
-    if tinify.key == "ZPF88NBkpcTy9m2Bsz1qRq4ZRMf4H9WP":
-        db.execute("UPDATE api_count SET count1 = count1 + 1")
-    else:
-        db.execute("UPDATE api_count SET count2 = count2 + 1")
-
-    counter = db.execute("SELECT * FROM api_count")[0]
-
-    # don't compress image if API request limit is reached
-    if counter["count1"] == 495 or counter["count2"] == 495:
-        return "Limit reached"
-
-    # compress image
-    source = tinify.from_file(file)
-    source.to_file(file)
-
-    return "Success"
