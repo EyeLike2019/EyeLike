@@ -66,8 +66,10 @@ def login():
             return render_template("login.html")
 
         # add '@' to username if user hasn't already done it
-        elif request.form.get("username")[0] != "@":
+        if request.form.get("username")[0] != "@":
             username = "@" + request.form.get("username")
+        else:
+            username = request.form.get("username")
 
         # ensure username exists and password is correct
         if len(check_username(username)) != 1 or not verify_password(username, request.form.get("password")):
