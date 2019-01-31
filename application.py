@@ -547,6 +547,8 @@ def new_favourite():
 def update():
     """"Update score of upload"""
 
+    # declare variables
+    user_id = check_logged_in()
     change = request.args['newscore']
     photo_id = request.args['photo_id']
 
@@ -554,7 +556,8 @@ def update():
     update_score(change, photo_id)
 
     # keep track of which photo user has seen
-    already_seen(session["user_id"], photo_id)
+    if user_id != 0:
+        already_seen(user_id, photo_id)
 
     return "Succes"
 
