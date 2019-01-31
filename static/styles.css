@@ -398,6 +398,10 @@ main #login {
 
 @media only screen and (max-width: 800px) {
 
+    #load-more-button .btn {
+        width: 96% !important;
+        max-width: 96% !important;
+    }
     summary, #summary-detail {
         margin-left:auto;
         margin-right:auto;
@@ -678,4 +682,13 @@ details[open] summary {
 
 #no-pictures {
     margin-top: 200px;
+}
+
+#load-more-button {
+    text-align: center;
+    border: none;
+}
+
+#load-more-button .btn {
+    width: 290px !important;
 }
