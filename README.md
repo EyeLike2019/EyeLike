@@ -152,4 +152,7 @@ Luuk en Hannah hebben voornamelijk gewerkt aan delen van de html pagina's met on
 
 In de repository zijn verschillende mapjes te vinden. In het mapje static bevindt zich de css van de website en het grootste deel van de javascript waar mee gewerkt is. Bij de templates zijn alle html pagina's te vinden. Op een aantal pagina's is hier ook javascript met ajax aanwezig, verder is hier jinja en json te vinden. Daarnaast zijn er de mapjes upload, uploadprofilepic en docs. Hierin bevinden zich respectievelijk de geuploade foto's omtrent mode, de profielfoto's die gebruikers geupload hebben en de schermafbeeldingen van de website. De helpers.py bevat alle algemene functies die in meerdere gevallen gebruikt kunnen worden. Velen van deze functies verwijzen naar de database. In de application.py staan alle app routes van de website en in enkele van deze routes worden functies aangeroepen van helpers.py.
 
+## Videolink 
 
+Onze projectvideo is geüpload op youtube. 
+link: https://www.youtube.com/watch?v=1_HnnlfneVI&feature=youtu.be
